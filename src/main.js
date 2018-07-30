@@ -1,7 +1,7 @@
-import React from 'react';
-import render from 'react-dom';
-
-import './js/a';
-import './jsx/demo-1';
-import './jsx/demo-2';
-import './jsx/demo-3';
+import './js/a'
+import './jsx/demo-1'
+import './jsx/demo-2'
+import './jsx/demo-3'
+import './jsx/demo-4'
+import './jsx/demo-5'
+import './prop-types/index'

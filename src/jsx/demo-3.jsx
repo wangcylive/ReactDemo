@@ -8,19 +8,13 @@ let name = 'Wangchunyang';
 const showMyName = Math.random() > 0.5;
 
 function App() {
-    if (showMyName) {
-        return (
-            <div>
-                <Welcome name={name}></Welcome>
-            </div>
-        )
-    } else {
-        return (
-            <div>
-                <Welcome1 name='SSS'/>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Welcome name={name}></Welcome>
+            <Welcome1 name='SSS'/>
+
+        </div>
+    )
 }
 
 ReactDOM.render(
