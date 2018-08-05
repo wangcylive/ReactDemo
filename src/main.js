@@ -1,7 +1,8 @@
-import './js/a'
-import './jsx/demo-1'
-import './jsx/demo-2'
-import './jsx/demo-3'
-import './jsx/demo-4'
-import './jsx/demo-5'
-import './prop-types/index'
+import React from 'react'
+import ReactDom from 'react-dom'
+import DemoIndex from './router/index'
+
+ReactDom.render(
+  React.createElement(DemoIndex),
+  document.getElementById('app')
+)
