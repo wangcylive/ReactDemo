@@ -1,13 +1,16 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+import Demo2 from '../jsx/demo2'
 import Demo6 from '../jsx/demo6'
 import Demo7 from '../jsx/demo7'
+
+import '@/css/nav.scss'
 
 const DemoIndex = () => (
   <Router>
     <div>
-      <ul>
+      <ul className={ "nav" }>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/demo1">demo1</Link></li>
         <li><Link to="/demo2">demo2</Link></li>
@@ -20,6 +23,7 @@ const DemoIndex = () => (
 
       <hr/>
 
+      <Route path="/demo2" component={ Demo2 } />
       <Route path="/demo6" component={ Demo6 } />
       <Route path="/demo7" component={ Demo7 }/>
     </div>

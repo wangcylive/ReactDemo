@@ -1,0 +1,13 @@
+.nav {
+    display: flex;
+    list-style: none;
+
+    > li {
+        margin: 0 10px;
+    }
+
+    a {
+        color: #3685ff;
+        text-decoration: none;
+    }
+}

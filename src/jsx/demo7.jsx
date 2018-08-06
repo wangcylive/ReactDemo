@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import PropTypes from 'prop-types'
 
 class Input extends React.Component {
   constructor (props) {
@@ -83,15 +84,17 @@ export default class InfoForm extends React.Component {
     return (
       <div>
         <div>
-          <label><input type="radio" name="showInput" value={true} onInput={ this.handleChange } /> show</label>
-          <label><input type="radio" name="showInput" value={false} onInput={ this.handleChange } /> hide</label>
-           <strong>{ showInput ? 'show' : 'hide' }</strong>
+          <label><input type="radio" name="showInput" value={true} defaultChecked={ showInput } onInput={ this.handleChange } /> show</label>
+          <label><input type="radio" name="showInput" value={false} defaultChecked={ !showInput } onInput={ this.handleChange } /> hide</label>
+          <strong style={ {marginLeft: '10px'} }>{ showInput ? 'show' : 'hide' }</strong>
         </div>
         { InputComponent }
       </div>
     )
   }
 }
+
+InfoForm.defaultValue
 
 // ReactDom.render(
 //   <InfoForm/>,
