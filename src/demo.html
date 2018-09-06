@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<script src="./js/class.js"></script>
+<script>
+    $.ajax({
+      url: 'https://www.reddit.com/r/aww/comments/91l5r7/my_college_roommate_dropped_by_while_he_was_in.json'
+    }).then(function (res) {
+      const data = res[0].data.children[0].data
+      const media = data.media
+      const text = media.reddit_video.fallback_url
+      const url = media.reddit_video.fallback_url
+      const cover = data.preview.images[0].source.url
+      const title = data.title
+      const ownerName = data.name
+
+      console.log({
+        text,
+        url,
+        cover,
+        title,
+        ownerName
+      })
+    })
+</script>
+</body>
+</html>
