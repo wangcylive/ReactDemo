@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 
+import style from './layout.scss'
+
+console.log(style)
+
 const customerData = [
   { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
   { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
@@ -72,8 +76,65 @@ export default class IndexedDBForm extends Component {
     }
   }
 
+  updateMember = (event) => {
+    event.preventDefault()
+
+    if (!this.refs.form.checkValidity()) {
+      this.setState({
+        validationMessage: '请输入正确的信息'
+      })
+      return false
+    }
+
+    const { ssn, name, age, email } = this.state
+
+    this.setState({
+      name: '',
+      ssn: '',
+      age: '',
+      email: '',
+      validationMessage: ''
+    })
+
+    const transaction = DB.transaction([storeName], 'readwrite')
+    const objectStore = transaction.objectStore(storeName)
+
+    const request = objectStore.put({
+      name, age, email, ssn
+    })
+
+    request.onsuccess = (event) => {
+      console.log('put success', event)
+    }
+
+    request.onerror = (event) => {
+      console.log('put error', event)
+    }
+  }
+
+  deleteMember = () => {
+    const { ssn } = this.state
+
+    const request = DB.transaction([storeName], 'readwrite').objectStore(storeName).delete(Number(ssn))
+
+    request.onsuccess = (event) => {
+      console.log('delete success', event)
+    }
+    request.onerror = (event) => {
+      console.log('delete error', event)
+    }
+  }
+
   getMemberBySnn = () => {
-    const request = DB.transaction([storeName]).objectStore(storeName).get(this.state.querySnn)
+    let { querySnn } = this.state
+
+    if (!isNaN(querySnn)) {
+      querySnn = Number(querySnn)
+    }
+
+    console.log(querySnn)
+
+    const request = DB.transaction([storeName]).objectStore(storeName).get(querySnn)
 
     request.onsuccess = (event) => {
       const result = event.target.result
@@ -85,6 +146,27 @@ export default class IndexedDBForm extends Component {
 
     request.onerror = (event) => {
       console.error(event)
+    }
+  }
+
+  getAllMember = () => {
+    const members = []
+
+    const openCursor = DB.transaction([storeName]).objectStore(storeName).openCursor()
+
+    openCursor.onsuccess = (event) => {
+      const cursor = event.target.result
+      console.log(cursor)
+      if (cursor) {
+        members.push(cursor.value)
+        cursor.continue()
+      } else {
+        console.log(members)
+      }
+    }
+
+    openCursor.onerror = (event) => {
+
     }
   }
 
@@ -123,26 +205,33 @@ export default class IndexedDBForm extends Component {
     const { ssn, name, age, email, validationMessage, querySnn, queryResult } = this.state
 
     return (
-      <div>
-        <form action="javascript:;" ref="form">
-          <fieldset>
-            <legend>增加</legend>
-            <div>
-              <label htmlFor="">ssn:<input type="text" value={ ssn } onChange={ this.changeSsn } required/></label>
-            </div>
-            <div>
-              <label htmlFor="">name: <input type="text" value={ name } onChange={ this.changeName } required/></label>
-            </div>
-            <div>
-              <label htmlFor="">Age: <input type="number" value={ age } onChange={ this.changeAge } required/></label>
-            </div>
-            <div>
-              <label htmlFor="">Email: <input type="email" value={ email } onChange={ this.changeEmail } required/></label>
-            </div>
-            <div><small style={ {'color': '#ff0000'} }>{ validationMessage }</small></div>
-          </fieldset>
-          <button type="submit" onClick={ this.addMember }>addMember</button>
-        </form>
+      <div className="db">
+        <div className="db-flex">
+          <form action="javascript:;" ref="form">
+            <fieldset>
+              <legend>增删改查</legend>
+              <div>
+                <label htmlFor="">ssn:<input type="text" value={ ssn } onChange={ this.changeSsn } required/></label>
+              </div>
+              <div>
+                <label htmlFor="">name: <input type="text" value={ name } onChange={ this.changeName } required/></label>
+              </div>
+              <div>
+                <label htmlFor="">Age: <input type="number" value={ age } onChange={ this.changeAge } required/></label>
+              </div>
+              <div>
+                <label htmlFor="">Email: <input type="email" value={ email } onChange={ this.changeEmail } required/></label>
+              </div>
+              <div><small style={ {'color': '#ff0000'} }>{ validationMessage }</small></div>
+              <div>
+                <button type="submit" onClick={ this.addMember }>addMember</button>
+                <button type="button" onClick={ this.updateMember }>updateMember</button>
+                <button type="button" onClick={ this.deleteMember }>deleteMember</button>
+                <button type="button" onClick={ this.getAllMember }>getAllMember</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
         <hr/>
         <div>
           <div><label htmlFor=""><input type="text" value={ querySnn } onChange={ this.changeQuerySnn }/></label></div>
