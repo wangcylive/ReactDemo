@@ -17,17 +17,21 @@ export default function () {
   )
 }
 
-async function getTime () {
+async function getTime (index) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(Date.now())
+      if (index === 2) {
+        reject(Date.now())
+      } else {
+        resolve(Date.now())
+      }
     }, 1000)
   })
 }
 
 async function forShowTime () {
   for (let i = 0; i < 5; i++) {
-    const time = await getTime()
+    const time = await getTime(i).catch((err) => console.error(err))
     console.log('for', time, i)
   }
 
@@ -36,7 +40,7 @@ async function forShowTime () {
   return 'hhh'
 }
 
-forShowTime()
+// forShowTime()
 
 async function forEachShowTime () {
   const arr = [1, 2, 3, 4, 5]
@@ -49,7 +53,7 @@ async function forEachShowTime () {
   console.log('forEach Done')
 }
 
-forEachShowTime()
+// forEachShowTime()
 
 async function allShowtime () {
   const arr = []
@@ -64,4 +68,4 @@ async function allShowtime () {
   console.log('all Done')
 }
 
-allShowtime()
+// allShowtime()
