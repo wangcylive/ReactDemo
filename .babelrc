@@ -9,11 +9,9 @@
         "useBuiltIns": true
       }
     ],
-    "react",
     "stage-0",
-    "stage-3"
+    "stage-3",
+    "react"
   ],
-  "plugins": [
-    "syntax-class-properties"
-  ]
+  "plugins": ["transform-class-properties"]
 }
