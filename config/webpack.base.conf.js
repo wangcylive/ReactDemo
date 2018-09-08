@@ -15,13 +15,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
-      /*{
-          test: /\.vue$/,
-          loader: 'vue-loader',
-          /!*options: {
-              loaders: getVueLoaderOptions()
-          }*!/
-      },
       {
           test: /\.css$/,
           use: getCssLoader()
@@ -33,7 +26,7 @@ module.exports = {
       {
           test: /\.less$/,
           use: getLessLoader()
-      },*/
+      },
       {
         // 处理图片文件
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

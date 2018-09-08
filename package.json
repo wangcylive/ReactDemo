@@ -6,7 +6,6 @@
     "dev1": "node ./config/server.js"
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "prop-types": "^15.6.2",
     "react": "^16.3.1",
@@ -15,9 +14,13 @@
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
+    "autoprefixer": "^9.1.5",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-syntax-class-properties": "^6.13.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -26,10 +29,10 @@
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss-loader": "^2.1.6",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.0",
     "webpack": "^4.5.0",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.3",
