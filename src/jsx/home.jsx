@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { changeName } from '@/store/user-info/action'
 import { connect } from 'react-redux'
 
+console.log('createRef', React.createRef())
+
 class View1 extends Component {
   constructor (props) {
     super(props)
@@ -16,6 +18,7 @@ class View1 extends Component {
   }
 
   clickChangeParentName = () => {
+    console.log(this.list1)
     this.props.changeParentName('View1name')
   }
 
@@ -27,6 +30,7 @@ class View1 extends Component {
 
   render () {
     const { props, state } = this
+    const lists = Array.from(new Array(10), (item, index) => index + 1)
     return (
       <div>
         <div>redux name: {props.name}</div>
@@ -35,6 +39,11 @@ class View1 extends Component {
           <button ref={this.btn} onClick={this.clickChangeName}>Click Change Name</button>
           <button onClick={this.clickChangeParentName}>Click Change Parent Name</button>
         </div>
+        <ul>
+          {
+            lists.map((item, index) => <li ref={(ele) => this[`list${index}`] = ele} key={index}>{item}</li>)
+          }
+        </ul>
         <div>{props.children}</div>
       </div>
     )
