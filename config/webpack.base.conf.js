@@ -1,10 +1,10 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions, getVueLoaderOptions} = require('./rules');
+const { getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions } = require('./rules')
 
 module.exports = {
-  context: path.resolve(__dirname, ".."),
+  context: path.resolve(__dirname, '..'),
   entry: {
     main: './src/main.js'
   },
@@ -16,16 +16,40 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-          test: /\.css$/,
-          use: getCssLoader()
+        test: /\.css$/,
+        oneOf: [
+          {
+            resourceQuery: /module/,
+            use: getCssLoader(true)
+          },
+          {
+            use: getCssLoader()
+          }
+        ]
       },
       {
-          test: /\.s[ac]ss$/,
-          use: getSassLoader()
+        test: /\.s[ac]ss$/,
+        oneOf: [
+          {
+            resourceQuery: /module/,
+            use: getSassLoader(true)
+          },
+          {
+            use: getSassLoader()
+          }
+        ]
       },
       {
-          test: /\.less$/,
-          use: getLessLoader()
+        test: /\.less$/,
+        oneOf: [
+          {
+            resourceQuery: /module/,
+            use: getLessLoader(true)
+          },
+          {
+            use: getLessLoader()
+          }
+        ]
       },
       {
         // 处理图片文件
@@ -43,7 +67,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [ '.js', '.jsx' ],
 
     alias: {
       '@': path.resolve(__dirname, '../src')
@@ -58,9 +82,9 @@ module.exports = {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
+          name: 'vendors',
           priority: -20,
-          chunks: "all"
+          chunks: 'all'
         }
       }
     }

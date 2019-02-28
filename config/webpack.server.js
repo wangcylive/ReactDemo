@@ -1,21 +1,21 @@
-const {development} = require('./env.conf');
-process.env.NODE_ENV = development;
+const { development } = require('./env.conf')
+process.env.NODE_ENV = development
 
-const path = require("path");
-const webpack = require("webpack");
-const webpackMerge = require("webpack-merge");
-const webpackBaseConf = require("./webpack.base.conf");
+const path = require('path')
+const webpack = require('webpack')
+const webpackMerge = require('webpack-merge')
+const webpackBaseConf = require('./webpack.base.conf')
 
 // 测试服
-const proxyServer = "http://111.230.180.86:10095";
+const proxyServer = 'http://111.230.180.86:10095'
 
 module.exports = webpackMerge(webpackBaseConf, {
   mode: development,
 
   output: {
-    publicPath: "/",
-    filename: "[name].js",
-    chunkFilename: "[name].js"
+    publicPath: '/',
+    filename: '[name].js',
+    chunkFilename: '[name].js'
   },
 
   devtool: 'eval-source-map',
@@ -31,11 +31,11 @@ module.exports = webpackMerge(webpackBaseConf, {
     historyApiFallback: true,
 
     proxy: {
-      "/mng": {
+      '/mng': {
         target: proxyServer,
         changeOrigin: true
       },
-      "/common": {
+      '/common': {
         target: proxyServer,
         changeOrigin: true
       }
@@ -46,7 +46,5 @@ module.exports = webpackMerge(webpackBaseConf, {
     },
   },
 
-  plugins: [
-
-  ]
-});
+  plugins: []
+})

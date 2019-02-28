@@ -1,6 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import state from '@/store/index'
+import { Provider } from 'react-redux'
+import { hot } from 'react-hot-loader'
 
+import Home from '@/jsx/home'
 import Demo2 from '../jsx/demo2'
 import Demo6 from '../jsx/demo6'
 import Demo7 from '../jsx/demo7'
@@ -12,6 +16,7 @@ import IndexedDBDemo from '../components/indexedDB'
 import '@/css/nav.scss'
 
 const DemoIndex = () => (
+  <Provider store={ state }>
   <Router>
     <div>
       <ul className={ "nav" }>
@@ -26,7 +31,7 @@ const DemoIndex = () => (
       </ul>
 
       <hr/>
-
+      <Route path="/" component={ Home } />
       <Route path="/demo2" component={ Demo2 } />
       <Route path="/demo6" component={ Demo6 } />
       <Route path="/demo7" component={ Demo7 }/>
@@ -36,6 +41,7 @@ const DemoIndex = () => (
       <Route path="/indexedDB" component={ IndexedDBDemo }></Route>
     </div>
   </Router>
+  </Provider>
 )
 
-export default DemoIndex
+export default hot(module)(DemoIndex)
