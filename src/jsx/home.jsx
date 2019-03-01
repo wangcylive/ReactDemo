@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDom from 'react-dom'
 import { changeName } from '@/store/user-info/action'
 import { connect } from 'react-redux'
 
@@ -28,11 +29,23 @@ class View1 extends Component {
     })
   }
 
+  componentDidMount () {
+    console.log('componentDidMount', this, ReactDom.findDOMNode(this), this.el)
+  }
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    console.log('componentDidUpdate', prevProps, prevState, snapshot)
+  }
+
+  componentWillUnmount () {
+
+  }
+
   render () {
     const { props, state } = this
     const lists = Array.from(new Array(10), (item, index) => index + 1)
     return (
-      <div>
+      <div ref={(ele) => this.el = ele}>
         <div>redux name: {props.name}</div>
         <div>self view: {state.view}</div>
         <div>

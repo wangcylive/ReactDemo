@@ -12,6 +12,7 @@ import TodoList from '@/components/todo-list'
 import ClickCounter from '@/components/click-counter'
 import ControlPanel from '@/components/control-panel'
 import IndexedDBDemo from '../components/indexedDB'
+import ContextDemo from '../jsx/context'
 
 import '@/css/nav.scss'
 
@@ -28,6 +29,7 @@ const DemoIndex = () => (
         <li><Link to="/click-counter">ClickCounter</Link></li>
         <li><Link to="/control-panel">ControlPanel</Link></li>
         <li><Link to="/indexedDB">indexedDB</Link></li>
+        <li><Link to="/context-demo">Context</Link></li>
       </ul>
 
       <hr/>
@@ -38,7 +40,8 @@ const DemoIndex = () => (
       <Route path="/todo-list" component={TodoList}/>
       <Route path="/click-counter" component={ClickCounter}/>
       <Route path="/control-panel" component={ ControlPanel } />
-      <Route path="/indexedDB" component={ IndexedDBDemo }></Route>
+      <Route path="/indexedDB" component={ IndexedDBDemo } />
+      <Route path="/context-demo" component={ ContextDemo }/>
     </div>
   </Router>
   </Provider>

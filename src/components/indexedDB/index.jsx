@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 
-import style from './layout.scss'
-
-console.log(style)
+import './layout.scss'
 
 const customerData = [
-  { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
-  { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
+  { ssn: "444", name: "Bill", age: 35, email: "bill@company.com" },
+  { ssn: "555", name: "Donna", age: 32, email: "donna@home.org" }
 ]
 
 const dbName = 'my_first_indexedDB'
@@ -128,17 +126,15 @@ export default class IndexedDBForm extends Component {
   getMemberBySnn = () => {
     let { querySnn } = this.state
 
-    if (!isNaN(querySnn)) {
-      querySnn = Number(querySnn)
+    if (!querySnn) {
+      return
     }
-
-    console.log(querySnn)
 
     const request = DB.transaction([storeName]).objectStore(storeName).get(querySnn)
 
     request.onsuccess = (event) => {
       const result = event.target.result
-      console.log(result)
+      console.log('getMemberBySnn onsuccess', result)
       this.setState({
         queryResult: result
       })
