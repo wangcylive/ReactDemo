@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server --config ./config/webpack.server.js --hot",
+    "start": "webpack-dev-server --config ./config/webpack.server.js --hot --host 0.0.0.0",
     "build": "webpack --config ./config/webpack.prod.js",
     "dev": "webpack-dev-server --config ./config/webpack.server.js --hot",
     "dev1": "node ./config/server.js"
