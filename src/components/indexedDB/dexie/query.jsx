@@ -23,10 +23,10 @@ export default class App extends Component {
     // const collection = this.props.db.message.where('messageId').between('5c77d8a9ef31cb4d96944884', '5c77d94c0a28cbae4b8a83b4', true, false)
 
     // above 超过
-    const collection = await db.message.where('messageId').above(key).limit(3).offset(1)
+    // const collection = await db.message.where('messageId').above(key).limit(3)
     // collection.limit(3)
 
-    collection.toArray()
+    // collection.toArray()
 
     // aboveOrEqual 超过或等于
     // const collection = db.message.where('messageId').aboveOrEqual(key)
@@ -35,7 +35,7 @@ export default class App extends Component {
     // const collection = db.message.where('messageId').below(key)
 
     // belowOfEqual 等于或等于
-    // const collection = db.message.where('messageId').belowOrEqual(key)
+    const collection = db.message.where('messageId').belowOrEqual(key)
 
     // anyOf 任意一个匹配
     // const collection = db.message.where('messageId').anyOf(key, '5c77d9840a28cbae4b8a83b9')
@@ -73,7 +73,7 @@ export default class App extends Component {
     // const collection = await db.message.where('messageId').startsWithIgnoreCase(key)
 
     const count = await collection.count()
-    console.log('collection count=%d', count)
+    console.log('collection count=%d', count, db.message)
     collection.each((item) => {
       console.log(item)
     })
