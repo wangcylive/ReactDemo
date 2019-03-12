@@ -97,10 +97,10 @@ export default class appImDb {
   }
 
   static async storeCount () {
-    return await this.store.count()
+    return this.store.count()
   }
 
   static async storeQuery (roomId) {
-    return await this.store.where('roomId').equals(roomId).sortBy('sendTime')
+    return this.store.where('roomId').equals(roomId).sortBy('sendTime')
   }
 }

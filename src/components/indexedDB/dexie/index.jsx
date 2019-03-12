@@ -104,6 +104,8 @@ export default class App extends Component {
   }
 
   addData = async () => {
+    const count = await appImDB.storeCount()
+    console.log('总共条数', count)
     const r = Math.random() > 0.5
     const messageId = Math.floor(Math.random() * 1e5) + ''
 
