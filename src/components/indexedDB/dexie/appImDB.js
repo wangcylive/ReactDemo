@@ -21,6 +21,11 @@ export default class appImDb {
     console.log('appImDB', callerName, ...args, Date.now())
   }
 
+  /**
+   * 打开数据库，创建用户表和meta表
+   * @param storeName {string} 表名
+   * @returns {Promise<Dexie>}
+   */
   static async openDB (storeName) {
     this.console('openDB', arguments)
     const db = this.db = new Dexie(this.dbName)
@@ -53,6 +58,12 @@ export default class appImDb {
     return db
   }
 
+  /**
+   * 创建表
+   * @param storeName {string} 表名
+   * @param storeIndex {string} 索引
+   * @returns {Promise<*>}
+   */
   static async createStore (storeName, storeIndex = '++') {
     this.console('createStore', arguments)
     const db = this.db
@@ -75,6 +86,11 @@ export default class appImDb {
     return db[ storeName ]
   }
 
+  /**
+   * 用户表添加数据
+   * @param data {object|array}
+   * @returns {Promise<*>}
+   */
   static async storeAdd (data) {
     this.console('storeAdd', arguments)
     if (Array.isArray(data)) {
@@ -83,11 +99,20 @@ export default class appImDb {
     return this.store.add(data)
   }
 
+  /**
+   * 用户表根据 roomId 删除所有数据
+   * @param roomId {*}
+   * @returns {Dexie.Promise<number>}
+   */
   static async storeDeleteByRoomId (roomId) {
     this.console('storeDeleteByRoomId', arguments)
     return this.store.where({ roomId }).delete()
   }
 
+  /**
+   * 用户表查询里面所有的 roomId
+   * @returns {Promise<Array>}
+   */
   static async storeQueryAllRoomId () {
     this.console('storeQueryAllRoomId', arguments)
     const arr = []
@@ -95,53 +120,106 @@ export default class appImDb {
     return arr
   }
 
+  /**
+   * 用户表查询里面第一条数据
+   * @returns {Dexie.Promise<Dexie.Promise<T | undefined> | Dexie.Promise<any> | * | number[]>}
+   */
   static async storeFirst () {
     this.console('storeFirst', arguments)
     const collection = await this.store.orderBy('sendTime')
     return collection.first()
   }
 
+  /**
+   * 用户表查询里面最后一条数据
+   * @returns {Dexie.Promise<Dexie.Promise<T | undefined> | Dexie.Promise<any> | *>}
+   */
   static async storeLast () {
     this.console('storeLast', arguments)
     const collection = await this.store.orderBy('sendTime')
     return collection.last()
   }
 
+  /**
+   * 用户表更新数据
+   * @param sendId {*}
+   * @param data {*}
+   * @returns {Dexie.Promise<Dexie.Promise<number> | * | IDBRequest<IDBValidKey> | Promise<void> | void | Hash>}
+   */
   static async storeUpdate (sendId, data) {
     this.console('storeUpdate', arguments)
     return this.store.update(sendId, data)
   }
 
+  /**
+   * 用户表删除数据
+   * @param sendId {*}
+   * @returns {Promise<*>}
+   */
   static async storeDelete (sendId) {
     this.console('storeDelete', arguments)
     return this.store.delete(sendId)
   }
 
+  /**
+   * 用户表获取存储数据数量
+   * @returns {Promise<*>}
+   */
   static async storeCount () {
     this.console('storeCount', arguments)
     return this.store.count()
   }
 
-  static async storeQuery (roomId) {
+  /**
+   * 用户表查询数据
+   * @param roomId {*}
+   * @param messageType {*}
+   * @returns {Dexie.Promise<T[]>}
+   */
+  static async storeQuery (roomId, messageType) {
     this.console('storeQuery', arguments)
+    if (arguments.length === 2) {
+      return this.store.where({ roomId, messageType }).sortBy('sendTime')
+    }
     return this.store.where('roomId').equals(roomId).sortBy('sendTime')
   }
 
+  /**
+   * meta 表添加数据
+   * @param data {*}
+   * @returns {Promise<*>}
+   */
   static async metaStoreAdd (data) {
     this.console('metaStoreAdd', arguments)
     return this.metaStore.add(data)
   }
 
+  /**
+   * meta 表更新数据
+   * @param uid {*}
+   * @param data {*}
+   * @returns {Dexie.Promise<Dexie.Promise<number> | * | IDBRequest<IDBValidKey> | Promise<void> | void | Hash>}
+   */
   static async metaStoreUpdate (uid, data) {
     this.console('metaStoreUpdate', arguments)
     return this.metaStore.update(uid, data)
   }
 
+  /**
+   * meta 表删除数据
+   * @param uid {*}
+   * @returns {Promise<*>}
+   */
   static async metaStoreDelete (uid) {
     this.console('metaStoreDelete', arguments)
     return this.metaStore.delete(uid)
   }
 
+  /**
+   * meta 表查询数据
+   * @param uid {*}
+   * @returns {Dexie.Promise<T | undefined>}
+   */
   static async metaStoreQuery (uid) {
     this.console('metaStoreQuery', arguments)
     return this.metaStore.where('uid').equals(uid).first()

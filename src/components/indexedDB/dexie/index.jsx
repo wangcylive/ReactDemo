@@ -122,7 +122,7 @@ export default class App extends Component {
 
   queryIm = async () => {
     const { key } = this.state
-    const result = await appImDB.storeQuery(key)
+    const result = await appImDB.storeQuery(key, 3)
     console.log('查询结果', result)
   }
 
