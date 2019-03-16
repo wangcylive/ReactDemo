@@ -10,6 +10,8 @@ const msg = JSON.parse(msgStr)
 
 import appImDB from './appImDB'
 
+window.appImDB = appImDB
+
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -107,14 +109,15 @@ export default class App extends Component {
     const count = await appImDB.storeCount()
     console.log('总共条数', count)
     const r = Math.random() > 0.5
-    const messageId = Math.floor(Math.random() * 1e5) + ''
+    const sendId = Math.floor(Math.random() * 1e5) + ''
+    const messageType = r ? 1 : 3
 
     const sendTime = Date.now()
     const uid = r ? '3400012218' : '3400002345'
     const roomId = r ? '1' : '2'
     const text = 'Hello world'
 
-    await appImDB.storeAdd({ messageId, sendTime, uid, roomId, text })
+    await appImDB.storeAdd({ sendId, sendTime, messageType, uid, roomId, text })
   }
 
   queryIm = async () => {
@@ -162,10 +165,50 @@ export default class App extends Component {
     console.log('第一条消息记录', result)
   }
 
+  addMetaStore = async () => {
+    const uid = Math.floor(Math.random() * 1e5)
+    const offset = Math.floor(uid / 33)
+    const idc = 'cn'
+    const receiveId = '5c8b140e1f5a89d724547f8b'
+    const result = await appImDB.metaStoreAdd({ uid, offset, idc, receiveId })
+
+    console.log('插入数据', result)
+  }
+
+  deleteMetaStore = async () => {
+    const { key } = this.state
+
+    const uid = Number(key)
+
+    const result = await appImDB.metaStoreDelete(uid)
+
+    console.log('删除数据', result)
+  }
+
+  queryMetaStore = async () => {
+    const { key } = this.state
+
+    const uid = Number(key)
+
+    const result = await appImDB.metaStoreQuery(uid)
+
+    console.log('查询数据', result, uid)
+  }
+
+  updateMetaStore = async () => {
+    const { key } = this.state
+
+    const uid = Number(key)
+
+    const result = await appImDB.metaStoreUpdate(uid, { offset: 1000 })
+
+    console.log('修改数据', result)
+  }
+
   componentDidMount () {
     this.initDB()
 
-    appImDB.openDB('3400002345').then((db) => {
+    appImDB.openDB('3400005555').then((db) => {
       console.log('openDB success', db)
     })
   }
@@ -184,15 +227,24 @@ export default class App extends Component {
           <h4>测试创建表</h4>
           <input type="text" className={style.imKey} value={key} onChange={this.changeKey}/>
           <div>
+            <p>Message Store</p>
             <button type={"button"} onClick={ this.createStore }>创建表</button>
             <button type={"button"} onClick={ this.addData }>添加数据</button>
             <button type={"button"} onClick={ this.queryIm }>查询</button>
-            <button type={"button"} onClick={ this.deleteIm }>根据messageId删除</button>
+            <button type={"button"} onClick={ this.deleteIm }>根据sendId删除</button>
             <button type={"button"} onClick={ this.deleteImByRoomId }>根据roomId删除（多条）</button>
             <button type={"button"} onClick={ this.updateIm }>修改</button>
             <button type={"button"} onClick={ this.queryAllRoomId }>查询所有的roomId</button>
             <button type={"button"} onClick={ this.queryLast }>最后一条记录</button>
             <button type={"button"} onClick={ this.queryFirst }>第一条记录</button>
+          </div>
+          <hr/>
+          <div>
+            <p>Meta Store</p>
+            <button type={"button"} onClick={ this.addMetaStore }>添加数据</button>
+            <button type={"button"} onClick={ this.deleteMetaStore }>删除数据</button>
+            <button type={"button"} onClick={ this.queryMetaStore }>查询数据</button>
+            <button type={"button"} onClick={ this.updateMetaStore }>修改数据</button>
           </div>
         </div>
       </div>

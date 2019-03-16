@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import state from '@/store/index'
 import { Provider } from 'react-redux'
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader/root'
 
 import Home from '@/jsx/home'
 import Demo2 from '../jsx/demo2'
@@ -57,4 +57,4 @@ const DemoIndex = () => (
   </Provider>
 )
 
-export default hot(module)(DemoIndex)
+export default hot(DemoIndex)
