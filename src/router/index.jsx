@@ -1,59 +1,92 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import state from '@/store/index'
 import { Provider } from 'react-redux'
 import { hot } from 'react-hot-loader/root'
+import RouterWithSubRouters from './router-with-sub-routes'
+import Splitting from '@/components/splitting'
 
-import Home from '@/jsx/home'
-import Demo2 from '../jsx/demo2'
-import Demo6 from '../jsx/demo6'
-import Demo7 from '../jsx/demo7'
-import TodoList from '@/components/todo-list'
-import ClickCounter from '@/components/click-counter'
-import ControlPanel from '@/components/control-panel'
-import IndexedDB from '../components/indexedDB'
-import IndexedDBNative from '../components/indexedDB/native'
-import IndexedDBLocalForage from '../components/indexedDB/localforage'
-import IndexedDBDexie from '../components/indexedDB/dexie'
-import ContextDemo from '../jsx/context'
+const Home = Splitting(() => import('@/jsx/home'))
+const Demo2 = Splitting(() => import('../jsx/demo2'))
+const Demo6 = Splitting(() => import('../jsx/demo6'))
+const Demo7 = Splitting(() => import('../jsx/demo7'))
+const TodoList = Splitting(() => import('@/components/todo-list'))
+const ClickCounter = Splitting(() => import('@/components/click-counter'))
+const ControlPanel = Splitting(() => import('@/components/control-panel'))
+const IndexedDB = Splitting(() => import('../components/indexedDB'))
+const IndexedDBNative = Splitting(() => import('../components/indexedDB/native'))
+const IndexedDBLocalForage = Splitting(() => import('../components/indexedDB/localforage'))
+const IndexedDBDexie = Splitting(() => import('../components/indexedDB/dexie'))
+const Cefsql = Splitting(() => import('../components/indexedDB/cefsql'))
+const ContextDemo = Splitting(() => import('../jsx/context'))
 
 import '@/css/nav.scss'
 
-const DemoIndex = () => (
+const routes = [
+  {
+    path: '/',
+    component: Home,
+    exact: true
+  },
+  {
+    path: '/demo2',
+    component: Demo2
+  },
+  {
+    path: '/demo6',
+    component: Demo6
+  },
+  {
+    path: '/demo7',
+    component: Demo7
+  },
+  {
+    path: '/todo-list',
+    component: TodoList
+  },
+  {
+    path: '/click-counter',
+    component: ClickCounter
+  },
+  {
+    path: '/control-panel',
+    component: ControlPanel
+  },
+  {
+    path: '/indexedDB',
+    component: IndexedDB,
+    exact: true
+  },
+  {
+    path: '/indexedDB/native',
+    component: IndexedDBNative
+  },
+  {
+    path: '/indexedDB/localforage',
+    component: IndexedDBLocalForage
+  },
+  {
+    path: '/indexedDB/dexie',
+    component: IndexedDBDexie
+  },
+  {
+    path: '/indexedDB/cefsql',
+    component: Cefsql
+  },
+  {
+    path: '/context-demo',
+    component: ContextDemo
+  }
+]
+
+function RouteView () {
+  return (
+    <RouterWithSubRouters routes={routes} />
+  )
+}
+
+const DemoIndex = (props) => (
   <Provider store={ state }>
-  <Router>
-    <div>
-      <ul className={ "nav" }>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/demo2">demo2</Link></li>
-        <li><Link to="/demo6">demo6</Link></li>
-        <li><Link to="/demo7">demo7</Link></li>
-        <li><Link to="/todo-list">TodoList🤓</Link></li>
-        <li><Link to="/click-counter">ClickCounter</Link></li>
-        <li><Link to="/control-panel">ControlPanel</Link></li>
-        <li><Link to="/indexedDB">indexedDB</Link></li>
-        <li><Link to="/indexedDB/native">indexedDB Native</Link></li>
-        <li><Link to="/indexedDB/localforage">indexedDB localForage</Link></li>
-        <li><Link to={"/indexedDB/dexie"}>indexedDB dexie</Link></li>
-        <li><Link to="/context-demo">Context</Link></li>
-      </ul>
-
-      <hr/>
-
-      <Route exact path="/" component={ Home } />
-      <Route path="/demo2" component={ Demo2 } />
-      <Route path="/demo6" component={ Demo6 } />
-      <Route path="/demo7" component={ Demo7 }/>
-      <Route path="/todo-list" component={TodoList}/>
-      <Route path="/click-counter" component={ClickCounter}/>
-      <Route path="/control-panel" component={ ControlPanel } />
-      <Route path="/indexedDB" component={ IndexedDB }/>
-      <Route path={"/indexedDB/native"} component={IndexedDBNative}/>
-      <Route path={"/indexedDB/localforage"} component={IndexedDBLocalForage}/>
-      <Route path={"/indexedDB/dexie"} component={IndexedDBDexie}/>
-      <Route path="/context-demo" component={ ContextDemo }/>
-    </div>
-  </Router>
+    <RouteView { ...props }/>
   </Provider>
 )
 
