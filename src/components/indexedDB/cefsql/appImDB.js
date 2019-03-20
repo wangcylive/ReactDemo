@@ -276,7 +276,10 @@ export default class {
     }
 
     for (let i = 0; i < arr.length; i++) {
-      await sqlExec(sqlStatement.insertMessage(arr[i]))
+      const statement = sqlStatement.insertMessage(arr[i])
+      await sqlExec(statement).catch(() => {
+        console.error('sql exec error. ', statement)
+      })
     }
   }
 
