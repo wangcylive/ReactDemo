@@ -198,11 +198,14 @@ export default class App extends Component {
   updateMetaStore = async () => {
     const { key } = this.state
 
-    const uid = Number(key)
+    const uid = Number(key) || Math.floor(Math.random() * 1e5)
+    const offset = Math.floor(Math.random() * 1e4)
+    const idc = 'cn'
+    const receiveId = '5c8b140e1f5a89d724547f8b'
 
-    const result = await appImDB.metaStoreUpdate(uid, { offset: 1000 })
+    const result = await appImDB.metaStoreUpdate({ uid, offset, idc, receiveId })
 
-    console.log('修改数据', result)
+    console.log('修改数据', result, uid)
   }
 
   componentDidMount () {
@@ -223,8 +226,8 @@ export default class App extends Component {
       <div className={style.im}>
         <h3>Dexie</h3>
         <Query db={db}/>
+        <hr/>
         <div>
-          <h4>测试创建表</h4>
           <input type="text" className={style.imKey} value={key} onChange={this.changeKey}/>
           <div>
             <p>Message Store</p>
@@ -241,10 +244,9 @@ export default class App extends Component {
           <hr/>
           <div>
             <p>Meta Store</p>
-            <button type={"button"} onClick={ this.addMetaStore }>添加数据</button>
+            <button type={"button"} onClick={ this.updateMetaStore }>更新数据</button>
             <button type={"button"} onClick={ this.deleteMetaStore }>删除数据</button>
             <button type={"button"} onClick={ this.queryMetaStore }>查询数据</button>
-            <button type={"button"} onClick={ this.updateMetaStore }>修改数据</button>
           </div>
         </div>
       </div>

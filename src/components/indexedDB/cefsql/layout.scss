@@ -1,0 +1,14 @@
+.cef {
+    input {
+        padding: 10px;
+    }
+
+    button {
+        min-width: 80px;
+        height: 36px;
+
+        + button {
+            margin-left: 10px;
+        }
+    }
+}
