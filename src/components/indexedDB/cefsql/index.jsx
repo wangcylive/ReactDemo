@@ -55,7 +55,7 @@ export default class App extends Component {
       roomId: roomId,
       sendId: Math.floor(Math.random() * 1e6) + '',
       sendTime: Date.now(),
-      text: "2324234",
+      text: "2324\"2'34 abc 我[image][/image] ; or 1 = 1;",
       uid: 3400001284,
       uids: [3400001284, 3400018046],
       _class: "com.yy.dh.global.imclient.entity.im.ImMessage"
@@ -106,7 +106,9 @@ export default class App extends Component {
     const data = {
       sendTime: Date.now(),
       text: '修改数据',
-      rollbackTime: Date.now() - 1000
+      rollbackTime: Date.now() - 1000,
+      name: 'fasfaf',
+      sendId: 'asfasfasfas'
     }
 
     const result  = await appImDB.storeUpdate(key, data)

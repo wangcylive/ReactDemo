@@ -16,7 +16,7 @@ const metaStoreName = 'meta'
 
 const metaStoreIndex = 'uid'
 
-const dbUninitialized = 'indexedDB uninitialized.'
+const dbUninitialized = new Error('indexedDB uninitialized.')
 
 /**
  * 打印日志

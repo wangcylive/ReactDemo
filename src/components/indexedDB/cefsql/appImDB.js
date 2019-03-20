@@ -1,3 +1,5 @@
+/* global YY */
+
 const messageStoreName = 'message'
 const messageRow = [
   {
@@ -38,7 +40,7 @@ const messageRow = [
   },
   {
     name: 'text',
-    desc: 'varchar(2000)'
+    desc: 'varchar(4000)'
   },
   {
     name: 'uid',
@@ -65,6 +67,8 @@ const messageRow = [
     desc: 'varchar(4000)' // JSON stringify
   }
 ]
+const messageRowKeys = messageRow.map(({ name }) => name)
+messageRowKeys.shift()
 
 const metaStoreName = 'meta'
 const metaRow = [
@@ -91,25 +95,27 @@ const sqlStatement = {
   insertMessage (data) {
     let { sendId, appid, cmid, messageType, offset, receiveId, roomId, sendTime, rollbackTime = 0, text, uid, uids, meta, model, moreType = '', extendInfo } = data
 
-    sendTime = sendTime + ''
-    rollbackTime = rollbackTime + ''
+    text = encodeURI(text)
     uids = JSON.stringify(uids)
     meta = JSON.stringify(meta)
     model = JSON.stringify(model) || ''
     extendInfo = JSON.stringify(extendInfo) || ''
 
     return `insert into ${messageStoreName} values ("${sendId}", "${appid}", "${cmid}", ${messageType}, ${offset}, "${receiveId}",
-    "${roomId}", "${sendTime}", "${rollbackTime}", "${text}", ${uid}, '${uids}', '${meta}', '${model}', "${moreType}", '${extendInfo}');`
+    "${roomId}", "${sendTime}", "${rollbackTime}", "${text}", "${uid}", '${uids}', '${meta}', '${model}', '${moreType}', '${extendInfo}');`
   },
   updateMessage (sendId, data) {
     const setColumn = []
     for (let [key, value] of Object.entries(data)) {
-      if (key !== 'sendId') {
+      if (messageRowKeys.includes(key)) {
         if (typeof value === 'object') {
           value = JSON.stringify(value)
         }
         if (key === 'sendTime' || key === 'rollbackTime') {
           value = value + ''
+        }
+        if (key === 'text') {
+          value = encodeURI(value)
         }
         if (typeof value === 'string') {
           value = `"${value}"`
@@ -169,11 +175,13 @@ const sqlStatement = {
  * @returns {Promise<*>}
  */
 async function sqlExec (statement) {
-  const result = await YY.Sqlite.execSql(statement).catch(() => throw 'Sqlite exec error.')
+  const result = await YY.Sqlite.execSql(statement).catch(() => {
+    throw new Error('Sqlite exec error.')
+  })
   if (result && result.result === 0) {
     return result.data
   }
-  throw 'Sqlite exec error.'
+  throw new Error('Sqlite exec error.')
 }
 
 /**
@@ -182,7 +190,7 @@ async function sqlExec (statement) {
  * @returns {Promise<boolean>}
  */
 async function existStore (storeName) {
-  const result  = await sqlExec(sqlStatement.tableCount(storeName))
+  const result = await sqlExec(sqlStatement.tableCount(storeName))
   return result[0]['count(*)'] > 0
 }
 
@@ -193,10 +201,11 @@ async function existStore (storeName) {
  */
 function messageFormat (array) {
   return array.map((item) => {
-    let { uids, meta, model, extendInfo, sendTime, rollbackTime } = item
+    let { uids, text, meta, model, extendInfo, sendTime, rollbackTime } = item
 
     sendTime = Number(sendTime)
     rollbackTime = Number(rollbackTime)
+    text = decodeURI(text)
 
     try {
       uids = JSON.parse(uids)
@@ -218,7 +227,7 @@ function messageFormat (array) {
     } catch (e) {
       extendInfo = {}
     }
-    return Object.assign(item, { uids, meta, model, extendInfo, sendTime, rollbackTime })
+    return Object.assign(item, { uids, text, meta, model, extendInfo, sendTime, rollbackTime })
   })
 }
 
