@@ -220,6 +220,16 @@ export default class appImDb {
   }
 
   /**
+   * message 表根据 uid 查询数据
+   * @param uid {number}
+   * @returns {Dexie.Promise<T[]>}
+   */
+  static async storeQueryByUid (uid) {
+    _console('storeQueryByUid', arguments)
+    return store.where('uid').equals(uid).sortBy('sendTime')
+  }
+
+  /**
    * meta 表更新数据，之前没有增加，有修改
    * @param data {*}
    * @returns {Dexie.Promise<Dexie.Promise<number> | * | IDBRequest<IDBValidKey> | Promise<void> | void | Hash>}

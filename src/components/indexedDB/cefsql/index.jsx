@@ -76,6 +76,13 @@ export default class App extends Component {
     console.log('查询数据', result)
   }
 
+  queryMessageByUid = async () => {
+    const { key } = this.state
+    const result = await appImDB.storeQueryByUid(key)
+
+    console.log('查询数据', result)
+  }
+
   queryMessageFirst = async () => {
     const result = await appImDB.storeFirst()
 
@@ -180,6 +187,7 @@ export default class App extends Component {
           <button typeof={"button"} onClick={ this.init }>初始化数据库</button>
           <button typeof={"button"} onClick={ this.addMessage }>添加数据</button>
           <button typeof={"button"} onClick={ this.queryMessage }>查询数据(roomId, messageType)</button>
+          <button type={"button"} onClick={ this.queryMessageByUid }>查询数据uid</button>
           <button typeof={"button"} onClick={ this.queryMessageFirst }>查询第一条数据</button>
           <button typeof={"button"} onClick={ this.queryMessageLast }>查询最后一条数据</button>
           <button typeof={"button"} onClick={ this.queryMessageAllRoomId }>查询所有RoomId</button>

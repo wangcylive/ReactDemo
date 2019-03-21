@@ -139,6 +139,9 @@ const sqlStatement = {
     }
     return `select * from ${messageStoreName} where roomId = "${encodeURI(roomId)}"${and} order by sendTime ASC;`
   },
+  queryMessageByUid (uid) {
+    return `select * from ${messageStoreName} where uid = "${encodeURI(uid)}" order by sendTime ASC;`
+  },
   queryFirst () {
     return `select * from ${messageStoreName} order by sendTime asc limit 1;`
   },
@@ -368,6 +371,17 @@ export default class {
   static async storeQuery (roomId, messageType) {
     _console('storeQuery', arguments)
     const result = await sqlExec(sqlStatement.queryMessage(roomId, messageType))
+    return messageFormat(result)
+  }
+
+  /**
+   * message 表根据 uid 查询数据
+   * @param uid {number}
+   * @returns {Promise<*>}
+   */
+  static async storeQueryByUid (uid) {
+    _console('storeQueryByUid', arguments)
+    const result = await sqlExec(sqlStatement.queryMessageByUid(uid))
     return messageFormat(result)
   }
 
