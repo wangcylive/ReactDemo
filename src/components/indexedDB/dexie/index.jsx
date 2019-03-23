@@ -171,16 +171,6 @@ export default class App extends Component {
     console.log('第一条消息记录', result)
   }
 
-  addMetaStore = async () => {
-    const uid = Math.floor(Math.random() * 1e5)
-    const offset = Math.floor(uid / 33)
-    const idc = 'cn'
-    const receiveId = '5c8b140e1f5a89d724547f8b'
-    const result = await appImDB.metaStoreAdd({ uid, offset, idc, receiveId })
-
-    console.log('插入数据', result)
-  }
-
   deleteMetaStore = async () => {
     const { key } = this.state
 

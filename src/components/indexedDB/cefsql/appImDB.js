@@ -149,7 +149,7 @@ const sqlStatement = {
     return `select * from ${messageStoreName} order by sendTime desc limit 1;`
   },
   queryDistinctColumn (column) {
-    return `select distinct ${column} from ${messageStoreName};`
+    return `select ${column} from ${messageStoreName} group by roomId order by sendTime DESC;`
   },
   queryCount () {
     return `select count(1) from ${messageStoreName};`
@@ -204,8 +204,9 @@ async function existStore (storeName) {
  */
 function messageFormat (array) {
   return array.map((item) => {
-    let { uids, text, meta, model, extendInfo, sendTime, rollbackTime } = item
+    let { uid, uids, text, meta, model, extendInfo, sendTime, rollbackTime } = item
 
+    uid = Number(uid)
     sendTime = Number(sendTime)
     rollbackTime = Number(rollbackTime)
     text = decodeURI(text)
@@ -230,7 +231,7 @@ function messageFormat (array) {
     } catch (e) {
       extendInfo = {}
     }
-    return Object.assign(item, { uids, text, meta, model, extendInfo, sendTime, rollbackTime })
+    return Object.assign(item, { uid, uids, text, meta, model, extendInfo, sendTime, rollbackTime })
   })
 }
 
