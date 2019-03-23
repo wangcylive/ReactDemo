@@ -304,7 +304,14 @@ export default class {
   static async storeQueryAllRoomId () {
     _console('storeQueryAllRoomId', arguments)
 
-    return sqlExec(sqlStatement.queryDistinctColumn('roomId'))
+    const result = await sqlExec(sqlStatement.queryDistinctColumn('roomId'))
+    const ids = new Set()
+    result.forEach(({ roomId }) => {
+      if (roomId) {
+        ids.add(roomId)
+      }
+    })
+    return [...ids]
   }
 
   /**

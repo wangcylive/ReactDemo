@@ -132,11 +132,13 @@ export default class appImDb {
     if (!store) {
       throw dbUninitialized
     }
-    const roomIds = new Set()
+    const ids = new Set()
     await store.orderBy('sendTime').each(({ roomId }) => {
-      roomIds.add(roomId)
+      if (roomId) {
+        ids.add(roomId)
+      }
     })
-    return [...roomIds].reverse()
+    return [...ids].reverse()
   }
 
   /**
