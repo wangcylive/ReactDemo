@@ -1,4 +1,24 @@
 /* global YY */
+import escapeString from 'sql-escape-string'
+
+function sqlFormat (sql, values) {
+  let i = 0
+  return sql.replace(/(\?\?*|@)/g, (match) => {
+    let value = values[i++] || ''
+    if (typeof value === 'string') {
+      if (match !== '@') {
+        if (match.length === 1) {
+          value = escapeString(value)
+        } else {
+          value = `[${value}]`
+        }
+      }
+    } else if (typeof value === 'object') {
+      value = escapeString(JSON.stringify(value))
+    }
+    return value
+  })
+}
 
 const messageStoreName = 'message'
 const messageRow = [
@@ -68,12 +88,13 @@ const messageRow = [
   }
 ]
 const messageRowKeys = messageRow.map(({ name }) => name)
-messageRowKeys.shift()
+const updateMessageRowKeys = [...messageRowKeys] // update 不能包含 primary key
+updateMessageRowKeys.shift()
 
 const metaStoreName = 'meta'
 const metaRow = [
   {
-    name: 'uid ',
+    name: 'uid',
     desc: 'varchar(255) not null primary key'
   },
   {
@@ -87,88 +108,82 @@ const metaRow = [
  */
 const sqlStatement = {
   tableCount (storeName) {
-    return `select count(*) from sqlite_master where type="table" and name = "${storeName}";`
+    return sqlFormat('SELECT COUNT(*) FROM sqlite_master WHERE type="table" and name = ?;', [ storeName ])
   },
   createTable (storeName, row) {
-    return `create table ${storeName} (${row.map(({ name, desc }) => (name + ' ' + desc)).join(', ')});`
+    const setRow = row.map(({ name, desc }) => (name + ' ' + desc)).join(', ')
+
+    return sqlFormat('CREATE TABLE ? (@);', [ storeName, setRow ])
   },
   insertMessage (data) {
-    let { sendId, appid, cmid, messageType, offset, receiveId, roomId, sendTime, rollbackTime = 0, text, uid, uids, meta, model, moreType = '', extendInfo } = data
+    let { sendId, appid, cmid = '', messageType, offset, receiveId, roomId, sendTime, rollbackTime = 0, text, uid, uids, meta, model = {}, moreType = '', extendInfo = {} } = data
 
-    text = encodeURI(text)
-    uids = JSON.stringify(uids)
-    meta = JSON.stringify(meta)
-    model = JSON.stringify(model) || ''
-    extendInfo = JSON.stringify(extendInfo) || ''
+    const values = [ messageStoreName, sendId, appid, cmid, messageType, offset, receiveId, roomId, sendTime, rollbackTime, text, uid, uids, meta, model, moreType, extendInfo ]
 
-    return `insert into ${messageStoreName} values ("${sendId}", "${appid}", "${cmid}", ${messageType}, ${offset}, "${receiveId}",
-    "${roomId}", "${sendTime}", "${rollbackTime}", "${text}", "${uid}", '${uids}', '${meta}', '${model}', '${moreType}', '${extendInfo}');`
+    return sqlFormat('INSERT INTO ? VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', values)
   },
   updateMessage (sendId, data) {
     const setColumn = []
     for (let [key, value] of Object.entries(data)) {
-      if (messageRowKeys.includes(key)) {
+      if (updateMessageRowKeys.includes(key)) {
         if (typeof value === 'object') {
           value = JSON.stringify(value)
         }
         if (key === 'sendTime' || key === 'rollbackTime') {
           value = value + ''
         }
-        if (key === 'text') {
-          value = encodeURI(value)
-        }
         if (typeof value === 'string') {
-          value = `"${value}"`
+          value = escapeString(value)
         }
-        setColumn.push(`${key} = ${value}`)
+        setColumn.push(`[${key}] = ${value}`)
       }
     }
 
-    return `update ${messageStoreName} set ${setColumn.join(', ')} where sendId = "${encodeURI(sendId)}";`
+    return sqlFormat('UPDATE ? SET @ WHERE [sendId] = ?;', [ messageStoreName, setColumn.join(', '), sendId ])
   },
   deleteMessageBySendId (sendId) {
-    return `delete from ${messageStoreName} where sendId = "${encodeURI(sendId)}";`
+    return sqlFormat('DELETE FROM ? WHERE sendId = ?;', [ messageStoreName, sendId ])
   },
   deleteMessageByRoomId (roomId) {
-    return `delete from ${messageStoreName} where roomId = "${encodeURI(roomId)}";`
+    return sqlFormat('DELETE FROM ? WHERE roomId = ?;', [ messageStoreName, roomId ])
   },
   queryMessage (roomId, messageType) {
-    let and = ''
     if (typeof messageType === 'number') {
-      and = ` and messageType = ${messageType}`
+      return sqlFormat('SELECT * FROM ? WHERE roomId = ? AND messageType = ? ORDER BY sendTime ASC;', [ messageStoreName, roomId, messageType ])
     }
-    return `select * from ${messageStoreName} where roomId = "${encodeURI(roomId)}"${and} order by sendTime ASC;`
+    return sqlFormat('SELECT * FROM ? WHERE roomId = ? ORDER BY sendTime ASC;', [ messageStoreName, roomId ])
+  },
+  queryMessageBySendId (sendId) {
+    return sqlFormat('SELECT * FROM ? WHERE sendId = ?;', [ messageStoreName, sendId ])
   },
   queryMessageByUid (uid) {
-    return `select * from ${messageStoreName} where uid = "${encodeURI(uid)}" order by sendTime ASC;`
+    return sqlFormat('SELECT * FROM ? WHERE uid = ? ORDER BY sendTime ASC;', [ messageStoreName, uid ])
   },
   queryFirst () {
-    return `select * from ${messageStoreName} order by sendTime asc limit 1;`
+    return sqlFormat('SELECT * FROM ? ORDER BY sendTime ASC LIMIT 1;', [ messageStoreName ])
   },
   queryLast () {
-    return `select * from ${messageStoreName} order by sendTime desc limit 1;`
+    return sqlFormat('SELECT * FROM ? ORDER BY sendTime DESC LIMIT 1;', [ messageStoreName ])
   },
   queryDistinctColumn (column) {
-    return `select ${column} from ${messageStoreName} group by roomId order by sendTime DESC;`
+    return sqlFormat('SELECT ? FROM ? GROUP BY roomId ORDER BY sendTime DESC;', [ column, messageStoreName ])
   },
   queryCount () {
-    return `select count(1) from ${messageStoreName};`
+    return sqlFormat('SELECT COUNT(1) FROM ?;', [ messageStoreName ])
   },
   insertMeta (data) {
     const { uid } = data
-    const meta = JSON.stringify(data)
 
-    return `insert into ${metaStoreName} values ("${uid}", '${meta}');`
+    return sqlFormat('INSERT INTO ? VALUES (?, ?);', [ metaStoreName, uid, data ])
   },
   updateMeta (uid, data) {
-    const meta = JSON.stringify(data)
-    return `update ${metaStoreName} set meta = '${meta}' where uid = "${uid}";`
+    return sqlFormat('UPDATE ? SET meta = ? WHERE uid = ?;', [ metaStoreName, data, uid ])
   },
   deleteMeta (uid) {
-    return `delete from ${metaStoreName} where uid = "${uid}";`
+    return sqlFormat('DELETE FROM ? WHERE uid = ?;', [ metaStoreName, uid ])
   },
   queryMeta (uid) {
-    return `select * from ${metaStoreName} where uid = "${uid}";`
+    return sqlFormat('SELECT * FROM ? WHERE uid = ?;', [ metaStoreName, uid ])
   }
 }
 
@@ -194,7 +209,7 @@ async function sqlExec (statement) {
  */
 async function existStore (storeName) {
   const result = await sqlExec(sqlStatement.tableCount(storeName))
-  return result[0]['count(*)'] > 0
+  return result[0]['COUNT(*)'] > 0
 }
 
 /**
@@ -209,7 +224,6 @@ function messageFormat (array) {
     uid = Number(uid)
     sendTime = Number(sendTime)
     rollbackTime = Number(rollbackTime)
-    text = decodeURI(text)
 
     try {
       uids = JSON.parse(uids)
@@ -367,7 +381,7 @@ export default class {
   static async storeCount () {
     _console('storeCount', arguments)
     const result = await sqlExec(sqlStatement.queryCount())
-    return result[0]['count(1)']
+    return result[0]['COUNT(1)']
   }
 
   /**
@@ -380,6 +394,17 @@ export default class {
     _console('storeQuery', arguments)
     const result = await sqlExec(sqlStatement.queryMessage(roomId, messageType))
     return messageFormat(result)
+  }
+
+  /**
+   * message 表根据 sendId 查询数据
+   * @param sendId {string}
+   * @returns {Promise<*>}
+   */
+  static async storeQueryBySendId (sendId) {
+    _console('stateQueryBySendId', arguments)
+    const result = await sqlExec(sqlStatement.queryMessageBySendId(sendId))
+    return messageFormat(result)[0]
   }
 
   /**

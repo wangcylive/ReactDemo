@@ -126,6 +126,14 @@ export default class App extends Component {
     console.log('查询结果', result)
   }
 
+  queryImBySendId = async () => {
+    const { key } = this.state
+
+    const result = await appImDB.storeQueryBySendId(key)
+
+    console.log('查询结果', result)
+  }
+
   queryImByUid = async () => {
     const { key } = this.state
     const result = await appImDB.storeQueryByUid(key)
@@ -229,8 +237,9 @@ export default class App extends Component {
             <p>Message Store</p>
             <button type={"button"} onClick={ this.createStore }>创建表</button>
             <button type={"button"} onClick={ this.addData }>添加数据</button>
-            <button type={"button"} onClick={ this.queryIm }>查询roomId</button>
-            <button type={"button"} onClick={ this.queryImByUid }>查询uid</button>
+            <button type={"button"} onClick={ this.queryIm }>查询(roomId)</button>
+            <button type={"button"} onClick={ this.queryImBySendId }>查询(sendId)</button>
+            <button type={"button"} onClick={ this.queryImByUid }>查询(uid)</button>
             <button type={"button"} onClick={ this.deleteIm }>根据sendId删除</button>
             <button type={"button"} onClick={ this.deleteImByRoomId }>根据roomId删除（多条）</button>
             <button type={"button"} onClick={ this.updateIm }>修改</button>

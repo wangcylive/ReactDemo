@@ -224,6 +224,16 @@ export default class appImDb {
   }
 
   /**
+   * message 表根据 sendId 查询数据
+   * @param sendId
+   * @returns {Dexie.Promise<Dexie.Collection<T, Key>>}
+   */
+  static async storeQueryBySendId (sendId) {
+    _console('storeQueryBySendId', arguments)
+    return store.where('sendId').equals(sendId).first()
+  }
+
+  /**
    * message 表根据 uid 查询数据
    * @param uid {number}
    * @returns {Dexie.Promise<T[]>}

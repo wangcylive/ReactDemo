@@ -26,7 +26,7 @@ export default class App extends Component {
   }
 
   inputChange = (event) => {
-    const key = event.target.value.trim()
+    const key = event.target.value
     this.setState({
       key
     })
@@ -38,6 +38,8 @@ export default class App extends Component {
     const roomIds = [ '5c8c9a981f5a899098756bd3', '5c8c9a981f5a899098745786', '5c8c9a981f5a8990987a332a' ]
 
     const roomId = roomIds[Math.floor(Math.random() * 3)]
+
+    const text = this.state.key
 
     const data = {
       appid: "1207472126",
@@ -55,7 +57,7 @@ export default class App extends Component {
       roomId: roomId,
       sendId: Math.floor(Math.random() * 1e6) + '',
       sendTime: Date.now(),
-      text: "2324\"2'34 abc 我[image][/image] ; or 1 = 1;",
+      text,
       uid: 3400001284,
       uids: [3400001284, 3400018046],
       _class: "com.yy.dh.global.imclient.entity.im.ImMessage"
@@ -72,6 +74,13 @@ export default class App extends Component {
     const messageType = 1
 
     const result = await appImDB.storeQuery(key)
+
+    console.log('查询数据', result)
+  }
+
+  queryMessageBySendId = async () => {
+    const { key } = this.state
+    const result = await appImDB.storeQueryBySendId(key)
 
     console.log('查询数据', result)
   }
@@ -114,8 +123,8 @@ export default class App extends Component {
       sendTime: Date.now(),
       text: '修改数据',
       rollbackTime: Date.now() - 1000,
-      name: 'fasfaf',
-      sendId: 'asfasfasfas'
+      name: '呵呵哒',
+      sendId: '哈哈'
     }
 
     const result  = await appImDB.storeUpdate(key, data)
@@ -187,7 +196,8 @@ export default class App extends Component {
           <button typeof={"button"} onClick={ this.init }>初始化数据库</button>
           <button typeof={"button"} onClick={ this.addMessage }>添加数据</button>
           <button typeof={"button"} onClick={ this.queryMessage }>查询数据(roomId, messageType)</button>
-          <button type={"button"} onClick={ this.queryMessageByUid }>查询数据uid</button>
+          <button type={"button"} onClick={ this.queryMessageBySendId }>查询数据(sendId)</button>
+          <button type={"button"} onClick={ this.queryMessageByUid }>查询数据(uid)</button>
           <button typeof={"button"} onClick={ this.queryMessageFirst }>查询第一条数据</button>
           <button typeof={"button"} onClick={ this.queryMessageLast }>查询最后一条数据</button>
           <button typeof={"button"} onClick={ this.queryMessageAllRoomId }>查询所有RoomId</button>
