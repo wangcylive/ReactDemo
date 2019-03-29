@@ -18,6 +18,7 @@ const IndexedDBLocalForage = Splitting(() => import('../components/indexedDB/loc
 const IndexedDBDexie = Splitting(() => import('../components/indexedDB/dexie'))
 const Cefsql = Splitting(() => import('../components/indexedDB/cefsql'))
 const ContextDemo = Splitting(() => import('../jsx/context'))
+const Focus = Splitting(() => import('../components/focus'))
 
 import '@/css/nav.scss'
 
@@ -75,6 +76,10 @@ const routes = [
   {
     path: '/context-demo',
     component: ContextDemo
+  },
+  {
+    path: '/focus',
+    component: Focus
   }
 ]
 

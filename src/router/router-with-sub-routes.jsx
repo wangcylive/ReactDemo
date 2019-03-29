@@ -18,6 +18,7 @@ function NavLink () {
         <li><Link to={"/indexedDB/dexie"}>indexedDB dexie</Link></li>
         <li><Link to={"/indexedDB/cefsql"}>cef sql</Link></li>
         <li><Link to="/context-demo">Context</Link></li>
+        <li><Link to={"/focus"}>Focus</Link></li>
       </ul>
 
       <hr/>
