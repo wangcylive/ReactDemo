@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 export default class ClickCounter extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       count: 0
@@ -9,17 +9,27 @@ export default class ClickCounter extends Component {
   }
 
   onClickAdd = () => {
-    this.setState({
-      count: this.state.count + 1
+    this.setState((state) => {
+      return {
+        count: state.count + 1
+      }
+    }, () => {
+      console.log('onClickAdd callback', this.state.count, performance.now())
     })
+
+    console.log('onClickAdd', this.state.count, performance.now())
   }
 
   onClickMinus = () => {
-    this.setState ((prevState) => {
+    this.setState((state) => {
       return {
-        count: prevState.count - 1
+        count: state.count - 1
       }
     })
+  }
+
+  componentDidUpdate (prevProp, prevState, snapshot) {
+    console.log('componentDidUpdate', prevProp, prevState, snapshot)
   }
 
   render () {
@@ -31,9 +41,9 @@ export default class ClickCounter extends Component {
 
     return (
       <div>
-        <button onClick={ this.onClickAdd } style={ buttonStyle }>Add</button>
-        <button onClick={ this.onClickMinus } style={ buttonStyle }>Minus</button>
-        <p>Click Count: { this.state.count }</p>
+        <button onClick={this.onClickAdd} style={buttonStyle}>Add</button>
+        <button onClick={this.onClickMinus} style={buttonStyle}>Minus</button>
+        <p>Click Count: {this.state.count}</p>
       </div>
     )
   }
