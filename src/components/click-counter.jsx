@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 
+function ShowName (props) {
+  return (
+    <div>{props.name}</div>
+  )
+}
+
 export default class ClickCounter extends Component {
   constructor (props) {
     super(props)
@@ -8,7 +14,12 @@ export default class ClickCounter extends Component {
     }
   }
 
+  get countText () {
+    return 'this is computed:' + this.state.count
+  }
+
   onClickAdd = () => {
+    console.log(6)
     this.setState((state) => {
       return {
         count: state.count + 1
@@ -44,6 +55,8 @@ export default class ClickCounter extends Component {
         <button onClick={this.onClickAdd} style={buttonStyle}>Add</button>
         <button onClick={this.onClickMinus} style={buttonStyle}>Minus</button>
         <p>Click Count: {this.state.count}</p>
+        <p>{this.countText}</p>
+        <ShowName name="3333"/>
       </div>
     )
   }

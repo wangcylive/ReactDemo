@@ -12,6 +12,7 @@ module.exports = {
     '@babel/preset-react'
   ],
   'plugins': [
+    'react-hot-loader/babel',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-transform-arrow-functions',
     '@babel/plugin-transform-block-scoped-functions',
@@ -51,7 +52,6 @@ module.exports = {
     '@babel/plugin-proposal-numeric-separator',
     '@babel/plugin-proposal-throw-expressions',
     '@babel/plugin-proposal-json-strings',
-    '@babel/plugin-proposal-object-rest-spread',
-    'react-hot-loader/babel'
+    '@babel/plugin-proposal-object-rest-spread'
   ]
 }

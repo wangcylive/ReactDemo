@@ -83,7 +83,7 @@
     "node-sass": "^4.9.2",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss-loader": "^3.0.0",
-    "react-hot-loader": "^4.6.3",
+    "react-hot-loader": "^4.8.4",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.1",
