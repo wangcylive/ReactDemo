@@ -41,6 +41,8 @@ export default class Index extends Component {
       return {
         count: state.count - 1
       }
+    }, () => {
+      console.log('DOM 更新', this.elCount.innerText)
     })
   }
 
@@ -62,16 +64,19 @@ export default class Index extends Component {
       margin: '0 5px'
     }
 
+    console.log('render', performance.now())
+
     return (
       <div>
         <button onClick={this.onClickAdd} style={buttonStyle}>Add</button>
         <button onClick={this.onClickMinus} style={buttonStyle}>Minus</button>
-        <p>Click Count: {this.state.count}</p>
+        <p ref={el => this.elCount = el}>Click Count: {this.state.count}</p>
         <p>{this.countText}</p>
         <ShowName name="3333"/>
         <div>
           <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/router1?name=ms&now=${Date.now()}`)}>Click Router1</button>
-          <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/user/${Math.floor(Math.random() * 1e5)}`)}>Click Router user</button>
+          <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/user/${Math.floor(Math.random() * 1e5)}`)}>Click Router user1</button>
+          <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/member/`)}>Click Router member</button>
           <button type={"button"} onClick={() => this.onClickChangeRouter(`/click-counter/${Date.now()}`)}>Click Router Random</button>
         </div>
         <hr/>
@@ -84,7 +89,8 @@ export default class Index extends Component {
           <div>
             <Switch>
               <Route path="/click-counter/router1" component={ClickCounterRoute1}/>
-              <Route path="/click-counter/user/:uid" component={ClickCounterRoute2}/>
+              <Route path="/click-counter/user" component={ClickCounterRoute2}/>
+              <Route path="/click-counter/member" component={ClickCounterRoute2}/>
               <Route component={ClickCounterNotFound}/>
             </Switch>
           </div>

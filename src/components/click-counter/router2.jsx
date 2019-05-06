@@ -1,10 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeName } from '@/store/user-info/action'
+import { changeName, asyncChangeName } from '@/store/user-info/action'
 
-class App extends Component {
+const mapStateToProp = state => {
+  return {
+    userInfo: state.userInfo
+  }
+}
+
+const mapDispatchToProp = dispatch => {
+  return {
+    onChangeName: (val) => dispatch(changeName(val)),
+    onAsyncChangeName (val) {
+      return dispatch(asyncChangeName(val))
+    }
+  }
+}
+
+class ClickCounterRouter2 extends Component {
   constructor (props) {
     super(props)
+  }
+
+  componentDidMount () {
+    console.log('router2 mount', performance.now())
   }
 
   render () {
@@ -15,6 +34,7 @@ class App extends Component {
         <div>redux store userInfo name: {this.props.userInfo.name}</div>
         <div>
           <button type={"button"} onClick={() => this.props.onChangeName(Math.random())} >Change store name</button>
+          <button type={"button"} onClick={() => this.props.onAsyncChangeName('wangchunyang')}>async change store name</button>
         </div>
       </div>
     )
@@ -22,16 +42,6 @@ class App extends Component {
 }
 
 export default connect(
-  state => {
-    return {
-      userInfo: state.userInfo
-    }
-  },
-  dispatch => {
-    return {
-      onChangeName (val) {
-        dispatch(changeName(val))
-      }
-    }
-  }
-)(App)
+  mapStateToProp,
+  mapDispatchToProp
+)(ClickCounterRouter2)

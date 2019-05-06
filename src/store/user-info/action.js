@@ -7,3 +7,11 @@ export const changeName = (value) => {
     value
   }
 }
+
+export function asyncChangeName (name) {
+  return function (dispatch) {
+    setTimeout(() => {
+      dispatch(changeName(name))
+    }, 2000)
+  }
+}
