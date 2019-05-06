@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link, Redirect } from 'react-router-dom'
 import Splitting from '@/components/splitting'
 const ClickCounterRoute1 = Splitting(() => import('@/components/click-counter/router1'))
 const ClickCounterRoute2 = Splitting(() => import('@/components/click-counter/router2'))
@@ -76,7 +76,8 @@ export default class Index extends Component {
         <div>
           <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/router1?name=ms&now=${Date.now()}`)}>Click Router1</button>
           <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/user/${Math.floor(Math.random() * 1e5)}`)}>Click Router user1</button>
-          <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/member/`)}>Click Router member</button>
+          <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/member/`)}>Router member</button>
+          <button type="button" onClick={() => this.onClickChangeRouter(`/click-counter/bose/333`)}>Router bose</button>
           <button type={"button"} onClick={() => this.onClickChangeRouter(`/click-counter/${Date.now()}`)}>Click Router Random</button>
         </div>
         <hr/>
@@ -91,6 +92,7 @@ export default class Index extends Component {
               <Route path="/click-counter/router1" component={ClickCounterRoute1}/>
               <Route path="/click-counter/user" component={ClickCounterRoute2}/>
               <Route path="/click-counter/member" component={ClickCounterRoute2}/>
+              <Redirect to={"/click-counter/member"} from={"/click-counter/bose/*"}/>
               <Route component={ClickCounterNotFound}/>
             </Switch>
           </div>
