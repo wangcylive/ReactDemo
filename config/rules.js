@@ -27,8 +27,8 @@ const sassLoader = getLoader('sass')
 const lessLoader = getLoader('less')
 
 const cssUse = [ postcssLoader ]
-const sassUse = [  postcssLoader, sassLoader ]
-const lessUse = [  postcssLoader, lessLoader ]
+const sassUse = [ postcssLoader, sassLoader ]
+const lessUse = [ postcssLoader, lessLoader ]
 
 
 module.exports = {
@@ -41,18 +41,14 @@ module.exports = {
     }
 
     if (isProd) {
-      return ExtractTextPlugin.extract({
-        use
-      })
+      return [ ExtractTextPlugin.loader, ...use ]
     }
   },
   getSassLoader (modules) {
     const use = [ modules ? cssModuleLoader : cssLoader, ...sassUse ]
 
     if (isProd) {
-      return ExtractTextPlugin.extract({
-        use
-      })
+      return [ ExtractTextPlugin.loader, ...use ]
     } else {
       use.unshift(styleLoader)
       return use
@@ -62,9 +58,7 @@ module.exports = {
     const use = [ modules ? cssModuleLoader : cssLoader, ...lessUse ]
 
     if (isProd) {
-      return ExtractTextPlugin.extract({
-        use
-      })
+      return [ ExtractTextPlugin.loader, ...use ]
     } else {
       use.unshift(styleLoader)
       return use
