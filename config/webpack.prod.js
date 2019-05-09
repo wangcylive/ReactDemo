@@ -6,6 +6,7 @@ const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserJsPlugin = require('terser-webpack-plugin')
 const CleanWebpack = require('clean-webpack-plugin')
 const webpackBaseConf = require('./webpack.base.conf')
 
@@ -15,6 +16,10 @@ const {
 
 module.exports = webpackMerge(webpackBaseConf, {
   mode: production,
+
+  optimization: {
+    minimizer: [new TerserJsPlugin({}), new OptimizeCssAssetsPlugin({})]
+  },
 
   output: {
     path: path.resolve('./dist'),
@@ -37,7 +42,6 @@ module.exports = webpackMerge(webpackBaseConf, {
     new MiniCssExtractPlugin({
       filename: getAssetsPath('css/layout.[contenthash].css'),
       chunkFilename: getAssetsPath('css/[id].[contenthash].css')
-    }),
-    new OptimizeCssAssetsPlugin()
+    })
   ]
 })

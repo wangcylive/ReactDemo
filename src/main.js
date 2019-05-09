@@ -7,3 +7,5 @@ ReactDom.render(
   React.createElement(DemoIndex),
   document.getElementById('app')
 )
+
+console.log('evn', process.env.NODE_ENV)
