@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 const names = [ 'Alice', 'Emily', 'Kate' ];
@@ -7,14 +7,73 @@ function showIndex(index, context) {
     console.log(index, context)
 }
 
-export default function () {
-  return (
-    <div>
-      {
-        names.map((name, index) => <div key={index} onClick={(e) => showIndex(index, this)}>Hello, {name}{index}</div>)
+class RenderList extends PureComponent {
+  constructor (props) {
+    super(props)
+  }
+
+  onClcik = () => {
+    // this.props.onClick()
+  }
+
+  render () {
+    console.log('RenderList', performance.now(), this.props)
+    const { name, nodes } = this.props.list
+    return (
+      <div onClick={() => this.props.onClick(this.props.list)}>{name} nodes: {nodes && nodes.join(',')}</div>
+    )
+  }
+}
+
+export default class extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      users: [ { name: '1', nodes: [1, 2] }, { name: '2', nodes: [2, 3] }, { name: '3', nodes: [3, 4] } ]
+    }
+  }
+
+  onClickPush = () => {
+    this.setState((state) => {
+      return {
+        users: [...state.users, { name: state.users.length + 1 + '' }]
       }
-    </div>
-  )
+    })
+  }
+
+  onClickChange = () => {
+    this.setState((state) => {
+      const users = [...state.users]
+      users[2] = { ...users[2], name: 'change', nodes: [5, 6, 7] }
+      return {
+        users
+      }
+    })
+  }
+
+
+  onClickChild = (item) => {
+    console.log(item)
+  }
+
+  render () {
+    return (
+      <div>
+        {
+          names.map((name, index) => <div key={index} onClick={(e) => showIndex(index, this)}>Hello, {name}{index}</div>)
+        }
+
+        <div>
+          <button onClick={this.onClickPush}>Click Push</button>
+          <button onClick={this.onClickChange}>Click Change</button>
+          {
+            this.state.users.map((item, index) => <RenderList onClick={this.onClickChild} key={index} list={item}/>)
+          }
+        </div>
+      </div>
+    )
+  }
 }
 
 async function getTime (index) {
