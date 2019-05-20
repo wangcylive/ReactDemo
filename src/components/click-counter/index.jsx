@@ -57,6 +57,11 @@ export default class Index extends Component {
     console.log('componentDidUpdate', prevProp, prevState, snapshot)
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    console.log('shouldComponentUpdate', nextProps, this.props)
+    return false
+  }
+
   render () {
     const buttonStyle = {
       width: '80px',

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
+import { Switch, Route, Link, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeName, asyncChangeName } from '@/store/user-info/action'
 
@@ -17,6 +18,41 @@ const mapDispatchToProp = dispatch => {
   }
 }
 
+class Info extends PureComponent {
+  constructor (props) {
+    super(props)
+
+    this.state ={
+      count: 1
+    }
+  }
+
+  onClick = () => {
+    this.setState({
+      count: Math.floor(Math.random() * 1e5)
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <div>user/info</div>
+        <button onClick={this.onClick}>click</button>
+        <div>count: {this.state.count}</div>
+        {
+          this.props.children
+        }
+      </div>
+    )
+  }
+}
+
+function Edit (props) {
+  return (
+    <div>user/edit</div>
+  )
+}
+
 class ClickCounterRouter2 extends Component {
   constructor (props) {
     super(props)
@@ -27,6 +63,7 @@ class ClickCounterRouter2 extends Component {
   }
 
   render () {
+    console.log('ClickCounterRouter2 render', performance.now())
     return (
       <div>
         <h3>Router user</h3>
@@ -36,6 +73,16 @@ class ClickCounterRouter2 extends Component {
           <button type={"button"} onClick={() => this.props.onChangeName(Math.random())} >Change store name</button>
           <button type={"button"} onClick={() => this.props.onAsyncChangeName('wangchunyang')}>async change store name</button>
         </div>
+
+        <NavLink to={"/click-counter/user/info"} activeClassName={"active"}>info</NavLink>
+        <NavLink to={"/click-counter/user/edit"} activeClassName={"active"}>edit</NavLink>
+
+        <hr/>
+
+        <Switch>
+          <Route path={"/click-counter/user/info"} render={() => <Info/>}/>
+          <Route path={"/click-counter/user/edit"} render={(props) => <Edit props={props}/>}/>
+        </Switch>
       </div>
     )
   }
