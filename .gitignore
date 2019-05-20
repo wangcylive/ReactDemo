@@ -4,3 +4,4 @@ dist
 !.babelrc
 !.editorconfig
 !.gitignore
+!.postcssrc.js
