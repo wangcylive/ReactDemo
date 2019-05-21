@@ -1,10 +1,10 @@
-import React, { Component, PureComponent } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component, PureComponent } from 'react'
+import ReactDOM from 'react-dom'
 
-const names = [ 'Alice', 'Emily', 'Kate' ];
+const names = [ 'Alice', 'Emily', 'Kate' ]
 
-function showIndex(index, context) {
-    console.log(index, context)
+function showIndex (index, context) {
+  console.log(index, context)
 }
 
 class RenderList extends PureComponent {
@@ -30,24 +30,33 @@ export default class extends Component {
     super(props)
 
     this.state = {
-      users: [ { name: '1', nodes: [1, 2] }, { name: '2', nodes: [2, 3] }, { name: '3', nodes: [3, 4] } ]
+      users: [ { name: '1', nodes: [ 1, 2 ] }, { name: '2', nodes: [ 2, 3 ] }, { name: '3', nodes: [ 3, 4 ] } ],
+      showName: true
     }
   }
 
   onClickPush = () => {
     this.setState((state) => {
       return {
-        users: [...state.users, { name: state.users.length + 1 + '' }]
+        users: [ ...state.users, { name: state.users.length + 1 + '' } ]
       }
     })
   }
 
   onClickChange = () => {
     this.setState((state) => {
-      const users = [...state.users]
-      users[2] = { ...users[2], name: 'change', nodes: [5, 6, 7] }
+      const users = [ ...state.users ]
+      users[ 2 ] = Object.assign(users[2], { name: 'change' })
       return {
         users
+      }
+    })
+  }
+
+  onClickChangeShowName = () => {
+    this.setState((state) => {
+      return {
+        showName: !state.showName
       }
     })
   }
@@ -58,10 +67,18 @@ export default class extends Component {
   }
 
   render () {
+    console.log('parent render', performance.now())
+
+    let showName = null
+    if (this.state.showName) {
+      showName = <div>1111</div>
+    }
+
     return (
       <div>
         {
-          names.map((name, index) => <div key={index} onClick={(e) => showIndex(index, this)}>Hello, {name}{index}</div>)
+          names.map((name, index) => <div key={index}
+                                          onClick={(e) => showIndex(index, this)}>Hello, {name}{index}</div>)
         }
 
         <div>
@@ -69,6 +86,13 @@ export default class extends Component {
           <button onClick={this.onClickChange}>Click Change</button>
           {
             this.state.users.map((item, index) => <RenderList onClick={this.onClickChild} key={index} list={item}/>)
+          }
+        </div>
+        <hr/>
+        <div>
+          <button onClick={this.onClickChangeShowName}>Click Change ShowName</button>
+          {
+            showName
           }
         </div>
       </div>
@@ -102,7 +126,7 @@ async function forShowTime () {
 // forShowTime()
 
 async function forEachShowTime () {
-  const arr = [1, 2, 3, 4, 5]
+  const arr = [ 1, 2, 3, 4, 5 ]
 
   arr.forEach(async (item) => {
     const time = await getTime()
@@ -120,7 +144,7 @@ async function allShowtime () {
     arr.push(getTime())
   }
 
-  const res = await Promise.all([...arr]).then((res) => {
+  const res = await Promise.all([ ...arr ]).then((res) => {
     console.log('all', res)
   })
 

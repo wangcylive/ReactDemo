@@ -29,8 +29,21 @@ class View1 extends Component {
     })
   }
 
+  iframePostMessage = () => {
+    const data = {
+      type: 'setPayload',
+      payload: JSON.stringify({value: 'postMessage'})
+    }
+    console.log('iframeMessage', data)
+    window.top.postMessage(data, '*')
+  }
+
   componentDidMount () {
     console.log('componentDidMount', this, ReactDom.findDOMNode(this), this.el)
+
+    window.addEventListener('message', (event) => {
+      console.log(event)
+    }, false)
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
@@ -46,6 +59,7 @@ class View1 extends Component {
     const lists = Array.from(new Array(10), (item, index) => index + 1)
     return (
       <div ref={(ele) => this.el = ele}>
+        <button onClick={this.iframePostMessage}>Iframe post</button>
         <div>redux name: {props.name}</div>
         <div>self view: {state.view}</div>
         <div>
