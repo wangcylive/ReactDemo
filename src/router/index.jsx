@@ -19,6 +19,7 @@ const IndexedDBDexie = Splitting(() => import('../components/indexedDB/dexie'))
 const Cefsql = Splitting(() => import('../components/indexedDB/cefsql'))
 const ContextDemo = Splitting(() => import('../jsx/context'))
 const Focus = Splitting(() => import('../components/focus'))
+const PropTypes = Splitting(() => import('../components/propTypes'))
 
 import '@/css/nav.scss'
 
@@ -80,6 +81,10 @@ const routes = [
   {
     path: '/focus',
     component: Focus
+  },
+  {
+    path: '/propTypes',
+    component: PropTypes
   }
 ]
 

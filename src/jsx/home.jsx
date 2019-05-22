@@ -40,10 +40,6 @@ class View1 extends Component {
 
   componentDidMount () {
     console.log('componentDidMount', this, ReactDom.findDOMNode(this), this.el)
-
-    window.addEventListener('message', (event) => {
-      console.log(event)
-    }, false)
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {

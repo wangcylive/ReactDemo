@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 
 const names = [ 'Alice', 'Emily', 'Kate' ]
@@ -18,11 +19,16 @@ class RenderList extends PureComponent {
 
   render () {
     console.log('RenderList', performance.now(), this.props)
-    const { name, nodes } = this.props.list
+    const { name, nodes } = this.props
     return (
-      <div onClick={() => this.props.onClick(this.props.list)}>{name} nodes: {nodes && nodes.join(',')}</div>
+      <div onClick={this.props.onClick}>{name} nodes: {nodes && nodes.join(',')}</div>
     )
   }
+}
+
+RenderList.propTypes = {
+  name: PropTypes.string.isRequired,
+  nodes: PropTypes.arrayOf(PropTypes.number)
 }
 
 export default class extends Component {
@@ -38,7 +44,7 @@ export default class extends Component {
   onClickPush = () => {
     this.setState((state) => {
       return {
-        users: [ ...state.users, { name: state.users.length + 1 + '' } ]
+        users: [ ...state.users, { name: state.users.length + 1 + ''} ]
       }
     })
   }
@@ -85,7 +91,7 @@ export default class extends Component {
           <button onClick={this.onClickPush}>Click Push</button>
           <button onClick={this.onClickChange}>Click Change</button>
           {
-            this.state.users.map((item, index) => <RenderList onClick={this.onClickChild} key={index} list={item}/>)
+            this.state.users.map((item, index) => <RenderList onClick={this.onClickChild} key={index} {...item}/>)
           }
         </div>
         <hr/>
