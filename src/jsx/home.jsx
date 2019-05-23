@@ -19,7 +19,6 @@ class View1 extends Component {
   }
 
   clickChangeParentName = () => {
-    console.log(this.list1)
     this.props.changeParentName('View1name')
   }
 
@@ -51,6 +50,7 @@ class View1 extends Component {
   }
 
   render () {
+    console.log('view1 render', performance.now())
     const { props, state } = this
     const lists = Array.from(new Array(10), (item, index) => index + 1)
     return (
@@ -72,6 +72,8 @@ class View1 extends Component {
     )
   }
 }
+
+const View1Coonect = connect(mapState, mapDispatch)(View1)
 
 function View2 (props) {
   return (
@@ -118,6 +120,7 @@ class Home extends Component {
   }
 
   render () {
+    console.log('home render', performance.now())
     const { props, state } = this
 
     return (
