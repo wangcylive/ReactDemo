@@ -119,6 +119,12 @@ class Home extends Component {
     this.props.changeName(name)
   }
 
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    if (this.state.name !== this.elInput.value) {
+      this.elInput.value = this.state.name
+    }
+  }
+
   render () {
     console.log('home render', performance.now())
     const { props, state } = this
@@ -127,7 +133,7 @@ class Home extends Component {
       <div>
         <h3>Home</h3>
         <div>
-          <label>self name:</label> <span>{state.name}</span> <input type="text" onChange={this.selfNameChange}/>
+          <label>self name:</label> <span>{state.name}</span> <input ref={el => this.elInput = el} type="text" onChange={this.selfNameChange}/>
         </div>
         <div>
           <label ref="label">redux name:</label> <span>{props.name}</span> <input type="text" onChange={this.reduxNameChange}/>

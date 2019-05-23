@@ -20,6 +20,7 @@ const Cefsql = Splitting(() => import('../components/indexedDB/cefsql'))
 const ContextDemo = Splitting(() => import('../jsx/context'))
 const Focus = Splitting(() => import('../components/focus'))
 const PropTypes = Splitting(() => import('../components/propTypes'))
+const Intl = Splitting(() => import('../components/intl'))
 
 import '@/css/nav.scss'
 
@@ -85,6 +86,10 @@ const routes = [
   {
     path: '/propTypes',
     component: PropTypes
+  },
+  {
+    path: '/intl',
+    component: Intl
   }
 ]
 

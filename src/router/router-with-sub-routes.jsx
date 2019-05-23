@@ -20,6 +20,7 @@ function NavLink () {
         <li><Link to="/context-demo">Context</Link></li>
         <li><Link to={"/focus"}>Focus</Link></li>
         <li><Link to="/propTypes">PropTypes</Link></li>
+        <li><Link to="/intl">Intl</Link></li>
       </ul>
       <hr/>
     </div>
