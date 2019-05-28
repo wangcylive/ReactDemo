@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { IntlProvider, addLocaleData, FormattedMessage, FormattedDate, FormattedTime, defineMessages } from 'react-intl'
+import { IntlProvider, addLocaleData, FormattedMessage, FormattedDate, FormattedTime, defineMessages, injectIntl } from 'react-intl'
 import { formatMessage } from 'react-intl/src/format'
 import localDataZh from 'react-intl/locale-data/zh'
+import localDataEn from 'react-intl/locale-data/en'
 import zh from './lang/zh'
 import en from './lang/en'
 
-addLocaleData(localDataZh)
+addLocaleData([...localDataEn, ...localDataZh])
 
 const allMessages = {
   zh,
@@ -13,10 +14,19 @@ const allMessages = {
 }
 
 function View (props) {
+  const intl = props.intl
+  const formatTime = intl.formatTime(new Date())
+  const hello = intl.formatMessage({ id: 'hello' }, { name: 'js', date: intl.formatDate(new Date()) })
   return (
-    <div>{props.messages.year}</div>
+    <div>
+      <div>{intl.messages.year}</div>
+      <div>formatTime: {formatTime}</div>
+      <div>formatMessage: {hello}</div>
+    </div>
   )
 }
+
+const ViewIntl = injectIntl(View)
 
 class App extends Component {
   constructor (props) {
@@ -37,31 +47,19 @@ class App extends Component {
   }
 
   componentDidMount () {
-    const a = React.createElement(FormattedTime, {
+    React.createElement(FormattedTime, {
       value: new Date()
     })
-
-    console.log(a)
   }
 
   render () {
     const messages = allMessages[this.state.lang]
-
-    // const des = new defineMessages({
-    //   name: {
-    //     id: 'hello'
-    //   }
-    // })
-    //
-    // const str = formatMessage(des.name, { name: 'wwww' })
-
-    // console.log(str)
     return (
-      <IntlProvider locale="zh" messages={messages}>
+      <IntlProvider locale={this.state.lang} messages={messages}>
         <div>
           <div>Intl</div>
           <button onClick={this.onChangeLang}>change lang</button>
-          <View messages={messages}/>
+          <ViewIntl/>
           <div>
             <FormattedMessage id="hello" values={{name: <i>{this.state.name}</i>, date: <FormattedTime value={new Date()}/>}}/>
             <div>
