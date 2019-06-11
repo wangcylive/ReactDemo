@@ -52,7 +52,7 @@ export default class extends Component {
   onClickChange = () => {
     this.setState((state) => {
       const users = [ ...state.users ]
-      users[ 2 ] = Object.assign(users[2], { name: 'change' })
+      users[ 2 ] = { name: 'change', nodes: [] }
       return {
         users
       }

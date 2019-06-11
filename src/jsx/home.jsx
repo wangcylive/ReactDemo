@@ -3,8 +3,6 @@ import ReactDom from 'react-dom'
 import { changeName } from '@/store/user-info/action'
 import { connect } from 'react-redux'
 
-console.log('createRef', React.createRef())
-
 class View1 extends Component {
   constructor (props) {
     super(props)
