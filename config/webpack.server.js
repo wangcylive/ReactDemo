@@ -1,5 +1,9 @@
 const { development } = require('./env.conf')
+const packageJson = require('../package')
+const hostIp = require('./hostIp')
 process.env.NODE_ENV = development
+
+const serverPort = packageJson.serverPort
 
 const path = require('path')
 const webpack = require('webpack')
@@ -26,9 +30,13 @@ module.exports = webpackMerge(webpackBaseConf, {
     // 启用 gzip 压缩
     compress: true,
 
-    port: 15002,
+    port: serverPort,
     // inline: true,
     historyApiFallback: true,
+
+    host: '0.0.0.0',
+
+    disableHostCheck: true,
 
     proxy: {
       '/mng': {
@@ -54,3 +62,8 @@ module.exports = webpackMerge(webpackBaseConf, {
     }),
   ]
 })
+
+console.log(`start ${packageJson.name} server:
+http://localhost:${serverPort}
+http://${hostIp()}:${serverPort}
+`)

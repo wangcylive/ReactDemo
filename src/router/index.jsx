@@ -21,6 +21,7 @@ const ContextDemo = Splitting(() => import('../jsx/context/index.jsx'))
 const Focus = Splitting(() => import('../components/focus'))
 const PropTypes = Splitting(() => import('../components/propTypes'))
 const Intl = Splitting(() => import('../components/intl'))
+const Hook = Splitting(() => import('../components/hook'))
 
 import '@/css/nav.scss'
 
@@ -90,6 +91,10 @@ const routes = [
   {
     path: '/intl',
     component: Intl
+  },
+  {
+    path: '/hook',
+    component: Hook
   }
 ]
 

@@ -1,4 +1,7 @@
 {
+  "name": "reactdemo",
+  "description": "react demo",
+  "serverPort": 15002,
   "scripts": {
     "start": "webpack-dev-server --config ./config/webpack.server.js --hot --host 0.0.0.0",
     "build": "webpack --config ./config/webpack.prod.js",
@@ -13,7 +16,7 @@
     "history": "^4.9.0",
     "localforage": "^1.7.3",
     "prop-types": "^15.6.2",
-    "react": "^16.3.1",
+    "react": "^16.8.6",
     "react-dom": "^16.3.1",
     "react-intl": "^2.9.0",
     "react-loadable": "^5.5.0",

@@ -21,6 +21,7 @@ function NavLink () {
         <li><Link to={"/focus"}>Focus</Link></li>
         <li><Link to="/propTypes">PropTypes</Link></li>
         <li><Link to="/intl">Intl</Link></li>
+        <li><Link to="/hook">Hook</Link></li>
       </ul>
       <hr/>
     </div>
