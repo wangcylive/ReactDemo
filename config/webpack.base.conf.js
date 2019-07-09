@@ -74,6 +74,11 @@ module.exports = {
     }
   },
 
+  stats: {
+    modules: false,
+    children: false
+  },
+
   optimization: {
     runtimeChunk: {
       name: 'manifest'

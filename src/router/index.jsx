@@ -1,29 +1,24 @@
 import React from 'react'
-import state from '@/store/index'
-import { Provider } from 'react-redux'
-import { hot } from 'react-hot-loader/root'
-import RouterWithSubRouters from './router-with-sub-routes'
 import Splitting from '@/components/splitting'
 
 const Home = Splitting(() => import('@/jsx/home'))
-const Demo2 = Splitting(() => import('../jsx/demo2'))
-const Demo6 = Splitting(() => import('../jsx/demo6'))
-const Demo7 = Splitting(() => import('../jsx/demo7'))
+const Demo2 = Splitting(() => import('@/jsx/demo2'))
+const Demo6 = Splitting(() => import('@/jsx/demo6'))
+const Demo7 = Splitting(() => import('@/jsx/demo7'))
 const TodoList = Splitting(() => import('@/components/todo-list'))
 const ClickCounter = Splitting(() => import('@/components/click-counter'))
 const ControlPanel = Splitting(() => import('@/components/control-panel'))
-const IndexedDB = Splitting(() => import('../components/indexedDB'))
-const IndexedDBNative = Splitting(() => import('../components/indexedDB/native'))
-const IndexedDBLocalForage = Splitting(() => import('../components/indexedDB/localforage'))
-const IndexedDBDexie = Splitting(() => import('../components/indexedDB/dexie'))
-const Cefsql = Splitting(() => import('../components/indexedDB/cefsql'))
-const ContextDemo = Splitting(() => import('../jsx/context/index.jsx'))
-const Focus = Splitting(() => import('../components/focus'))
-const PropTypes = Splitting(() => import('../components/propTypes'))
-const Intl = Splitting(() => import('../components/intl'))
-const Hook = Splitting(() => import('../components/hook'))
-
-import '@/css/nav.scss'
+const IndexedDB = Splitting(() => import('@/components/indexedDB'))
+const IndexedDBNative = Splitting(() => import('@/components/indexedDB/native'))
+const IndexedDBLocalForage = Splitting(() => import('@/components/indexedDB/localforage'))
+const IndexedDBDexie = Splitting(() => import('@/components/indexedDB/dexie'))
+const Cefsql = Splitting(() => import('@/components/indexedDB/cefsql'))
+const ContextDemo = Splitting(() => import('@/jsx/context/index.jsx'))
+const Focus = Splitting(() => import('@/components/focus'))
+const PropTypes = Splitting(() => import('@/components/propTypes'))
+const Intl = Splitting(() => import('@/components/intl'))
+const Hook = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook'))
+const HookUseState = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/useState'))
 
 const routes = [
   {
@@ -58,23 +53,25 @@ const routes = [
   {
     path: '/indexedDB',
     component: IndexedDB,
-    exact: true
-  },
-  {
-    path: '/indexedDB/native',
-    component: IndexedDBNative
-  },
-  {
-    path: '/indexedDB/localforage',
-    component: IndexedDBLocalForage
-  },
-  {
-    path: '/indexedDB/dexie',
-    component: IndexedDBDexie
-  },
-  {
-    path: '/indexedDB/cefsql',
-    component: Cefsql
+    exact: true,
+    children: [
+      {
+        path: '/indexedDB/native',
+        component: IndexedDBNative
+      },
+      {
+        path: '/indexedDB/localforage',
+        component: IndexedDBLocalForage
+      },
+      {
+        path: '/indexedDB/dexie',
+        component: IndexedDBDexie
+      },
+      {
+        path: '/indexedDB/cefsql',
+        component: Cefsql
+      },
+    ]
   },
   {
     path: '/context-demo',
@@ -94,20 +91,13 @@ const routes = [
   },
   {
     path: '/hook',
-    component: Hook
-  }
+    component: Hook,
+    children: [
+      {
+        path: '/hook/useState',
+        component: HookUseState
+      }
+    ]
+  },
 ]
-
-function RouteView () {
-  return (
-    <RouterWithSubRouters routes={routes} />
-  )
-}
-
-const DemoIndex = (props) => (
-  <Provider store={ state }>
-    <RouteView { ...props }/>
-  </Provider>
-)
-
-export default hot(DemoIndex)
+export default routes

@@ -1,16 +1,14 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function useNameStatus (init) {
   const [ name, setName ] = useState(init)
 
   useEffect(() => {
     function bodyClick (event) {
-      console.log('body click', event.target, performance.now())
+
     }
 
     document.body.addEventListener('click', bodyClick, false)
-
-    console.log('useNameState', name)
 
     return function () {
       document.body.removeEventListener('click', bodyClick, false)

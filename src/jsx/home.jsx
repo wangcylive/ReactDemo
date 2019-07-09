@@ -123,12 +123,24 @@ class Home extends Component {
     }
   }
 
+  onOpenApp = () => {
+    location.href = 'videobus://deeplink'
+    // const iframe = document.createElement('iframe')
+    // iframe.src = 'videobus://deeplink'
+    // document.body.appendChild(iframe)
+  }
+
   render () {
     console.log('home render', performance.now())
     const { props, state } = this
 
     return (
       <div>
+        <div>
+
+          <button type={"button"} onClick={this.onOpenApp}>打开 video bus</button>
+
+        </div>
         <h3>Home</h3>
         <div>
           <label>self name:</label> <span>{state.name}</span> <input ref={el => this.elInput = el} type="text" onChange={this.selfNameChange}/>

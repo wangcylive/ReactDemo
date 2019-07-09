@@ -2,13 +2,9 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDom from 'react-dom'
-import DemoIndex from './router/index'
-import config from '@/config'
+import View from './view'
 
 ReactDom.render(
-  React.createElement(DemoIndex),
+  React.createElement(View),
   document.getElementById('app')
 )
-
-console.log('evn', process.env.NODE_ENV)
-console.log('config', config)

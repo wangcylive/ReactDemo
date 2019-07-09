@@ -47,11 +47,7 @@ module.exports = webpackMerge(webpackBaseConf, {
         target: proxyServer,
         changeOrigin: true
       }
-    },
-
-    stats: {
-      modules: false
-    },
+    }
   },
 
   plugins: [
