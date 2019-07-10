@@ -1,7 +1,7 @@
 import React from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-
+import history from '@/router/history'
 
 function RouterView (props) {
   const redirectRoutes = []

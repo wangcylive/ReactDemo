@@ -2,15 +2,16 @@ import React from 'react'
 import state from '@/store/index'
 import { Provider } from 'react-redux'
 import { hot } from 'react-hot-loader/root'
-import { Link, BrowserRouter } from 'react-router-dom'
+import { Link, Router } from 'react-router-dom'
 import RouterView from '@/router/router-view'
 import routes from '@/router'
+import history from '@/router/history'
 import '@/css/nav.scss'
 
 function View (props) {
   return (
     <Provider store={ state }>
-      <BrowserRouter>
+      <Router history={history}>
         <div>
           <ul className="nav">
             {
@@ -21,7 +22,7 @@ function View (props) {
           </ul>
           <RouterView routes={routes}/>
         </div>
-      </BrowserRouter>
+      </Router>
     </Provider>
   )
 }

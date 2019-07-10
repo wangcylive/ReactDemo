@@ -1,6 +1,6 @@
 import React from 'react'
-import RouterView from '@/router/router-view'
 import { Link } from 'react-router-dom'
+import RouterView from '@/router/router-view'
 
 function User (props) {
   return (
