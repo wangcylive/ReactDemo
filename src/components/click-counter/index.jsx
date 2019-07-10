@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
-import Splitting from '@/components/splitting'
+import Splitting from '@/router/splitting'
 const ClickCounterRoute1 = Splitting(() => import('@/components/click-counter/router1'))
 const ClickCounterRoute2 = Splitting(() => import('@/components/click-counter/router2'))
 const ClickCounterNotFound = Splitting(() => import('@/components/click-counter/not-found'))

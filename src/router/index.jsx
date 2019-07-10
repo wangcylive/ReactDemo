@@ -1,5 +1,5 @@
 import React from 'react'
-import Splitting from '@/components/splitting'
+import Splitting from './splitting'
 
 const Home = Splitting(() => import('@/jsx/home'))
 const Demo2 = Splitting(() => import('@/jsx/demo2'))
@@ -16,9 +16,14 @@ const Cefsql = Splitting(() => import('@/components/indexedDB/cefsql'))
 const ContextDemo = Splitting(() => import('@/jsx/context/index.jsx'))
 const Focus = Splitting(() => import('@/components/focus'))
 const PropTypes = Splitting(() => import('@/components/propTypes'))
+
 const Intl = Splitting(() => import('@/components/intl'))
 const Hook = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook'))
 const HookUseState = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/useState'))
+
+const KeepActive = Splitting(() => import('@/components/keep-active'))
+const KeepActiveList = Splitting(() => import('@/components/keep-active/list'))
+const KeepActiveDetail = Splitting(() => import('@/components/keep-active/detail'))
 
 const routes = [
   {
@@ -99,5 +104,20 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/keep-active',
+    redirect: '/keep-active/list',
+    component: KeepActive,
+    children: [
+      {
+        path: '/keep-active/list',
+        component: KeepActiveList
+      },
+      {
+        path: '/keep-active/detail/:id',
+        component: KeepActiveDetail
+      }
+    ]
+  }
 ]
 export default routes
