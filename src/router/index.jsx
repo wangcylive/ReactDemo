@@ -111,7 +111,8 @@ const routes = [
     children: [
       {
         path: '/keep-active/list',
-        component: KeepActiveList
+        component: KeepActiveList,
+        keepAlive: true
       },
       {
         path: '/keep-active/detail/:id',
