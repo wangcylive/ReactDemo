@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import RouterView from '@/router/router-view'
+import KeepAlive from '@/router/keep-alive'
 
 function User (props) {
   return (
@@ -17,7 +18,7 @@ function User (props) {
         </ul>
       </div>
       <div>
-        <RouterView routes={props.route.children}/>
+        <KeepAlive routes={props.route.children}/>
       </div>
     </div>
   )
