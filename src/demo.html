@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+<button id="btn">初始化 payload</button>
 <script src="./js/class.js"></script>
 <script>
     $.ajax({
@@ -27,6 +28,30 @@
         ownerName
       })
     })
+
+    document.getElementById('btn').addEventListener('click', () => {
+        window.top.postMessage({
+            type: 'getPayload'
+        }, '*')
+    }, false)
+
+    window.addEventListener('message', (event) => {
+        const { data, origin } = event
+        if (data.type === 'getPayload' && /https?:\/\/[a-z0-9-]+\.yy\.com/.test(origin)) {
+            try {
+                let payload = data.value
+                payload = JSON.parse(payload)
+                if (Object.prototype.toString.call(payload) !== '[object Object]') {
+                    console.error('payload not object.')
+                } else {
+                    // 这里处理填充值
+                    console.log('payload value', payload)
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
+    }, false)
 </script>
 </body>
 </html>

@@ -9,6 +9,7 @@ import history from '@/router/history'
 import '@/css/nav.scss'
 
 function View (props) {
+  console.log('View Render', performance.now())
   return (
     <Provider store={ state }>
       <Router history={history}>

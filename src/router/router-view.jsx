@@ -1,23 +1,21 @@
-import React from 'react'
-import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from '@/router/history'
 
 function RouterView (props) {
-  const redirectRoutes = []
-  props.routes.forEach((route) => {
-    if (route.redirect) {
-      redirectRoutes.push(route)
-    }
+  console.log('RouterView Render', performance.now())
+
+  useEffect(() => {
+    props.routes.forEach((route) => {
+      if (route.redirect && history.location.pathname === route.path) {
+        history.replace(route.redirect)
+      }
+    })
   })
 
   return (
     <Switch>
-      {
-        redirectRoutes.map((route, index) => (
-          <Redirect to={route.redirect} from={route.path} key={index} exact={true}/>
-        ))
-      }
       {
         props.routes.map((route, index) => {
           return (

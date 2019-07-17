@@ -4,19 +4,10 @@ import RouterView from '@/router/router-view'
 import KeepAlive from '@/router/keep-alive'
 
 function User (props) {
+  console.log('User render', performance.now())
   return (
     <div>
       <div>header</div>
-      <div>
-        <ul>
-          <li>
-            <Link to="/keep-active/detail/1">Detail 1</Link>
-          </li>
-          <li>
-            <Link to="/keep-active/detail/2">Detail 2</Link>
-          </li>
-        </ul>
-      </div>
       <div>
         <KeepAlive routes={props.route.children}/>
       </div>

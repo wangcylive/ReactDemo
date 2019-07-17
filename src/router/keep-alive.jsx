@@ -1,19 +1,12 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
 import history from '@/router/history'
 import RouterView from './router-view'
 
 function DisplayControl (props) {
-  const style = {}
-  console.log(history, props)
-  // if (history.location.pathname !== props.path) {
-  //   style.display = 'none'
-  // }
+  let isActive = history.location.pathname.startsWith(props.path)
   return (
-    <div style={style}>
-      <props.component/>
-    </div>
+    <props.component {...props} isActive={isActive}/>
   )
 }
 
@@ -33,6 +26,18 @@ function KeepAlive (props) {
 
 KeepAlive.propTypes = {
   routes: PropTypes.array
+}
+
+export const usekeepAliveDisplayState = () => {
+  const [ style, setStyle ] = useState({})
+
+  const timeoutSetStyle = (bool) => {
+    setTimeout(() => {
+      setStyle(bool ? null : { display: 'none' })
+    }, 0)
+  }
+
+  return [ style, timeoutSetStyle ]
 }
 
 export default KeepAlive
