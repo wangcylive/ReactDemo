@@ -19,7 +19,11 @@ const PropTypes = Splitting(() => import('@/components/propTypes'))
 
 const Intl = Splitting(() => import('@/components/intl'))
 const Hook = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook'))
-const HookUseState = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/useState'))
+const HookUseState = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-state'))
+const HookUseContext = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-context'))
+const HookUseRef = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-ref'))
+const HookUseEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-effect'))
+const HookUseReducer = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-reducer'))
 
 const KeepActive = Splitting(() => import('@/components/keep-active'))
 const KeepActiveList = Splitting(() => import('@/components/keep-active/list'))
@@ -99,8 +103,24 @@ const routes = [
     component: Hook,
     children: [
       {
-        path: '/hook/useState',
+        path: '/useState',
         component: HookUseState
+      },
+      {
+        path: '/useContext',
+        component: HookUseContext
+      },
+      {
+        path: '/useRef',
+        component: HookUseRef
+      },
+      {
+        path: '/useEffect',
+        component: HookUseEffect
+      },
+      {
+        path: '/reducer',
+        component: HookUseReducer
       }
     ]
   },

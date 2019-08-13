@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Router, Switch } from 'react-router'
-import { Link, Route } from 'react-router-dom'
+import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import RouterView from '@/router/router-view'
-import MyContext from './my-context'
-import { ShowName1, ShowName2 } from './show-name'
-import { Demo1, Demo2 } from './demo1'
 
 function HookDemo (props) {
+  const match = props.match.path
+  const routes = props.route.children.map((route) => ({
+    ...route,
+    path: match + route.path
+  }))
   return (
     <div>
-      <Link to="/hook/useState">useState</Link>
-      <RouterView routes={props.route.children}/>
+      <ul>
+        {
+          props.route.children.map((item) => <li key={item.path}><Link to={match + item.path}>{item.path}</Link></li>)
+        }
+      </ul>
+      <RouterView routes={routes}/>
     </div>
   )
 }
 
-export default HookDemo
+export default withRouter(HookDemo)
