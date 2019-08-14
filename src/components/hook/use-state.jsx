@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useDebugValue } from 'react'
 
 function HookUseState () {
   const [ name, setName ] = useState('name')
+
+  useDebugValue(name)
 
   const onChange = (event) => {
     setName(event.target.value)

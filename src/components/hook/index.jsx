@@ -11,9 +11,9 @@ function HookDemo (props) {
   }))
   return (
     <div>
-      <ul>
+      <ul className="nav">
         {
-          props.route.children.map((item) => <li key={item.path}><Link to={match + item.path}>{item.path}</Link></li>)
+          props.route.children.map((item) => <li key={item.path} style={{ marginLeft: "10px" }}><Link to={match + item.path}>{item.path.substring(1)}</Link></li>)
         }
       </ul>
       <RouterView routes={routes}/>

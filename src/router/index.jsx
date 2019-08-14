@@ -18,12 +18,15 @@ const Focus = Splitting(() => import('@/components/focus'))
 const PropTypes = Splitting(() => import('@/components/propTypes'))
 
 const Intl = Splitting(() => import('@/components/intl'))
+
 const Hook = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook'))
 const HookUseState = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-state'))
 const HookUseContext = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-context'))
 const HookUseRef = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-ref'))
 const HookUseEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-effect'))
 const HookUseReducer = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-reducer'))
+const HookUseMemo = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-memo'))
+const HookUseLayoutEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-layout-effect'))
 
 const KeepActive = Splitting(() => import('@/components/keep-active'))
 const KeepActiveList = Splitting(() => import('@/components/keep-active/list'))
@@ -119,8 +122,16 @@ const routes = [
         component: HookUseEffect
       },
       {
-        path: '/reducer',
+        path: '/useLayoutEffect',
+        component: HookUseLayoutEffect
+      },
+      {
+        path: '/useReducer',
         component: HookUseReducer
+      },
+      {
+        path: '/useMemo',
+        component: HookUseMemo
       }
     ]
   },
