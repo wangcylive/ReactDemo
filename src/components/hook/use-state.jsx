@@ -8,12 +8,12 @@ function usePrevious (value) {
   return ref.current
 }
 
-const date = new Date()
-
 function HookUseState () {
   const [ name, setName ] = useState('name')
   const [ count, setCount ] = useState(0)
-  const [ dateStr, setDateStr ] = useState(()=> {
+  const [ dateStr, setDateStr ] = useState(() => {
+    console.log('initialState dataStr', performance.now())
+    const date = new Date()
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
   })
   const prevName = usePrevious(name)
@@ -33,8 +33,8 @@ function HookUseState () {
   return (
     <div>
       <p>
-      <input value={name} onChange={onChange}/>
-      <button onClick={e => setName('SS')}>set name</button>
+        <input value={name} onChange={onChange}/>
+        <button onClick={e => setName('SS')}>set name</button>
       </p>
       <p>name: {name} <span>prev name: {prevName}</span></p>
       <p><span>name length: {nameLength}</span> <span>prev name length: {prevNameLength}</span></p>

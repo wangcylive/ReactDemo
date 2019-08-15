@@ -11,5 +11,9 @@
     a {
         color: #3685ff;
         text-decoration: none;
+
+        &.active {
+            color: #f44336;
+        }
     }
 }
