@@ -85,7 +85,7 @@ module.exports = {
     },
     splitChunks: {
       cacheGroups: {
-        vendor: {
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           priority: -20,
