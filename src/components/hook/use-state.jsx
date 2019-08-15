@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useDebugValue } from 'react'
+import React, { useState, useEffect, useDebugValue, useRef } from 'react'
+
+function usePrevious (value) {
+  const ref = useRef(value)
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
 
 const date = new Date()
 
@@ -7,6 +15,13 @@ function HookUseState () {
   const [ count, setCount ] = useState(0)
   const [ dateStr, setDateStr ] = useState(()=> {
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  })
+  const prevName = usePrevious(name)
+  const nameLength = name.length
+  const prevNameLength = usePrevious(nameLength)
+
+  useEffect(() => {
+    console.log(name, prevName)
   })
 
   useDebugValue(name)
@@ -18,9 +33,11 @@ function HookUseState () {
   return (
     <div>
       <p>
-        <input value={name} onChange={onChange}/>
-        <span>name: {name}</span>
+      <input value={name} onChange={onChange}/>
+      <button onClick={e => setName('SS')}>set name</button>
       </p>
+      <p>name: {name} <span>prev name: {prevName}</span></p>
+      <p><span>name length: {nameLength}</span> <span>prev name length: {prevNameLength}</span></p>
       <p>
         <button onClick={e => setCount(val => val + 1)}>Increment</button>
         <button onClick={e => setCount(val => val - 1)}>Decrement</button>
