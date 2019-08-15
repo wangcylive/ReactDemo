@@ -4,33 +4,26 @@ function HookUseEffect (props) {
   const [ name, setName ] = useState('')
   const [ number, setNumber ] = useState(0)
   const [ count, setCount ] = useState(0)
-  const [ id, setId ] = useState()
+  const intervalRef = useRef()
   const inputEl = useRef(null)
 
   const onStart = () => {
-    const id = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       console.log('setInterval', performance.now())
       setCount((val) => val + 1)
     }, 1000)
-
-    setId(id)
   }
 
   const onStop = () => {
-    clearInterval(id)
+    clearInterval(intervalRef.current)
   }
-
-  useEffect(() => {
-    return () => {
-      clearInterval(id)
-    }
-  }, [id])
 
   useEffect(() => {
     console.log('only one useEffect', performance.now())
     inputEl.current.focus()
 
     return () => {
+      clearInterval(intervalRef.current)
       console.log('only one userEffect destroy', performance.now())
     }
   }, [])
