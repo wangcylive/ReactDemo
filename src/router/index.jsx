@@ -27,6 +27,9 @@ const HookUseEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/c
 const HookUseReducer = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-reducer'))
 const HookUseMemo = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-memo'))
 const HookUseLayoutEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-layout-effect'))
+const HookReactReduxUseStore = Splitting(() => import('@/components/hook/react-redux/use-store'))
+const HookReactReduxUseSelector = Splitting(() => import('@/components/hook/react-redux/use-selector'))
+const HookReactReduxUseDispatch = Splitting(() => import('@/components/hook/react-redux/use-dispatch'))
 
 const KeepActive = Splitting(() => import('@/components/keep-active'))
 const KeepActiveList = Splitting(() => import('@/components/keep-active/list'))
@@ -132,6 +135,18 @@ const routes = [
       {
         path: '/useMemo',
         component: HookUseMemo
+      },
+      {
+        path: '/react-redux-use-store',
+        component: HookReactReduxUseStore
+      },
+      {
+        path: '/react-redux-use-selector',
+        component: HookReactReduxUseSelector
+      },
+      {
+        path: '/react-redux-use-dispatch',
+        component: HookReactReduxUseDispatch
       }
     ]
   },
