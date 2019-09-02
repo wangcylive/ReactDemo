@@ -17,7 +17,7 @@ function View (props) {
           <ul className="nav">
             {
               routes.map((route, index) => (
-                <li key={index}><NavLink activeClassName="active" to={route.path}>{route.path === '/' ? 'Home' : route.path.substring(1)}</NavLink></li>
+                <li key={index}><NavLink activeClassName="active" exact={route.path === '/'} to={route.path}>{route.path === '/' ? 'Home' : route.path.substring(1)}</NavLink></li>
               ))
             }
           </ul>

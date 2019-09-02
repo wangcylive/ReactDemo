@@ -7,6 +7,7 @@
 </head>
 <body>
 <button id="btn">初始化 payload</button>
+<button id="btnPushTime">获取 pushTime</button>
 <script src="./js/class.js"></script>
 <script>
     $.ajax({
@@ -35,6 +36,12 @@
         }, '*')
     }, false)
 
+    document.getElementById('btnPushTime').addEventListener('click', () => {
+      window.top.postMessage({
+        type: 'getPushConfig'
+      }, '*')
+    })
+
     window.addEventListener('message', (event) => {
         const { data, origin } = event
         if (data.type === 'getPayload' && /https?:\/\/[a-z0-9-]+\.yy\.com/.test(origin)) {
@@ -50,6 +57,10 @@
             } catch (err) {
                 console.error(err)
             }
+        }
+
+        if (data.type === 'getPushConfig') {
+          console.log('demo getPushConfig', data.value)
         }
     }, false)
 </script>
