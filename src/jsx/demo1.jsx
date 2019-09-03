@@ -25,6 +25,16 @@ function init () {
   return div
 }
 
+function ShowName (props) {
+  return (
+    <div>
+      {
+        props.render()
+      }
+    </div>
+  )
+}
+
 function Demo1 () {
   useEffect(() => {
     const div = init()
@@ -36,7 +46,10 @@ function Demo1 () {
   }, [])
 
   return (
-    <div>demo1</div>
+    <div>
+      <h3>demo1</h3>
+      <ShowName render={() => <li>555</li>}/>
+    </div>
   )
 }
 
