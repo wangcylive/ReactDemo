@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import { IntlProvider, addLocaleData, FormattedMessage, FormattedDate, FormattedTime, defineMessages, injectIntl } from 'react-intl'
-import { formatMessage } from 'react-intl/src/format'
-import localDataZh from 'react-intl/locale-data/zh'
-import localDataEn from 'react-intl/locale-data/en'
+import { IntlProvider, FormattedMessage, FormattedDate, FormattedTime, injectIntl } from 'react-intl'
 import zh from './lang/zh'
 import en from './lang/en'
-
-addLocaleData([...localDataEn, ...localDataZh])
 
 const allMessages = {
   zh,

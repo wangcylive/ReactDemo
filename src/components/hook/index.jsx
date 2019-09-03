@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import RouterView from '@/router/router-view'
+import ErrorBoundary from '@/components/error-boundary'
 
 function HookDemo (props) {
   const match = props.match.path
@@ -16,7 +17,9 @@ function HookDemo (props) {
           props.route.children.map((item) => <li key={item.path} style={{ marginLeft: "10px" }}><NavLink activeClassName="active" to={match + item.path}>{item.path.substring(1)}</NavLink></li>)
         }
       </ul>
-      <RouterView routes={routes}/>
+      <ErrorBoundary>
+        <RouterView routes={routes}/>
+      </ErrorBoundary>
     </div>
   )
 }

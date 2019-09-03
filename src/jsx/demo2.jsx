@@ -44,7 +44,7 @@ export default class extends Component {
   onClickPush = () => {
     this.setState((state) => {
       return {
-        users: [ ...state.users, { name: state.users.length + 1 + ''} ]
+        users: [ ...state.users, { name: state.users.length + 1 + '' } ]
       }
     })
   }

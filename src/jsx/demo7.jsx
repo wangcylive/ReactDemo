@@ -1,6 +1,4 @@
 import React from 'react'
-import ReactDom from 'react-dom'
-import PropTypes from 'prop-types'
 
 class Input extends React.Component {
   constructor (props) {
@@ -40,20 +38,25 @@ class Input extends React.Component {
 
   render () {
     console.log('render', performance.now())
-    const name = this.state.value
+    const name = this.state.name
     const age = this.state.age
+
+    if (name.length > 5) {
+      throw new Error('too long.')
+    }
+
     return (
       <div>
         <ul>
           <li>
             <label htmlFor="">Name</label>
-            <input type="text" value={ name } onInput={ this.handleChangeName }/>
-            <strong>{ name }</strong>
+            <input type="text" value={name} onChange={this.handleChangeName}/>
+            <strong>{name}</strong>
           </li>
           <li>
             <label htmlFor="">Age</label>
-            <input type="number" value={ age } onInput={ this.handleChangeAge }/>
-            <strong>{ age }</strong>
+            <input type="number" value={age} onChange={this.handleChangeAge}/>
+            <strong>{age}</strong>
           </li>
         </ul>
       </div>
@@ -84,17 +87,17 @@ export default class InfoForm extends React.Component {
     return (
       <div>
         <div>
-          <label><input type="radio" name="showInput" value={true} defaultChecked={ showInput } onInput={ this.handleChange } /> show</label>
-          <label><input type="radio" name="showInput" value={false} defaultChecked={ !showInput } onInput={ this.handleChange } /> hide</label>
-          <strong style={ {marginLeft: '10px'} }>{ showInput ? 'show' : 'hide' }</strong>
+          <label><input type="radio" name="showInput" value={true} defaultChecked={showInput}
+                        onChange={this.handleChange}/> show</label>
+          <label><input type="radio" name="showInput" value={false} defaultChecked={!showInput}
+                        onChange={this.handleChange}/> hide</label>
+          <strong style={{ marginLeft: '10px' }}>{showInput ? 'show' : 'hide'}</strong>
         </div>
-        { InputComponent }
+        {InputComponent}
       </div>
     )
   }
 }
-
-InfoForm.defaultValue
 
 // ReactDom.render(
 //   <InfoForm/>,

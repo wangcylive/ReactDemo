@@ -7,6 +7,7 @@ import RouterView from '@/router/router-view'
 import routes from '@/router'
 import history from '@/router/history'
 import '@/css/nav.scss'
+import ErrorBoundary from '@/components/error-boundary'
 
 function View (props) {
   console.log('View Render', performance.now())
@@ -21,7 +22,9 @@ function View (props) {
               ))
             }
           </ul>
-          <RouterView routes={routes}/>
+          <ErrorBoundary>
+            <RouterView routes={routes}/>
+          </ErrorBoundary>
         </div>
       </Router>
     </Provider>

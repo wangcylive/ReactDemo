@@ -1,45 +1,51 @@
 import React from 'react'
-import Splitting from './splitting'
+import loadableHoc from './splitting'
 
-const Home = Splitting(() => import('@/jsx/home'))
-const Demo2 = Splitting(() => import('@/jsx/demo2'))
-const Demo6 = Splitting(() => import('@/jsx/demo6'))
-const Demo7 = Splitting(() => import('@/jsx/demo7'))
-const TodoList = Splitting(() => import('@/components/todo-list'))
-const ClickCounter = Splitting(() => import('@/components/click-counter'))
-const ControlPanel = Splitting(() => import('@/components/control-panel'))
-const IndexedDB = Splitting(() => import('@/components/indexedDB'))
-const IndexedDBNative = Splitting(() => import('@/components/indexedDB/native'))
-const IndexedDBLocalForage = Splitting(() => import('@/components/indexedDB/localforage'))
-const IndexedDBDexie = Splitting(() => import('@/components/indexedDB/dexie'))
-const Cefsql = Splitting(() => import('@/components/indexedDB/cefsql'))
-const ContextDemo = Splitting(() => import('@/jsx/context/index.jsx'))
-const Focus = Splitting(() => import('@/components/focus'))
-const PropTypes = Splitting(() => import('@/components/propTypes'))
+const Home = loadableHoc(() => import('@/jsx/home'))
+const Demo1 = loadableHoc(() => import('@/jsx/demo1'))
+const Demo2 = loadableHoc(() => import('@/jsx/demo2'))
+const Demo6 = loadableHoc(() => import('@/jsx/demo6'))
+const Demo7 = loadableHoc(() => import('@/jsx/demo7'))
+const Lazy = loadableHoc(() => import('@/components/lazy'))
+const TodoList = loadableHoc(() => import('@/components/todo-list'))
+const ClickCounter = loadableHoc(() => import('@/components/click-counter'))
+const ControlPanel = loadableHoc(() => import('@/components/control-panel'))
+const IndexedDB = loadableHoc(() => import('@/components/indexedDB'))
+const IndexedDBNative = loadableHoc(() => import('@/components/indexedDB/native'))
+const IndexedDBLocalForage = loadableHoc(() => import('@/components/indexedDB/localforage'))
+const IndexedDBDexie = loadableHoc(() => import('@/components/indexedDB/dexie'))
+const Cefsql = loadableHoc(() => import('@/components/indexedDB/cefsql'))
+const ContextDemo = loadableHoc(() => import('@/jsx/context/index.jsx'))
+const Focus = loadableHoc(() => import('@/components/focus'))
+const PropTypes = loadableHoc(() => import('@/components/propTypes'))
 
-const Intl = Splitting(() => import('@/components/intl'))
+const Intl = loadableHoc(() => import('@/components/intl'))
 
-const Hook = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook'))
-const HookUseState = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-state'))
-const HookUseContext = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-context'))
-const HookUseRef = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-ref'))
-const HookUseEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-effect'))
-const HookUseReducer = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-reducer'))
-const HookUseMemo = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-memo'))
-const HookUseLayoutEffect = Splitting(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-layout-effect'))
-const HookReactReduxUseStore = Splitting(() => import('@/components/hook/react-redux/use-store'))
-const HookReactReduxUseSelector = Splitting(() => import('@/components/hook/react-redux/use-selector'))
-const HookReactReduxUseDispatch = Splitting(() => import('@/components/hook/react-redux/use-dispatch'))
+const Hook = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook'))
+const HookUseState = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-state'))
+const HookUseContext = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-context'))
+const HookUseRef = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-ref'))
+const HookUseEffect = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-effect'))
+const HookUseReducer = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-reducer'))
+const HookUseMemo = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-memo'))
+const HookUseLayoutEffect = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-layout-effect'))
+const HookReactReduxUseStore = loadableHoc(() => import('@/components/hook/react-redux/use-store'))
+const HookReactReduxUseSelector = loadableHoc(() => import('@/components/hook/react-redux/use-selector'))
+const HookReactReduxUseDispatch = loadableHoc(() => import('@/components/hook/react-redux/use-dispatch'))
 
-const KeepActive = Splitting(() => import('@/components/keep-active'))
-const KeepActiveList = Splitting(() => import('@/components/keep-active/list'))
-const KeepActiveDetail = Splitting(() => import('@/components/keep-active/detail'))
+const KeepActive = loadableHoc(() => import('@/components/keep-active'))
+const KeepActiveList = loadableHoc(() => import('@/components/keep-active/list'))
+const KeepActiveDetail = loadableHoc(() => import('@/components/keep-active/detail'))
 
 const routes = [
   {
     path: '/',
     component: Home,
     exact: true
+  },
+  {
+    path: '/demo1',
+    component: Demo1
   },
   {
     path: '/demo2',
@@ -52,6 +58,10 @@ const routes = [
   {
     path: '/demo7',
     component: Demo7
+  },
+  {
+    path: '/lazy',
+    component: Lazy
   },
   {
     path: '/todo-list',

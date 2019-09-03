@@ -1,22 +1,43 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
-function tick() {
-  const element = (
-    <div>
-      <h1 className='h1-ele'>Hello, World!!!</h1>
-      <div>Time: {Date.now()}</div>
-    </div>
-  );
+function init () {
+  const div = document.createElement('div')
 
-  ReactDOM.render(
-    element,
-    document.getElementById('demo1'),
-  );
+  document.body.appendChild(div)
 
-  // console.log(element);
+  const tick = () => {
+    const element = (
+      <div>
+        <h1 className='h1-ele'>Hello, World!!!</h1>
+        <div>Time: {Date.now()}</div>
+      </div>
+    )
+
+    ReactDOM.render(
+      element,
+      div,
+    )
+  }
+
+  init.intervalID = setInterval(tick, 1000)
+
+  return div
 }
 
-tick();
+function Demo1 () {
+  useEffect(() => {
+    const div = init()
 
-setInterval(tick, 1000);
+    return () => {
+      clearInterval(init.intervalID)
+      div.parentElement.removeChild(div)
+    }
+  }, [])
+
+  return (
+    <div>demo1</div>
+  )
+}
+
+export default Demo1

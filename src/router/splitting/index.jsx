@@ -1,10 +1,18 @@
-import React, { Component } from 'react'
-import Loadable from 'react-loadable'
+import React from 'react'
 import Loading from './loading'
+import loadable from '@loadable/component'
+import LoadableErrorBoundary from '@/router/splitting/loadable-error-boundary'
 
-export default (loader) => Loadable({
-  loader,
-  loading: Loading,
-  timeout: 10 * 1e4,
-  delay: 300000
-})
+const { createElement } = React
+
+function loadableHoc (loader) {
+  return (props) => {
+    return createElement(LoadableErrorBoundary,
+      props,
+      createElement(loadable(loader, {
+        fallback: createElement(Loading)
+      }), props))
+  }
+}
+
+export default loadableHoc
