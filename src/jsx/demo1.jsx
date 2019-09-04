@@ -49,7 +49,7 @@ function Demo1 () {
   return (
     <div>
       <h3>demo1</h3>
-      <ShowName render={() => <li>555</li>}/>
+      <ShowName render={() => <li>1</li>}/>
     </div>
   )
 }

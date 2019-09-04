@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from '@/router/history'
+import LoadableErrorBoundary from '@/router/splitting/loadable-error-boundary'
 
 function RouterView (props) {
   console.log('RouterView Render', performance.now())
@@ -20,7 +21,7 @@ function RouterView (props) {
         props.routes.map((route, index) => {
           return (
             <Route path={route.path} exact={!!route.exact} key={index} render={props => (
-              <route.component {...props} route={route}/>
+              <LoadableErrorBoundary><route.component {...props} route={route}/></LoadableErrorBoundary>
             )}/>
           )
         })
