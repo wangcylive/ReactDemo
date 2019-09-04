@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useDebugValue, useRef } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 function usePrevious (value) {
   const ref = useRef(value)
@@ -48,4 +49,4 @@ function HookUseState () {
   )
 }
 
-export default HookUseState
+export default hot(HookUseState)

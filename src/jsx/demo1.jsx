@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { hot } from 'react-hot-loader/root'
 
 function init () {
   const div = document.createElement('div')
@@ -53,4 +54,4 @@ function Demo1 () {
   )
 }
 
-export default Demo1
+export default hot(Demo1)

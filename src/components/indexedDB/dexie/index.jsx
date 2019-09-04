@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 import Dexie from 'dexie'
 
 import style from './layout.scss?module'
@@ -12,7 +13,7 @@ import appImDB from './appImDB'
 
 window.appImDB = appImDB
 
-export default class App extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
 
@@ -259,3 +260,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default hot(App)

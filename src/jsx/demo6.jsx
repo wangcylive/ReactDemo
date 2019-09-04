@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import PropTypes from 'prop-types'
+import { hot } from 'react-hot-loader/root'
 
-export default class HelloWord extends React.Component {
+class Demo6 extends React.Component {
   constructor (props) {
     super(props)
   }
@@ -14,13 +15,15 @@ export default class HelloWord extends React.Component {
   }
 }
 
-HelloWord.defaultProps = {
+Demo6.defaultProps = {
   name: 'Wangcy'
 }
 
-HelloWord.propTypes = {
+Demo6.propTypes = {
   name: PropTypes.string.isRequired
 }
+
+export default hot(Demo6)
 
 // ReactDom.render(
 //   <HelloWord/>,

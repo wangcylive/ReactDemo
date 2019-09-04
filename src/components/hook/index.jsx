@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader/root'
 import { withRouter } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import RouterView from '@/router/router-view'
@@ -24,4 +25,4 @@ function HookDemo (props) {
   )
 }
 
-export default withRouter(HookDemo)
+export default hot(withRouter(HookDemo))

@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 function init ({ count, name }) {
   return {
@@ -59,4 +60,4 @@ function Demo1 (props) {
   )
 }
 
-export default HookUserReducer
+export default hot(HookUserReducer)

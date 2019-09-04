@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 import Counter from './counter'
 import Summary from './summary'
 
-export default class ControlPanel extends Component {
-  constructor(props) {
+class ControlPanel extends Component {
+  constructor (props) {
     super(props)
     this.initValue = [ 0, 20, 30 ]
     const initSum = this.initValue.reduce((a, b) => a + b)
@@ -25,17 +26,17 @@ export default class ControlPanel extends Component {
     })
   }
 
-  render() {
+  render () {
     console.log('ControlPanel render', this.props, this.state)
     const initValue = this.initValue
 
     return (
       <div>
-        <Counter caption="First" onUpdate={ this.onCounterUpdate } />
-        <Counter caption="Second" onUpdate={ this.onCounterUpdate } />
-        <Counter caption="Third" onUpdate={ this.onCounterUpdate } />
+        <Counter caption="First" onUpdate={this.onCounterUpdate}/>
+        <Counter caption="Second" onUpdate={this.onCounterUpdate}/>
+        <Counter caption="Third" onUpdate={this.onCounterUpdate}/>
         <div>
-          <button onClick={ () => this.forceUpdate() }>Click me to repaint.</button>
+          <button onClick={() => this.forceUpdate()}>Click me to repaint.</button>
         </div>
 
         <Summary/>
@@ -47,3 +48,5 @@ export default class ControlPanel extends Component {
     console.log('ControlPanel componentDidMount', this, args)
   }
 }
+
+export default hot(ControlPanel)

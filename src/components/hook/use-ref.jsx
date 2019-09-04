@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 function useClientHeight () {
   const [ clientHeight, setClientHeight ] = useState(null)
@@ -42,4 +43,4 @@ function HookUseRef (props) {
   )
 }
 
-export default HookUseRef
+export default hot(HookUseRef)

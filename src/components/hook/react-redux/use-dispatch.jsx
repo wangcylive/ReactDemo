@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { hot } from 'react-hot-loader/root'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName } from '@/store/user-info/action'
 
@@ -34,4 +35,4 @@ function HookReactReduxUseDispatch () {
   )
 }
 
-export default HookReactReduxUseDispatch
+export default hot(HookReactReduxUseDispatch)

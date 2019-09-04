@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader/root'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { createSelector } from 'reselect'
 import { changeName } from '@/store/user-info/action'
@@ -24,4 +25,4 @@ function HookReactReduxUseSelector () {
   )
 }
 
-export default HookReactReduxUseSelector
+export default hot(HookReactReduxUseSelector)

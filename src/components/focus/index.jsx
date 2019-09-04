@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 import style from './layout.scss?module'
 
-export default class App extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -64,11 +65,12 @@ export default class App extends Component {
         <div>{this.state.innerHeight}</div>
 
         <div className={style.dialog} style={this.dialogStyle} ref={el => this.dialog = el}>
-          <div className={style.overlay}></div>
+          <div className={style.overlay}/>
           <div className={style.container}>
             <div className={style.body}>
               <div className={style.title}>输入框获得焦点</div>
-              <input className={style.input} type="text" onBlur={this.onBlur} onChange={this.onChangeKey} ref={el => this.dialogInput = el}/>
+              <input className={style.input} type="text" onBlur={this.onBlur} onChange={this.onChangeKey}
+                     ref={el => this.dialogInput = el}/>
               <button className={style.btnClose} type={'button'} onClick={this.onClose}>关闭</button>
             </div>
           </div>
@@ -77,3 +79,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default hot(App)

@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 function HookUseMemo (props) {
   const [ name, setName ] = useState('')
@@ -18,4 +19,4 @@ function HookUseMemo (props) {
   )
 }
 
-export default HookUseMemo
+export default hot(HookUseMemo)

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 import './layout.scss'
 
 const customerData = [
-  { ssn: "444", name: "Bill", age: 35, email: "bill@company.com" },
-  { ssn: "555", name: "Donna", age: 32, email: "donna@home.org" }
+  { ssn: '444', name: 'Bill', age: 35, email: 'bill@company.com' },
+  { ssn: '555', name: 'Donna', age: 32, email: 'donna@home.org' }
 ]
 
 const dbName = 'my_first_indexedDB'
@@ -13,7 +14,7 @@ const storeName = 'customers'
 let DB
 let transaction
 
-export default class IndexedDBForm extends Component {
+class IndexedDBForm extends Component {
   constructor (props) {
     super(props)
 
@@ -48,7 +49,7 @@ export default class IndexedDBForm extends Component {
       validationMessage: ''
     })
 
-    transaction = DB.transaction([storeName], 'readwrite')
+    transaction = DB.transaction([ storeName ], 'readwrite')
 
     transaction.onabort = (event) => {
       console.log('transaction', event)
@@ -94,7 +95,7 @@ export default class IndexedDBForm extends Component {
       validationMessage: ''
     })
 
-    const transaction = DB.transaction([storeName], 'readwrite')
+    const transaction = DB.transaction([ storeName ], 'readwrite')
     const objectStore = transaction.objectStore(storeName)
 
     const request = objectStore.put({
@@ -113,7 +114,7 @@ export default class IndexedDBForm extends Component {
   deleteMember = () => {
     const { ssn } = this.state
 
-    const request = DB.transaction([storeName], 'readwrite').objectStore(storeName).delete(Number(ssn))
+    const request = DB.transaction([ storeName ], 'readwrite').objectStore(storeName).delete(Number(ssn))
 
     request.onsuccess = (event) => {
       console.log('delete success', event)
@@ -130,7 +131,7 @@ export default class IndexedDBForm extends Component {
       return
     }
 
-    const request = DB.transaction([storeName]).objectStore(storeName).get(querySnn)
+    const request = DB.transaction([ storeName ]).objectStore(storeName).get(querySnn)
 
     request.onsuccess = (event) => {
       const result = event.target.result
@@ -148,7 +149,7 @@ export default class IndexedDBForm extends Component {
   getAllMember = () => {
     const members = []
 
-    const openCursor = DB.transaction([storeName]).objectStore(storeName).openCursor()
+    const openCursor = DB.transaction([ storeName ]).objectStore(storeName).openCursor()
 
     openCursor.onsuccess = (event) => {
       const cursor = event.target.result
@@ -207,33 +208,34 @@ export default class IndexedDBForm extends Component {
             <fieldset>
               <legend>增删改查</legend>
               <div>
-                <label htmlFor="">ssn:<input type="text" value={ ssn } onChange={ this.changeSsn } required/></label>
+                <label htmlFor="">ssn:<input type="text" value={ssn} onChange={this.changeSsn} required/></label>
               </div>
               <div>
-                <label htmlFor="">name: <input type="text" value={ name } onChange={ this.changeName } required/></label>
+                <label htmlFor="">name: <input type="text" value={name} onChange={this.changeName} required/></label>
               </div>
               <div>
-                <label htmlFor="">Age: <input type="number" value={ age } onChange={ this.changeAge } required/></label>
+                <label htmlFor="">Age: <input type="number" value={age} onChange={this.changeAge} required/></label>
               </div>
               <div>
-                <label htmlFor="">Email: <input type="email" value={ email } onChange={ this.changeEmail } required/></label>
+                <label htmlFor="">Email: <input type="email" value={email} onChange={this.changeEmail}
+                                                required/></label>
               </div>
-              <div><small style={ {'color': '#ff0000'} }>{ validationMessage }</small></div>
+              <div><small style={{ 'color': '#ff0000' }}>{validationMessage}</small></div>
               <div>
-                <button type="submit" onClick={ this.addMember }>addMember</button>
-                <button type="button" onClick={ this.updateMember }>updateMember</button>
-                <button type="button" onClick={ this.deleteMember }>deleteMember</button>
-                <button type="button" onClick={ this.getAllMember }>getAllMember</button>
+                <button type="submit" onClick={this.addMember}>addMember</button>
+                <button type="button" onClick={this.updateMember}>updateMember</button>
+                <button type="button" onClick={this.deleteMember}>deleteMember</button>
+                <button type="button" onClick={this.getAllMember}>getAllMember</button>
               </div>
             </fieldset>
           </form>
         </div>
         <hr/>
         <div>
-          <div><label htmlFor=""><input type="text" value={ querySnn } onChange={ this.changeQuerySnn }/></label></div>
-          <div>{ JSON.stringify(queryResult) }</div>
+          <div><label htmlFor=""><input type="text" value={querySnn} onChange={this.changeQuerySnn}/></label></div>
+          <div>{JSON.stringify(queryResult)}</div>
           <div>
-            <button onClick={ this.getMemberBySnn }>Query</button>
+            <button onClick={this.getMemberBySnn}>Query</button>
           </div>
         </div>
       </div>
@@ -270,3 +272,5 @@ export default class IndexedDBForm extends Component {
     }
   }
 }
+
+export default hot(IndexedDBForm)

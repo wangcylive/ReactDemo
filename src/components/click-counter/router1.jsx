@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 
 function ShowSearch (props) {
   return (
@@ -6,7 +7,7 @@ function ShowSearch (props) {
   )
 }
 
-export default class App extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
   }
@@ -24,3 +25,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default hot(App)

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
-class Message {}
+class Message {
+}
 
 function ShowList () {
   return (
@@ -12,7 +14,7 @@ function ShowList () {
 const ElementDiv = React.createElement('div', null, 'Hello React')
 const element = <h1>Hello World.</h1>
 
-export default class App extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
   }
@@ -22,27 +24,28 @@ export default class App extends Component {
       string: '1',
       number: 1e5,
       array: [],
-      object: {name: 'w'},
+      object: { name: 'w' },
       bool: true,
       symbol: Symbol(),
-      func: () => {},
+      func: () => {
+      },
       node: ElementDiv,
       element: element,
       instanceOf: new Message(),
       regExp: /\w+/,
       textAlign: 'center',
       union: '0',
-      objectOf: {width: 1, height: 2},
-      arrayOf: [1, 2, 3],
-      arrayOfUnion: [1, '1', 2, '3'],
+      objectOf: { width: 1, height: 2 },
+      arrayOf: [ 1, 2, 3 ],
+      arrayOfUnion: [ 1, '1', 2, '3' ],
       font: {
         fontSize: 10,
         color: '#f00',
         fontWeight: 400
       },
-      arrayOfShape: [{name: 'A'}, {name: {}}, {name: 1}],
+      arrayOfShape: [ { name: 'A' }, { name: {} }, { name: 1 } ],
       any: Infinity,
-      customProp: [1, 2, 3, 4]
+      customProp: [ 1, 2, 3, 4 ]
     }
 
     return (
@@ -79,7 +82,7 @@ ChildComponent.propTypes = {
   element: PropTypes.element, // react 元素
   instanceOf: PropTypes.instanceOf(Message), // 类的实例
   regExp: PropTypes.instanceOf(RegExp), // 类的实例
-  textAlign: PropTypes.oneOf(['left', 'right', 'center']), // 枚举
+  textAlign: PropTypes.oneOf([ 'left', 'right', 'center' ]), // 枚举
   union: PropTypes.oneOfType([ // 类型集合
     PropTypes.string,
     PropTypes.bool
@@ -99,9 +102,11 @@ ChildComponent.propTypes = {
   }),
   any: PropTypes.any.isRequired, // 任意类型
   customProp: function (props, propName, componentName) {
-    if (Array.isArray(props[propName]) && props[propName].length < 3) {
+    if (Array.isArray(props[ propName ]) && props[ propName ].length < 3) {
       return new Error(`propName isArray length must than 3`)
     }
     console.log('customProp', props, propName, componentName)
   }
 }
+
+export default hot(App)

@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
+import { hot } from 'react-hot-loader/root'
 
 const names = [ 'Alice', 'Emily', 'Kate' ]
 
@@ -31,7 +32,7 @@ RenderList.propTypes = {
   nodes: PropTypes.arrayOf(PropTypes.number)
 }
 
-export default class extends Component {
+class Demo2 extends Component {
   constructor (props) {
     super(props)
 
@@ -158,3 +159,5 @@ async function allShowtime () {
 }
 
 // allShowtime()
+
+export default hot(Demo2)

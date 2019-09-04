@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 import appImDB from './appImDB'
 
 import style from './layout.scss?module'
 
-export default class App extends Component {
+class App extends Component {
   constructor (props) {
     super(props)
 
@@ -217,3 +218,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default hot(App)

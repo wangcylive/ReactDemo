@@ -15,7 +15,7 @@ const IndexedDBNative = loadableHoc(() => import('@/components/indexedDB/native'
 const IndexedDBLocalForage = loadableHoc(() => import('@/components/indexedDB/localforage'))
 const IndexedDBDexie = loadableHoc(() => import('@/components/indexedDB/dexie'))
 const Cefsql = loadableHoc(() => import('@/components/indexedDB/cefsql'))
-const ContextDemo = loadableHoc(() => import('@/jsx/context/index.jsx'))
+const ContextDemo = loadableHoc(() => import('@/jsx/context'))
 const Focus = loadableHoc(() => import('@/components/focus'))
 const PropTypes = loadableHoc(() => import('@/components/propTypes'))
 

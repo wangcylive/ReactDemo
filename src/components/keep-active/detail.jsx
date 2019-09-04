@@ -1,4 +1,5 @@
 import React, { Component, useEffect } from 'react'
+import { hot } from 'react-hot-loader/root'
 import { Link } from 'react-router-dom'
 
 function Detail (props) {
@@ -19,4 +20,4 @@ function Detail (props) {
   )
 }
 
-export default Detail
+export default hot(Detail)

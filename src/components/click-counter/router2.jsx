@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react'
+import { hot } from 'react-hot-loader/root'
 import { Switch, Route, Link, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeName, asyncChangeName } from '@/store/user-info/action'
@@ -88,7 +89,7 @@ class ClickCounterRouter2 extends Component {
   }
 }
 
-export default connect(
+export default hot(connect(
   mapStateToProp,
   mapDispatchToProp
-)(ClickCounterRouter2)
+)(ClickCounterRouter2))

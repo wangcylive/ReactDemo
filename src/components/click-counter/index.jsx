@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
+import { hot } from 'react-hot-loader/root'
 import Splitting from '@/router/splitting'
 const ClickCounterRoute1 = Splitting(() => import('@/components/click-counter/router1'))
 const ClickCounterRoute2 = Splitting(() => import('@/components/click-counter/router2'))
@@ -11,7 +12,7 @@ function ShowName (props) {
   )
 }
 
-export default class Index extends Component {
+class ClickCounter extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -106,3 +107,5 @@ export default class Index extends Component {
     )
   }
 }
+
+export default hot(ClickCounter)

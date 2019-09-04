@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDom from 'react-dom'
+import { hot } from 'react-hot-loader/root'
 import { changeName } from '@/store/user-info/action'
 import { connect } from 'react-redux'
 
@@ -29,7 +30,7 @@ class View1 extends Component {
   iframePostMessage = () => {
     const data = {
       type: 'setPayload',
-      payload: JSON.stringify({value: 'postMessage'})
+      payload: JSON.stringify({ value: 'postMessage' })
     }
     console.log('iframeMessage', data)
     window.top.postMessage(data, '*')
@@ -62,7 +63,7 @@ class View1 extends Component {
         </div>
         <ul>
           {
-            lists.map((item, index) => <li ref={(ele) => this[`list${index}`] = ele} key={index}>{item}</li>)
+            lists.map((item, index) => <li ref={(ele) => this[ `list${index}` ] = ele} key={index}>{item}</li>)
           }
         </ul>
         <div>{props.children}</div>
@@ -138,21 +139,23 @@ class Home extends Component {
       <div>
         <div>
 
-          <button type={"button"} onClick={this.onOpenApp}>打开 video bus</button>
+          <button type={'button'} onClick={this.onOpenApp}>打开 video bus</button>
 
         </div>
         <h3>Home</h3>
         <div>
-          <label>self name:</label> <span>{state.name}</span> <input ref={el => this.elInput = el} type="text" onChange={this.selfNameChange}/>
+          <label>self name:</label> <span>{state.name}</span> <input ref={el => this.elInput = el} type="text"
+                                                                     onChange={this.selfNameChange}/>
         </div>
         <div>
-          <label ref="label">redux name:</label> <span>{props.name}</span> <input type="text" onChange={this.reduxNameChange}/>
+          <label ref="label">redux name:</label> <span>{props.name}</span> <input type="text"
+                                                                                  onChange={this.reduxNameChange}/>
         </div>
         <hr/>
         <div>
           <button onClick={this.changeView1}>Change View1 view</button>
         </div>
-        <View1 {...props } changeParentName={this.changeSelfName} ref="view1"><View2/><View3/></View1>
+        <View1 {...props} changeParentName={this.changeSelfName} ref="view1"><View2/><View3/></View1>
       </div>
     )
   }
@@ -172,4 +175,4 @@ function mapDispatch (dispatch, ownProps) {
   }
 }
 
-export default connect(mapState, mapDispatch)(Home)
+export default hot(connect(mapState, mapDispatch)(Home))

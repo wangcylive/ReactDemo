@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { hot } from 'react-hot-loader/root'
 
-export default class TodoList extends Component {
+class TodoList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -56,3 +57,5 @@ export default class TodoList extends Component {
     )
   }
 }
+
+export default hot(TodoList)

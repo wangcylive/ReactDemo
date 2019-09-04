@@ -1,4 +1,5 @@
 import React from 'react'
+import { hot } from 'react-hot-loader/root'
 import { Link } from 'react-router-dom'
 import RouterView from '@/router/router-view'
 import KeepAlive from '@/router/keep-alive'
@@ -15,4 +16,4 @@ function User (props) {
   )
 }
 
-export default User
+export default hot(User)

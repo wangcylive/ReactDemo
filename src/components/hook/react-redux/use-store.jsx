@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'
+import { hot } from 'react-hot-loader/root'
 import { useStore, useDispatch } from 'react-redux'
 import { changeName } from '@/store/user-info/action'
 
@@ -20,4 +21,4 @@ function HookReactReduxUseStore () {
   )
 }
 
-export default HookReactReduxUseStore
+export default hot(HookReactReduxUseStore)
