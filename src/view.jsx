@@ -1,7 +1,6 @@
 import React from 'react'
 import state from '@/store/index'
 import { Provider } from 'react-redux'
-import { setConfig } from 'react-hot-loader'
 import { hot } from 'react-hot-loader/root'
 import { NavLink, Router } from 'react-router-dom'
 import RouterView from '@/router/router-view'
@@ -9,10 +8,6 @@ import routes from '@/router'
 import history from '@/router/history'
 import '@/css/nav.scss'
 import ErrorBoundary from '@/components/error-boundary'
-
-setConfig({
-  reloadHooks: false
-})
 
 function View (props) {
   console.log('View Render', performance.now())

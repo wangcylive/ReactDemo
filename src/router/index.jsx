@@ -18,6 +18,7 @@ const Cefsql = loadableHoc(() => import('@/components/indexedDB/cefsql'))
 const ContextDemo = loadableHoc(() => import('@/jsx/context'))
 const Focus = loadableHoc(() => import('@/components/focus'))
 const PropTypes = loadableHoc(() => import('@/components/propTypes'))
+const ProxyDemo = loadableHoc(() => import('@/components/proxy'))
 
 const Intl = loadableHoc(() => import('@/components/intl'))
 
@@ -175,6 +176,10 @@ const routes = [
         component: KeepActiveDetail
       }
     ]
+  },
+  {
+    path: '/proxy',
+    component: ProxyDemo
   }
 ]
 
