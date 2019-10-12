@@ -38,6 +38,8 @@ const KeepActive = loadableHoc(() => import('@/components/keep-active'))
 const KeepActiveList = loadableHoc(() => import('@/components/keep-active/list'))
 const KeepActiveDetail = loadableHoc(() => import('@/components/keep-active/detail'))
 
+const QrcodeResearch = loadableHoc(() => import('@/jsx/qrcode-research'))
+
 const routes = [
   {
     path: '/',
@@ -180,6 +182,10 @@ const routes = [
   {
     path: '/proxy',
     component: ProxyDemo
+  },
+  {
+    path: '/qrcode-research',
+    component: QrcodeResearch
   }
 ]
 
