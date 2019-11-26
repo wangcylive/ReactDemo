@@ -22,3 +22,11 @@ html {
         }
     }
 }
+
+#svg {
+    border: 1px solid hsla(0, 0%, 0%, .5);
+
+    line {
+        shape-rendering: crispEdges;
+    }
+}

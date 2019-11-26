@@ -6,6 +6,7 @@ const Demo1 = loadableHoc(() => import('@/jsx/demo1'))
 const Demo2 = loadableHoc(() => import('@/jsx/demo2'))
 const Demo6 = loadableHoc(() => import('@/jsx/demo6'))
 const Demo7 = loadableHoc(() => import('@/jsx/demo7'))
+const SvgDemo = loadableHoc(() => import('@/jsx/svg'))
 const Lazy = loadableHoc(() => import('@/components/lazy'))
 const TodoList = loadableHoc(() => import('@/components/todo-list'))
 const ClickCounter = loadableHoc(() => import('@/components/click-counter'))
@@ -61,6 +62,10 @@ const routes = [
   {
     path: '/demo7',
     component: Demo7
+  },
+  {
+    path: '/svg',
+    component: SvgDemo
   },
   {
     path: '/lazy',
