@@ -41,6 +41,8 @@ const KeepActiveDetail = loadableHoc(() => import('@/components/keep-active/deta
 
 const QrcodeResearch = loadableHoc(() => import('@/jsx/qrcode-research'))
 
+const Photoswipe = loadableHoc(() => import('@/components/photoswipe'))
+
 const routes = [
   {
     path: '/',
@@ -191,6 +193,10 @@ const routes = [
   {
     path: '/qrcode-research',
     component: QrcodeResearch
+  },
+  {
+    path: '/photoswipe',
+    component: Photoswipe
   }
 ]
 

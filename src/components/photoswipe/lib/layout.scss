@@ -1,0 +1,17 @@
+.pswp-preview-video {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > video {
+        display: block;
+        max-width: 80vw;
+        max-height: 80vh;
+        background-color: #000;
+    }
+}
+.pswp__button--download {
+    background-image: none;
+    color: #fff;
+    font-size: 12px;
+}
