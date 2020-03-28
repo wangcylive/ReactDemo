@@ -197,6 +197,10 @@ const routes = [
   {
     path: '/photoswipe',
     component: Photoswipe
+  },
+  {
+    path: '/copy',
+    component: loadableHoc(() => import('@/components/copy'))
   }
 ]
 

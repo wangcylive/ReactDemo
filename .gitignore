@@ -6,3 +6,4 @@ dist
 !.gitignore
 !.postcssrc.js
 !.browserslistrc
+!.yarnrc
