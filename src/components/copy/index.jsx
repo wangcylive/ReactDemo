@@ -1,45 +1,7 @@
 import React, { useEffect } from 'react'
 import './index.scss'
+import { copyBody } from './utils'
 
-function copyBody () {
-  return new Promise((resolve, reject) => {
-    const elem = document.body
-    try {
-      if (elem.nodeName === 'INPUT') {
-        elem.select()
-
-        const result = document.execCommand('copy')
-
-        if (result) {
-          resolve()
-        } else {
-          reject()
-        }
-      } else {
-        elem.contentEditable = true
-        const range = document.createRange()
-        range.selectNodeContents(elem)
-        const sel = window.getSelection()
-        sel.removeAllRanges()
-        sel.addRange(range)
-        elem.contentEditable = false
-
-        const result = document.execCommand('copy')
-
-        document.activeElement.blur()
-
-        if (result) {
-          sel.removeAllRanges()
-          resolve()
-        } else {
-          reject()
-        }
-      }
-    } catch (e) {
-      reject()
-    }
-  })
-}
 
 
 const Copy = () => {
@@ -49,25 +11,66 @@ const Copy = () => {
     console.log('copy', result)
   }
 
+  const onPaste = () => {
+    const result = document.execCommand('paste')
+    console.log('paste', result)
+  }
+
   useEffect(() => {
-    document.body.addEventListener('beforecopy', (e) => {
-      // const data = e.clipboardData
-      // const text = data.getDate('text/plain')
-      console.log(e.type)
-    })
-    document.body.addEventListener('copy', (e) => {
-      e.preventDefault()
-      const clipData = e.clipboardData
+    const body = document.body
+    const beforeCopy = (event) => {
+      console.log(event.type)
+    }
+    body.addEventListener('beforecopy', beforeCopy, false)
+    const copy = (event) => {
+      event.preventDefault()
+      const clipData = event.clipboardData
       const text = window.getSelection().toString()
-      clipData.setData('text/plain', Date.now() + '')
-      console.log(e, text)
-    })
+      // clipData.setData('text/plain', Date.now() + '')
+      console.log(event, text)
+    }
+    body.addEventListener('copy', copy, false)
+    const beforePaste = (event) => {
+      console.log(event.type)
+    }
+    body.addEventListener('beforepaste', beforePaste, false)
+    const paste = (event) => {
+      // event.preventDefault()
+      const clipData = event.clipboardData
+      const html = clipData.getData('text/html')
+      const text = clipData.getData('text/plain')
+      // clipData.setData('text/plain', 'ww' + Date.now())
+      for (let item of clipData.items) {
+        console.log(item.type, item.kind)
+        if (item.kind === 'string') {
+          item.getAsString((str) => {
+            console.log(str)
+          })
+        } else if (item.kind === 'file') {
+          const file = item.getAsFile()
+          const url = URL.createObjectURL(file)
+          const img = new Image()
+          img.src = url
+          document.body.appendChild(img)
+          console.log(file)
+        }
+      }
+      // console.log(clipData.items.length, text, html)
+    }
+    body.addEventListener('paste', paste, false)
+
+    return () => {
+      body.removeEventListener('beforecopy', beforeCopy, false)
+      body.removeEventListener('copy', copy, false)
+      body.removeEventListener('beforepaste', beforePaste, false)
+      body.removeEventListener('paste', paste, false)
+    }
   }, [])
 
   return <div className="page-copy">
     <div>111</div>
     <button onClick={onClick}>Copy</button>
-
+    <button onClick={onPaste}>Paste</button>
     <div>
       <textarea className="textarea"/>
     </div>
