@@ -201,6 +201,10 @@ const routes = [
   {
     path: '/copy',
     component: loadableHoc(() => import('@/components/copy'))
+  },
+  {
+    path: '/media-source',
+    component: loadableHoc(() => import('@/components/media-source'))
   }
 ]
 
