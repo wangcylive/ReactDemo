@@ -205,6 +205,10 @@ const routes = [
   {
     path: '/media-source',
     component: loadableHoc(() => import('@/components/media-source'))
+  },
+  {
+    path: '/grid',
+    component: loadableHoc(() => import('@/components/grid'))
   }
 ]
 
