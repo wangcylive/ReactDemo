@@ -209,6 +209,10 @@ const routes = [
   {
     path: '/grid',
     component: loadableHoc(() => import('@/components/grid'))
+  },
+  {
+    path: '/notification',
+    component: loadableHoc(() => import('@/components/notification'))
   }
 ]
 
