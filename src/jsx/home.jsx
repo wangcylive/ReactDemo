@@ -131,6 +131,18 @@ class Home extends Component {
     // document.body.appendChild(iframe)
   }
 
+  onChangeFile = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      console.log(file)
+      const img = new Image()
+      img.src = window.URL.createObjectURL(file)
+      img.style.maxWidth = '90vw'
+      img.style.maxHeight = '90vh'
+      document.body.appendChild(img)
+    }
+  }
+
   render () {
     console.log('home render', performance.now())
     const { props, state } = this
@@ -140,6 +152,7 @@ class Home extends Component {
         <div>
 
           <button type={'button'} onClick={this.onOpenApp}>打开 video bus</button>
+          <input type="file" onChange={this.onChangeFile}/>
 
         </div>
         <h3>Home</h3>
