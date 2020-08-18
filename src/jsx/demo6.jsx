@@ -2,15 +2,35 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import PropTypes from 'prop-types'
 import { hot } from 'react-hot-loader/root'
+import canvasDemo from './annulus'
 
 class Demo6 extends React.Component {
   constructor (props) {
     super(props)
   }
 
+  componentDidMount () {
+    const canvas = canvasDemo({ lineWidth: 15 })
+    this.div.appendChild(canvas.el)
+    canvas.el.style.cssText = 'width: 100px;height: 100px;'
+    const time = performance.now()
+    canvas.draw(360, 0).then(() => {
+      canvas.draw(0, 1000).then(() => {
+        console.log('done', performance.now() - time)
+      })
+    })
+  }
+
   render () {
     return (
-      <div className="hello-word">{this.props.name}</div>
+      <div>
+        <div className="hello-word">{this.props.name}</div>
+        <div ref={el => this.div = el}>
+
+        </div>
+        <progress/>
+        <button>Change</button>
+      </div>
     )
   }
 }

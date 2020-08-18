@@ -79,13 +79,24 @@
 }
 
 .test4 {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 80px);
-  grid-gap: 10px 20px;
-  justify-content: space-between;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 2px;
 
   > div {
-    border: 1px solid #ddd;
+    background-color: #3685ff;
+    height: 50px;
+  }
+}
+
+.test5 {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 2px;
+
+  > div {
+    background-color: brown;
+    height: 50px;
   }
 }

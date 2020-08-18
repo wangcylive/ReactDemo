@@ -22,7 +22,12 @@ const GridDemo = () => {
     </div>
     <div className={css.test4}>
       {
-        new Array(11).fill(1).map((item, index) => <div key={index}>{index + 1}</div>)
+        new Array(5).fill(1).map((item, index) => <div key={index}>{index + 1}</div>)
+      }
+    </div>
+    <div className={css.test5}>
+      {
+        new Array(5).fill(1).map((item, index) => <div key={index}>{index + 1}</div>)
       }
     </div>
   </div>
