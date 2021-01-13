@@ -20,6 +20,7 @@
     "hls.js": "^0.13.2",
     "jsqr": "^1.2.0",
     "localforage": "^1.7.3",
+    "multer": "^1.4.2",
     "nodemailer": "^6.4.17",
     "p-min-delay": "^3.1.0",
     "photoswipe": "^4.1.3",
