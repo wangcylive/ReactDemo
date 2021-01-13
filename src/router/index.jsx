@@ -213,6 +213,10 @@ const routes = [
   {
     path: '/notification',
     component: loadableHoc(() => import('@/components/notification'))
+  },
+  {
+    path: '/nodemailer',
+    component: loadableHoc(() => import('@/components/nodemailer'))
   }
 ]
 

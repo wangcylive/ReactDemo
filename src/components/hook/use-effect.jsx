@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { hot } from 'react-hot-loader/root'
 
 function HookUseEffect (props) {
@@ -30,9 +30,9 @@ function HookUseEffect (props) {
   }, [])
 
   useEffect(() => {
-    console.log('useEffect', performance.now())
+    console.log('useEffect', name, performance.now())
     return () => {
-      console.log('HookUseEffect destroy', performance.now())
+      console.log('HookUseEffect destroy', name, performance.now())
     }
   }, [name])
 
@@ -43,6 +43,8 @@ function HookUseEffect (props) {
   const onChangeNumber = (event) => {
     setNumber(event.target.valueAsNumber)
   }
+
+  console.log('useEffect', performance.now())
 
   return (
     <div>

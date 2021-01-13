@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import ReactDom from 'react-dom'
+import ReactDOMServer from 'react-dom/server'
 import { hot } from 'react-hot-loader/root'
 import { changeName } from '@/store/user-info/action'
 import { connect } from 'react-redux'
+import Demo1 from '@/server-demo1'
+
+console.log(ReactDOMServer.renderToString(<Demo1/>))
 
 class View1 extends Component {
   constructor (props) {
@@ -54,7 +58,7 @@ class View1 extends Component {
     const lists = Array.from(new Array(10), (item, index) => index + 1)
     return (
       <div ref={(ele) => this.el = ele}>
-        <button onClick={this.iframePostMessage}>Iframe post</button>
+        <button onClick={this.iframePostMessage}>Iframe post1</button>
         <div>redux name: {props.name}</div>
         <div>self view: {state.view}</div>
         <div>
@@ -67,6 +71,8 @@ class View1 extends Component {
           }
         </ul>
         <div>{props.children}</div>
+
+        <Demo1/>
       </div>
     )
   }
