@@ -11,7 +11,7 @@ module.exports = (mode, env) => {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.[t|j]sx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
         },
@@ -86,7 +86,7 @@ module.exports = (mode, env) => {
       },
       splitChunks: {
         cacheGroups: {
-          vendors: {
+          defaultVendors: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             priority: -20,

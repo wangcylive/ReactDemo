@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
+const {merge} = require('webpack-merge')
 const { development } = require('./env-conf')
 
 module.exports = (env) => {

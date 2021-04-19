@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
+const {merge} = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserJsPlugin = require('terser-webpack-plugin')
@@ -13,7 +13,7 @@ module.exports = (env) => {
   process.env.NODE_ENV = production
   const publicPath = '/'
 
-  return webpackMerge(webpackBaseConf(production, env), {
+  return merge(webpackBaseConf(production, env), {
     mode: production,
 
     optimization: {

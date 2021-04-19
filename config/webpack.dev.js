@@ -1,9 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
+const {merge} = require('webpack-merge')
 const { development } = require('./env-conf')
 const packageJson = require('../package')
-const hostIp = require('./host-ip')
+const internalIp = require('internal-ip')
 const webpackBaseConf = require('./webpack.common')
 const serverPort = packageJson.serverPort
 
@@ -19,7 +19,7 @@ module.exports = (env) => {
       process.env[key] = value
     })
   }
-  return webpackMerge(webpackBaseConf(development, env), {
+  return merge(webpackBaseConf(development, env), {
     mode: development,
 
     output: {
@@ -33,6 +33,7 @@ module.exports = (env) => {
     devServer: {
       contentBase: path.resolve(__dirname, '../src'),
       compress: true,
+      hot: true,
       port: serverPort,
       historyApiFallback: true,
       host: '0.0.0.0',
@@ -59,5 +60,5 @@ module.exports = (env) => {
 
 console.log(`start ${packageJson.name} server:
 http://localhost:${serverPort}
-http://${hostIp()}:${serverPort}
+http://${internalIp.v4.sync()}:${serverPort}
 `)

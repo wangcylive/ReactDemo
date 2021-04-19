@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createElement} from 'react'
 import loadableHoc from './splitting'
 
 const Home = loadableHoc(() => import('@/jsx/home'))
@@ -30,7 +30,9 @@ const HookUseRef = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/co
 const HookUseEffect = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-effect'))
 const HookUseReducer = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-reducer'))
 const HookUseMemo = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-memo'))
-const HookUseLayoutEffect = loadableHoc(() => import(/* webpackChunkName: 'hook' */ '@/components/hook/use-layout-effect'))
+const HookUseLayoutEffect = loadableHoc(() =>
+  import(/* webpackChunkName: 'hook' */ '@/components/hook/use-layout-effect'),
+)
 const HookReactReduxUseStore = loadableHoc(() => import('@/components/hook/react-redux/use-store'))
 const HookReactReduxUseSelector = loadableHoc(() => import('@/components/hook/react-redux/use-selector'))
 const HookReactReduxUseDispatch = loadableHoc(() => import('@/components/hook/react-redux/use-dispatch'))
@@ -42,182 +44,181 @@ const KeepActiveDetail = loadableHoc(() => import('@/components/keep-active/deta
 const QrcodeResearch = loadableHoc(() => import('@/jsx/qrcode-research'))
 
 const Photoswipe = loadableHoc(() => import('@/components/photoswipe'))
+const Copy = loadableHoc(() => import('@/elements/copy'))
 
 const routes = [
   {
     path: '/',
-    component: Home,
-    exact: true
+    element: <Home />,
   },
   {
     path: '/demo1',
-    component: Demo1
+    element: <Demo1 />,
   },
   {
     path: '/demo2',
-    component: Demo2
+    element: <Demo2 />,
   },
   {
     path: '/demo6',
-    component: Demo6
+    element: createElement(Demo6),
   },
   {
     path: '/demo7',
-    component: Demo7
+    element: createElement(Demo7),
   },
   {
     path: '/svg',
-    component: SvgDemo
+    element: createElement(SvgDemo),
   },
   {
     path: '/lazy',
-    component: Lazy
+    element: createElement(Lazy),
   },
   {
     path: '/todo-list',
-    component: TodoList
+    element: createElement(TodoList),
   },
   {
     path: '/click-counter',
-    component: ClickCounter
+    element: createElement(ClickCounter),
   },
   {
     path: '/control-panel',
-    component: ControlPanel
+    element: createElement(ControlPanel),
   },
   {
-    path: '/indexedDB',
-    component: IndexedDB,
-    exact: true,
+    path: 'indexedDB',
+    element: createElement(IndexedDB),
     children: [
       {
-        path: '/indexedDB/native',
-        component: IndexedDBNative
+        path: 'native',
+        element: createElement(IndexedDBNative),
       },
       {
-        path: '/indexedDB/localforage',
-        component: IndexedDBLocalForage
+        path: 'localforage',
+        element: createElement(IndexedDBLocalForage),
       },
       {
-        path: '/indexedDB/dexie',
-        component: IndexedDBDexie
+        path: 'dexie',
+        element: createElement(IndexedDBDexie),
       },
       {
-        path: '/indexedDB/cefsql',
-        component: Cefsql
+        path: 'cefsql',
+        element: createElement(Cefsql),
       },
-    ]
+    ],
   },
   {
     path: '/context-demo',
-    component: ContextDemo
+    element: createElement(ContextDemo),
   },
   {
     path: '/focus',
-    component: Focus
+    element: createElement(Focus),
   },
   {
     path: '/propTypes',
-    component: PropTypes
+    element: createElement(PropTypes),
   },
   {
     path: '/intl',
-    component: Intl
+    element: createElement(Intl),
   },
   {
     path: '/hook',
-    component: Hook,
+    element: createElement(Hook),
     children: [
       {
-        path: '/useState',
-        component: HookUseState
+        path: 'useState',
+        element: createElement(HookUseState),
       },
       {
-        path: '/useContext',
-        component: HookUseContext
+        path: 'useContext',
+        element: createElement(HookUseContext),
       },
       {
-        path: '/useRef',
-        component: HookUseRef
+        path: 'useRef',
+        element: createElement(HookUseRef),
       },
       {
-        path: '/useEffect',
-        component: HookUseEffect
+        path: 'useEffect',
+        element: createElement(HookUseEffect),
       },
       {
-        path: '/useLayoutEffect',
-        component: HookUseLayoutEffect
+        path: 'useLayoutEffect',
+        element: createElement(HookUseLayoutEffect),
       },
       {
-        path: '/useReducer',
-        component: HookUseReducer
+        path: 'useReducer',
+        element: createElement(HookUseReducer),
       },
       {
-        path: '/useMemo',
-        component: HookUseMemo
+        path: 'useMemo',
+        element: createElement(HookUseMemo),
       },
       {
-        path: '/react-redux-use-store',
-        component: HookReactReduxUseStore
+        path: 'react-redux-use-store',
+        element: createElement(HookReactReduxUseStore),
       },
       {
-        path: '/react-redux-use-selector',
-        component: HookReactReduxUseSelector
+        path: 'react-redux-use-selector',
+        element: createElement(HookReactReduxUseSelector),
       },
       {
-        path: '/react-redux-use-dispatch',
-        component: HookReactReduxUseDispatch
-      }
-    ]
+        path: 'react-redux-use-dispatch',
+        element: createElement(HookReactReduxUseDispatch),
+      },
+    ],
   },
   {
     path: '/keep-active',
     redirect: '/keep-active/list',
-    component: KeepActive,
+    element: createElement(KeepActive),
     children: [
       {
-        path: '/keep-active/list',
-        component: KeepActiveList,
-        keepAlive: true
+        path: 'list',
+        element: createElement(KeepActiveList),
+        keepAlive: true,
       },
       {
-        path: '/keep-active/detail/:id',
-        component: KeepActiveDetail
-      }
-    ]
+        path: 'detail/:id',
+        element: createElement(KeepActiveDetail),
+      },
+    ],
   },
   {
     path: '/proxy',
-    component: ProxyDemo
+    element: createElement(ProxyDemo),
   },
   {
     path: '/qrcode-research',
-    component: QrcodeResearch
+    element: createElement(QrcodeResearch),
   },
   {
     path: '/photoswipe',
-    component: Photoswipe
+    element: createElement(loadableHoc(() => import('@/components/photoswipe'))),
   },
   {
     path: '/copy',
-    component: loadableHoc(() => import('@/components/copy'))
+    element: <Copy />,
   },
   {
     path: '/media-source',
-    component: loadableHoc(() => import('@/components/media-source'))
+    element: loadableHoc(() => import('@/elements/media-source')),
   },
   {
     path: '/grid',
-    component: loadableHoc(() => import('@/components/grid'))
+    element: loadableHoc(() => import('@/elements/grid')),
   },
   {
     path: '/notification',
-    component: loadableHoc(() => import('@/components/notification'))
+    element: loadableHoc(() => import('@/elements/notification')),
   },
   {
     path: '/nodemailer',
-    component: loadableHoc(() => import('@/components/nodemailer'))
-  }
+    element: loadableHoc(() => import('@/elements/nodemailer')),
+  },
 ]
 
 export default routes

@@ -9,3 +9,4 @@ nodemailer-upload
 !.postcssrc.js
 !.browserslistrc
 !.yarnrc
+!.prettierrc

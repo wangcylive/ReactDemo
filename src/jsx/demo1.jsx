@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, {useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
-import { hot } from 'react-hot-loader/root'
+import {useNavigate} from 'react-router-dom'
+import {hot} from 'react-hot-loader/root'
 
-function init () {
+function init() {
   const div = document.createElement('div')
 
   document.body.appendChild(div)
@@ -10,15 +11,12 @@ function init () {
   const tick = () => {
     const element = (
       <div>
-        <h1 className='h1-ele'>Hello, World!!!</h1>
+        <h1 className="h1-ele">Hello, World!!!</h1>
         <div>Time: {Date.now()}</div>
       </div>
     )
 
-    ReactDOM.render(
-      element,
-      div,
-    )
+    ReactDOM.render(element, div)
   }
 
   init.intervalID = setInterval(tick, 1000)
@@ -26,17 +24,11 @@ function init () {
   return div
 }
 
-function ShowName (props) {
-  return (
-    <div>
-      {
-        props.render()
-      }
-    </div>
-  )
+function ShowName(props) {
+  return <div>{props.render()}</div>
 }
 
-const Modal = (props) => {
+const Modal = props => {
   const refEl = useRef(document.createElement('div'))
   useEffect(() => {
     document.body.appendChild(refEl.current)
@@ -45,13 +37,12 @@ const Modal = (props) => {
       document.body.removeChild(refEl.current)
     }
   }, [])
-  return ReactDOM.createPortal(
-    props.children,
-    refEl.current
-  )
+  return ReactDOM.createPortal(props.children, refEl.current)
 }
 
-function Demo1 () {
+function Demo1() {
+  const navigate = useNavigate()
+
   useEffect(() => {
     const div = init()
 
@@ -61,15 +52,23 @@ function Demo1 () {
     }
   }, [])
 
-  const onClick = (event) => {
+  const onClick = event => {
     console.log(event.type, event.target)
+  }
+
+  const onPushHistory = () => {
+    navigate('/demo2?name=333')
   }
 
   return (
     <div onClick={onClick}>
       <h3>demo1</h3>
-      <ShowName render={() => <li>1</li>}/>
-      <Modal><h1>呵呵哒</h1></Modal>
+      <ShowName render={() => <li>1</li>} />
+      <Modal>
+        <h1>呵呵哒</h1>
+      </Modal>
+
+      <button onClick={onPushHistory}>Push State</button>
     </div>
   )
 }
