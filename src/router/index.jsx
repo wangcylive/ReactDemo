@@ -44,7 +44,7 @@ const KeepActiveDetail = loadableHoc(() => import('@/components/keep-active/deta
 const QrcodeResearch = loadableHoc(() => import('@/jsx/qrcode-research'))
 
 const Photoswipe = loadableHoc(() => import('@/components/photoswipe'))
-const Copy = loadableHoc(() => import('@/elements/copy'))
+// const Copy = loadableHoc(() => import('@/elements/copy'))
 
 const routes = [
   {
@@ -80,7 +80,7 @@ const routes = [
     element: createElement(TodoList),
   },
   {
-    path: '/click-counter',
+    path: '/click-counter*',
     element: createElement(ClickCounter),
   },
   {
@@ -88,7 +88,7 @@ const routes = [
     element: createElement(ControlPanel),
   },
   {
-    path: 'indexedDB',
+    path: '/indexedDB',
     element: createElement(IndexedDB),
     children: [
       {
@@ -197,28 +197,28 @@ const routes = [
   },
   {
     path: '/photoswipe',
-    element: createElement(loadableHoc(() => import('@/components/photoswipe'))),
+    element: createElement(Photoswipe),
   },
-  {
-    path: '/copy',
-    element: <Copy />,
-  },
-  {
-    path: '/media-source',
-    element: loadableHoc(() => import('@/elements/media-source')),
-  },
-  {
-    path: '/grid',
-    element: loadableHoc(() => import('@/elements/grid')),
-  },
-  {
-    path: '/notification',
-    element: loadableHoc(() => import('@/elements/notification')),
-  },
-  {
-    path: '/nodemailer',
-    element: loadableHoc(() => import('@/elements/nodemailer')),
-  },
+  // {
+  //   path: '/copy',
+  //   element: <Copy />,
+  // },
+  // {
+  //   path: '/media-source',
+  //   element: loadableHoc(() => import('@/elements/media-source')),
+  // },
+  // {
+  //   path: '/grid',
+  //   element: loadableHoc(() => import('@/elements/grid')),
+  // },
+  // {
+  //   path: '/notification',
+  //   element: loadableHoc(() => import('@/elements/notification')),
+  // },
+  // {
+  //   path: '/nodemailer',
+  //   element: loadableHoc(() => import('@/elements/nodemailer')),
+  // },
 ]
 
 export default routes

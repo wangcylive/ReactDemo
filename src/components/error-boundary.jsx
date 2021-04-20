@@ -1,25 +1,55 @@
 import React from 'react'
 
 class ErrorBoundary extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      hasError: false
+      hasError: false,
+      error: null,
+      errorInfo: null,
     }
   }
 
-  static getDerivedStateFromError (error) {
-    console.log('getDerivedStateFromError', error)
-    return { hasError: true }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps !== this.props) {
+      this.setState({
+        hasError: false,
+      })
+    }
   }
 
-  componentDidCatch (error, errorInfo) {
-    console.log('componentDidCatch', error, errorInfo)
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+      hasError: true,
+      error,
+      errorInfo,
+    })
   }
 
-  render () {
-    if (this.state.hasError) {
-      return <div>页面错误</div>
+  onReload = () => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
+    })
+  }
+
+  render() {
+    const {hasError, error, errorInfo} = this.state
+    if (hasError) {
+      return (
+        <div>
+          {(error?.code === 'MODULE_NOT_FOUND' || error?.name === 'ChunkLoadError') && (
+            <button onClick={this.onReload}>点击重新加载</button>
+          )}
+          <details style={{whiteSpace: 'pre-wrap'}}>
+            <summary>Page Error</summary>
+            {error && error.toString()}
+            <br />
+            {errorInfo?.componentStack}
+          </details>
+        </div>
+      )
     }
     return this.props.children
   }

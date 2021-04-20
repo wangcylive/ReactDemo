@@ -1,6 +1,6 @@
 const ExtractTextPlugin = require('mini-css-extract-plugin')
-const { isProduction } = require('./env-conf')
-const { getAssetsPath } = require('./path-conf')
+const {isProduction} = require('./env-conf')
+const {getAssetsPath} = require('./path-conf')
 
 module.exports = (mode, env) => {
   const isProd = isProduction(mode)
@@ -14,53 +14,53 @@ module.exports = (mode, env) => {
     localIdentName = '[path][name]__[local]'
   }
 
-  function getLoader (type, options) {
+  function getLoader(type, options) {
     const loader = `${type}-loader`
     return {
       loader,
-      options
+      options,
     }
   }
 
   const defaultOptions = {
-    sourceMap: true
+    sourceMap: true,
   }
 
   const cssLoader = getLoader('css', defaultOptions)
   const cssModuleLoader = getLoader('css', {
     ...defaultOptions,
     modules: {
-      localIdentName
-    }
+      localIdentName,
+    },
   })
   const styleLoader = getLoader('style')
   const postcssLoader = getLoader('postcss', defaultOptions)
   const sassLoader = getLoader('sass', defaultOptions)
   const lessLoader = getLoader('less', defaultOptions)
 
-  const cssUse = [ postcssLoader ]
-  const sassUse = [ postcssLoader, sassLoader ]
-  const lessUse = [ postcssLoader, lessLoader ]
+  const cssUse = [postcssLoader]
+  const sassUse = [postcssLoader, sassLoader]
+  const lessUse = [postcssLoader, lessLoader]
 
-  const lastLoader = isProd ? ExtractTextPlugin.loader : styleLoader
+  const lastLoader = ExtractTextPlugin.loader
 
   return {
-    getCssLoader (modules) {
-      const use = [ modules ? cssModuleLoader : cssLoader, ...cssUse ]
+    getCssLoader(modules) {
+      const use = [modules ? cssModuleLoader : cssLoader, ...cssUse]
 
-      return [ lastLoader, ...use ]
+      return [lastLoader, ...use]
     },
-    getSassLoader (modules) {
-      const use = [ modules ? cssModuleLoader : cssLoader, ...sassUse ]
+    getSassLoader(modules) {
+      const use = [modules ? cssModuleLoader : cssLoader, ...sassUse]
 
-      return [ lastLoader, ...use ]
+      return [lastLoader, ...use]
     },
-    getLessLoader (modules) {
-      const use = [ modules ? cssModuleLoader : cssLoader, ...lessUse ]
+    getLessLoader(modules) {
+      const use = [modules ? cssModuleLoader : cssLoader, ...lessUse]
 
-      return [ lastLoader, ...use ]
+      return [lastLoader, ...use]
     },
-    getFontOptions () {
+    getFontOptions() {
       let filename = '[path][name].[ext]'
       if (isProd) {
         filename = 'font/[contenthash].[ext]'
@@ -68,10 +68,10 @@ module.exports = (mode, env) => {
       const name = getAssetsPath(mode, filename)
       return {
         limit: fileInlineLimit,
-        name
+        name,
       }
     },
-    getImgOptions () {
+    getImgOptions() {
       let filename = '[path][name].[ext]'
       if (isProd) {
         filename = 'img/[contenthash].[ext]'
@@ -79,8 +79,8 @@ module.exports = (mode, env) => {
       const name = getAssetsPath(mode, filename)
       return {
         limit: fileInlineLimit,
-        name
+        name,
       }
-    }
+    },
   }
 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useResolvedPath} from 'react-router-dom'
 import {hot} from 'react-hot-loader/root'
 
 function init() {
@@ -25,6 +25,8 @@ function init() {
 }
 
 function ShowName(props) {
+  const aa = useResolvedPath('/www/demo1')
+  console.log('aa', aa)
   return <div>{props.render()}</div>
 }
 
@@ -62,10 +64,10 @@ function Demo1() {
 
   return (
     <div onClick={onClick}>
-      <h3>demo1</h3>
+      <h3 className="text-center">demo1</h3>
       <ShowName render={() => <li>1</li>} />
       <Modal>
-        <h1>呵呵哒</h1>
+        <h1 className="my-4 text-indigo-600">呵呵哒</h1>
       </Modal>
 
       <button onClick={onPushHistory}>Push State</button>

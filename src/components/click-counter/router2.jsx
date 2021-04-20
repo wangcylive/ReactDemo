@@ -1,95 +1,102 @@
-import React, { Component, PureComponent } from 'react'
-import { hot } from 'react-hot-loader/root'
-import { Switch, Route, Link, NavLink } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { changeName, asyncChangeName } from '@/store/user-info/action'
+import React, {Component, PureComponent} from 'react'
+import {hot} from 'react-hot-loader/root'
+import {Routes, Route, Link, NavLink, useParams} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {changeName, asyncChangeName} from '@/store/user-info/action'
 
 const mapStateToProp = state => {
   return {
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
   }
 }
 
 const mapDispatchToProp = dispatch => {
   return {
-    onChangeName: (val) => dispatch(changeName(val)),
-    onAsyncChangeName (val) {
+    onChangeName: val => dispatch(changeName(val)),
+    onAsyncChangeName(val) {
       return dispatch(asyncChangeName(val))
-    }
+    },
   }
 }
 
 class Info extends PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
-    this.state ={
-      count: 1
+    this.state = {
+      count: 1,
     }
   }
 
   onClick = () => {
     this.setState({
-      count: Math.floor(Math.random() * 1e5)
+      count: Math.floor(Math.random() * 1e5),
     })
   }
 
-  render () {
+  render() {
     return (
       <div>
         <div>user/info</div>
         <button onClick={this.onClick}>click</button>
         <div>count: {this.state.count}</div>
-        {
-          this.props.children
-        }
+        {this.props.children}
       </div>
     )
   }
 }
 
-function Edit (props) {
+function Edit(props) {
+  return <div>user/edit</div>
+}
+
+const Router2 = () => {
   return (
-    <div>user/edit</div>
+    <div>
+      <Routes>
+        <Route path=":uid/*" element={<UserInfo />} />
+        <Route path="*" element={<div>不匹配路由</div>} />
+      </Routes>
+    </div>
   )
 }
 
-class ClickCounterRouter2 extends Component {
-  constructor (props) {
-    super(props)
-  }
+const UserInfo = props => {
+  const store = useSelector(state => ({
+    userInfo: state.userInfo,
+  }))
+  const dispatch = useDispatch()
+  const onChangeName = val => dispatch(changeName(val))
+  const onAsyncChangeName = val => dispatch(asyncChangeName(val))
+  const params = useParams()
 
-  componentDidMount () {
-    console.log('router2 mount', performance.now())
-  }
-
-  render () {
-    console.log('ClickCounterRouter2 render', performance.now())
-    return (
+  return (
+    <div>
+      <h3>Router user</h3>
+      <div>uid:{params.uid}</div>
+      <div>redux store userInfo name: {store?.userInfo?.name}</div>
       <div>
-        <h3>Router user</h3>
-        <div>uid:{this.props.match.params.uid}</div>
-        <div>redux store userInfo name: {this.props.userInfo.name}</div>
-        <div>
-          <button type={"button"} onClick={() => this.props.onChangeName(Math.random())} >Change store name</button>
-          <button type={"button"} onClick={() => this.props.onAsyncChangeName('wangchunyang')}>async change store name</button>
-        </div>
-
-        <NavLink to={"/click-counter/user/info"} activeClassName={"active"}>info</NavLink>
-        <NavLink to={"/click-counter/user/edit"} activeClassName={"active"}>edit</NavLink>
-
-        <hr/>
-
-        <Switch>
-          <Route path={"/click-counter/user/info"} render={() => <Info/>}/>
-          <Route path={"/click-counter/user/edit"} render={(props) => <Edit props={props}/>}/>
-        </Switch>
+        <button type={'button'} onClick={() => onChangeName(Math.random())}>
+          Change store name
+        </button>
+        <button type={'button'} onClick={() => onAsyncChangeName('wangchunyang')}>
+          async change store name
+        </button>
       </div>
-    )
-  }
+      <NavLink to={'info'} activeClassName={'active'}>
+        info1
+      </NavLink>{' '}
+      | &nbsp;
+      <NavLink to={'edit'} activeClassName={'active'}>
+        edit
+      </NavLink>
+      <hr />
+      <Routes>
+        <Route path={'info'} element={<Info />} />
+        <Route path={'edit'} element={<Edit />} />
+      </Routes>
+    </div>
+  )
 }
 
-export default hot(connect(
-  mapStateToProp,
-  mapDispatchToProp
-)(ClickCounterRouter2))
+export default hot(Router2)

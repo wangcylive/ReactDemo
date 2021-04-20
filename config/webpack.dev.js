@@ -1,16 +1,17 @@
 const path = require('path')
 const webpack = require('webpack')
 const {merge} = require('webpack-merge')
-const { development } = require('./env-conf')
+const {development} = require('./env-conf')
 const packageJson = require('../package')
 const internalIp = require('internal-ip')
 const webpackBaseConf = require('./webpack.common')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const serverPort = packageJson.serverPort
 
 // 代理服务器
 const proxyServer = '/api'
 
-module.exports = (env) => {
+module.exports = env => {
   process.env.NODE_ENV = development
   const defineEnv = {}
   if (env) {
@@ -46,13 +47,16 @@ module.exports = (env) => {
       },
     },
 
-
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(development),
-          ...defineEnv
-        }
+          ...defineEnv,
+        },
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css',
       }),
     ],
   })

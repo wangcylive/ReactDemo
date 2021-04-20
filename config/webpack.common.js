@@ -3,10 +3,11 @@ const htmlWebpackPlugin = require('./html-conf')
 const entry = require('./main-conf')
 
 module.exports = (mode, env) => {
-  const { getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions } = require('./rules-conf')(mode, env)
+  const {getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions} = require('./rules-conf')(mode, env)
 
   return {
     context: path.resolve(__dirname, '..'),
+    target: 'web',
     entry,
     module: {
       rules: [
@@ -67,7 +68,7 @@ module.exports = (mode, env) => {
     },
 
     resolve: {
-      extensions: [ '.js', '.jsx', '.json' ],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
 
       alias: {
         'react-dom': '@hot-loader/react-dom',
@@ -96,6 +97,6 @@ module.exports = (mode, env) => {
       },
     },
 
-    plugins: [ ...htmlWebpackPlugin ],
+    plugins: [...htmlWebpackPlugin],
   }
 }

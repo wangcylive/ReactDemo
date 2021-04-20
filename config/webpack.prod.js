@@ -4,12 +4,12 @@ const {merge} = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserJsPlugin = require('terser-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const webpackBaseConf = require('./webpack.common')
-const { production } = require('./env-conf')
-const { getAssetsPath } = require('./path-conf')
+const {production} = require('./env-conf')
+const {getAssetsPath} = require('./path-conf')
 
-module.exports = (env) => {
+module.exports = env => {
   process.env.NODE_ENV = production
   const publicPath = '/'
 
@@ -17,17 +17,17 @@ module.exports = (env) => {
     mode: production,
 
     optimization: {
-      minimizer: [ new TerserJsPlugin({}), new OptimizeCssAssetsPlugin({}) ],
+      minimizer: [new TerserJsPlugin({}), new OptimizeCssAssetsPlugin({})],
     },
 
     output: {
       path: path.resolve('./dist'),
       publicPath,
-      filename: getAssetsPath(production,'js/[name].[chunkhash].js'),
-      chunkFilename: getAssetsPath(production,'js/[name].[chunkhash].js'),
+      filename: getAssetsPath(production, 'js/[name].[chunkhash].js'),
+      chunkFilename: getAssetsPath(production, 'js/[name].[chunkhash].js'),
     },
 
-    devtool: 'none',
+    devtool: false,
 
     plugins: [
       new webpack.DefinePlugin({
@@ -37,8 +37,8 @@ module.exports = (env) => {
       }),
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: getAssetsPath(production,'css/layout.[contenthash].css'),
-        chunkFilename: getAssetsPath(production,'css/[id].[contenthash].css'),
+        filename: getAssetsPath(production, 'css/layout.[contenthash].css'),
+        chunkFilename: getAssetsPath(production, 'css/[id].[contenthash].css'),
       }),
     ],
   })
