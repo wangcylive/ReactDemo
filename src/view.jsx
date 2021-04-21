@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import state from '@/store/index'
 import {Provider} from 'react-redux'
 import {hot} from 'react-hot-loader/root'
@@ -28,19 +28,23 @@ const RoutesElement = () => {
 }
 
 function View(props) {
+  useEffect(() => {
+    document.body.className = 'bg-indigo-50 sm:bg-yellow-50 md:bg-blue-50 lg:bg-red-50 xl:bg-green-50'
+  }, [])
   return (
     <Provider store={state}>
       <HistoryRouter history={history}>
         <div>
           <ul className="flex flex-wrap sm:text-lg">
             {routes.map((route, index) => (
-              <li key={index} className="m-2">
+              <li key={index} className="m-1">
                 <NavLink activeClassName="text-red-500" to={route.path}>
                   {route.path === '/' ? 'Home' : route.path.substring(1)}
                 </NavLink>
               </li>
             ))}
           </ul>
+          <span className="text-30">明哥</span>
           <RoutesElement />
         </div>
       </HistoryRouter>
