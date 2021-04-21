@@ -1,11 +1,9 @@
-const [ development, production ] = [ 'development', 'production' ]
+const [development, production] = ['development', 'production']
 
-function isProduction (mode) {
-  return mode === production
-}
+const isProduction = process.env.NODE_ENV === production
 
 module.exports = {
   development,
   production,
-  isProduction
+  isProduction,
 }

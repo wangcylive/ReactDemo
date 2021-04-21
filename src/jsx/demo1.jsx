@@ -11,7 +11,7 @@ function init() {
   const tick = () => {
     const element = (
       <div>
-        <h1 className="h1-ele">Hello, World!!!</h1>
+        <h1 className="text-lg">Hello, World!!!</h1>
         <div>Time: {Date.now()}</div>
       </div>
     )
@@ -25,8 +25,8 @@ function init() {
 }
 
 function ShowName(props) {
-  const aa = useResolvedPath('/www/demo1')
-  console.log('aa', aa)
+  const resolvedPath = useResolvedPath('/www/demo1')
+  console.log('useResolvedPath', resolvedPath)
   return <div>{props.render()}</div>
 }
 
@@ -64,8 +64,8 @@ function Demo1() {
 
   return (
     <div onClick={onClick}>
-      <h3 className="text-center">demo1</h3>
-      <ShowName render={() => <li>1</li>} />
+      <h3 className="text-3xl">demo1</h3>
+      <ShowName render={() => <p>1</p>} />
       <Modal>
         <h1 className="my-4 text-indigo-600">呵呵哒</h1>
       </Modal>

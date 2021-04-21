@@ -1,12 +1,14 @@
 const path = require('path')
+const webpack = require('webpack')
 const htmlWebpackPlugin = require('./html-conf')
 const entry = require('./main-conf')
 
-module.exports = (mode, env) => {
-  const {getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions} = require('./rules-conf')(mode, env)
+module.exports = () => {
+  const {getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions} = require('./rules-conf')()
 
   return {
     context: path.resolve(__dirname, '..'),
+    mode: process.env.NODE_ENV,
     target: 'web',
     entry,
     module: {
@@ -97,6 +99,13 @@ module.exports = (mode, env) => {
       },
     },
 
-    plugins: [...htmlWebpackPlugin],
+    plugins: [
+      ...htmlWebpackPlugin,
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        },
+      }),
+    ],
   }
 }

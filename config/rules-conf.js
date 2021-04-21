@@ -2,15 +2,13 @@ const ExtractTextPlugin = require('mini-css-extract-plugin')
 const {isProduction} = require('./env-conf')
 const {getAssetsPath} = require('./path-conf')
 
-module.exports = (mode, env) => {
-  const isProd = isProduction(mode)
-
+module.exports = () => {
   // 文件内联大小限制
   const fileInlineLimit = 4000
 
   // css module name设置
   let localIdentName = '_[hash:base64:8]'
-  if (!isProd) {
+  if (!isProduction) {
     localIdentName = '[path][name]__[local]'
   }
 
@@ -42,7 +40,7 @@ module.exports = (mode, env) => {
   const sassUse = [postcssLoader, sassLoader]
   const lessUse = [postcssLoader, lessLoader]
 
-  const lastLoader = ExtractTextPlugin.loader
+  const lastLoader = isProduction ? ExtractTextPlugin.loader : styleLoader
 
   return {
     getCssLoader(modules) {
@@ -62,10 +60,10 @@ module.exports = (mode, env) => {
     },
     getFontOptions() {
       let filename = '[path][name].[ext]'
-      if (isProd) {
+      if (isProduction) {
         filename = 'font/[contenthash].[ext]'
       }
-      const name = getAssetsPath(mode, filename)
+      const name = getAssetsPath(filename)
       return {
         limit: fileInlineLimit,
         name,
@@ -73,10 +71,10 @@ module.exports = (mode, env) => {
     },
     getImgOptions() {
       let filename = '[path][name].[ext]'
-      if (isProd) {
+      if (isProduction) {
         filename = 'img/[contenthash].[ext]'
       }
-      const name = getAssetsPath(mode, filename)
+      const name = getAssetsPath(filename)
       return {
         limit: fileInlineLimit,
         name,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 // import CounterStore from './flux/stores/CounterStore'
 // import * as Actions from './flux/Actions'
@@ -18,9 +18,9 @@ export default class Counter extends Component {
     this.state = this.getOwnState()
   }
 
-  getOwnState () {
+  getOwnState() {
     return {
-      count: store.getState()[this.props.caption]
+      count: store.getState()[this.props.caption],
     }
   }
 
@@ -62,7 +62,7 @@ export default class Counter extends Component {
   //   console.log('Counter componentWillMount', this.props.caption)
   // }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return nextProps.caption !== this.props.caption || nextState.count !== this.state.count
   }
 
@@ -73,29 +73,23 @@ export default class Counter extends Component {
   //   console.log('Counter UNSAFE_componentWillUpdate', nextProps.caption, nextState.count)
   // }
 
-  render () {
-    const btnStyle = {
-      width: '40px',
-      height: '20px',
-      margin: '0 2px'
-    }
-
+  render() {
     console.log('Counter render', this.props.caption)
 
     return (
-      <div style={ { margin: '5px 0' } }>
-        <button onClick={ this.onClickAdd } style={ btnStyle }>+</button>
-        <button onClick={ this.onClickMinus } style={ btnStyle }>-</button>
-        { this.props.caption } Counter: { this.state.count }
+      <div className="my-2">
+        <button onClick={this.onClickAdd}>+</button>
+        <button onClick={this.onClickMinus}>-</button>
+        {this.props.caption} Counter: {this.state.count}
       </div>
     )
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     console.log('Counter componentDidUpdate', prevProps.caption, prevState.count)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     console.log('Counter componentDidMount', this.props.caption)
     // CounterStore.addChangeListener(this.onChange)
     this._unsubscribe = store.subscribe(this.onChange)
@@ -109,14 +103,14 @@ export default class Counter extends Component {
   //   console.log('Counter UNSAFE_componentWillReceiveProps', nextProps.caption)
   // }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     console.log('Counter getDerivedStateFromProps', nextProps, prevState)
     return {
-      ...nextProps
+      ...nextProps,
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     console.log('Counter componentWillUnmount')
     // CounterStore.removeChangeListener(this.onChange)
     this._unsubscribe()
@@ -126,10 +120,10 @@ export default class Counter extends Component {
 Counter.propTypes = {
   caption: PropTypes.string.isRequired,
   initValue: PropTypes.number,
-  onUpdate: PropTypes.func.isRequired
+  onUpdate: PropTypes.func.isRequired,
 }
 
 Counter.defaultProps = {
   initValue: 0,
-  onUpdate: f => f
+  onUpdate: f => f,
 }
