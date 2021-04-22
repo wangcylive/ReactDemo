@@ -44,7 +44,7 @@ function View(props) {
               </li>
             ))}
           </ul>
-          <span className="text-30">明哥</span>
+          <span className="text-sm text-primary text-30">明哥</span>
           <RoutesElement />
         </div>
       </HistoryRouter>
