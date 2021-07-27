@@ -6,7 +6,6 @@ import {NavLink, BrowserRouter, useRoutes, useLocation} from 'react-router-dom'
 import routes from '@/router'
 import history, {HistoryRouter} from '@/router/history'
 import '@/css/index.scss'
-import '@/css/common.scss'
 import ErrorBoundary from '@/components/error-boundary'
 
 const RoutesElement = () => {
@@ -32,12 +31,10 @@ function View(props) {
     <Provider store={state}>
       <HistoryRouter history={history}>
         <div>
-          <ul className="flex flex-wrap sm:text-lg">
+          <ul className="nav">
             {routes.map((route, index) => (
-              <li key={index} className="m-2">
-                <NavLink activeClassName="text-red-500" to={route.path}>
-                  {route.path === '/' ? 'Home' : route.path.substring(1)}
-                </NavLink>
+              <li key={index}>
+                <NavLink to={route.path}>{route.path === '/' ? 'Home' : route.path.substring(1)}</NavLink>
               </li>
             ))}
           </ul>

@@ -199,6 +199,10 @@ const routes = [
     path: '/photoswipe',
     element: createElement(Photoswipe),
   },
+  {
+    path: '/content-editable',
+    element: createElement(loadableHoc(() => import('@/components/content-editable'))),
+  },
   // {
   //   path: '/copy',
   //   element: <Copy />,
