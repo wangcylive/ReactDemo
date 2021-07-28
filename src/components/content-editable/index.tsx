@@ -5,6 +5,7 @@ const ContentEditable: React.FC = () => {
   const [text, setText] = useState<string>('')
   const refEditor = useRef<HTMLHeadingElement>(null)
   const refRange = useRef<Range>(null)
+  const refBrCount = useRef<number>(0)
 
   const refDrag = useRef<boolean>(false)
   const [dragActive, setDragActive] = useState<boolean>(false)
@@ -29,23 +30,28 @@ const ContentEditable: React.FC = () => {
   const saveRange = () => {
     const selection = getSelection()
     if (selection.getRangeAt && selection.rangeCount) {
-      refRange.current = selection.getRangeAt(0)
-      console.log('saveRange', refRange.current.startOffset)
+      const range = selection.getRangeAt(0)
+      if (refEditor.current.contains(range.commonAncestorContainer)) {
+        refRange.current = selection.getRangeAt(0)
+      }
+      ;(window as any).refRange = refRange.current
+      // console.log('saveRange', refRange.current.startOffset)
     }
   }
   const rangeInsertNode = (node: any, collapse = false) => {
-    const elEditor = refEditor.current
+    // const elEditor = refEditor.current
     const sel = getSelection()
-    let range = refRange.current
-    // chrome 文字方向 插入 div 兼容，光标定位到 div 里面
-    if (range.endContainer === elEditor && elEditor.firstChild && elEditor.firstChild.nodeName === 'DIV') {
-      range = document.createRange()
-      range.selectNodeContents(elEditor.firstChild)
-      range.collapse(false)
-      sel.removeAllRanges()
-      sel.addRange(range)
-    }
+    const range = refRange.current
     range.deleteContents()
+    // chrome 文字方向 插入 div 兼容，光标定位到 div 里面
+    // if (range.endContainer === elEditor && elEditor.firstChild && elEditor.firstChild.nodeName === 'DIV') {
+    //   range = document.createRange()
+    //   range.selectNodeContents(elEditor.firstChild)
+    //   range.collapse(false)
+    //   sel.removeAllRanges()
+    //   sel.addRange(range)
+    // }
+
     if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       const lastNode = node.lastChild
       range.insertNode(node)
@@ -71,26 +77,39 @@ const ContentEditable: React.FC = () => {
     onInput()
   }
 
+  const createElementBr = (name = 'default') => {
+    const br = document.createElement('br')
+    br.setAttribute(`data-${name}`, refBrCount.current++ + '')
+    return br
+  }
+
   const insertNewLine = () => {
     const range = refRange.current
-    const {endContainer, endOffset} = range
-    console.log(endContainer)
-    // if (endContainer.nodeType === Node.TEXT_NODE && endOffset === endContainer.textContent.length) {
-    //   const nextNode = endContainer.nextSibling
-    //   if (!nextNode || (nextNode.nodeType === 3 && nextNode.nodeValue === '')) {
-    //     rangeInsertNode(document.createElement('br'))
-    //   }
-    // }
-    // if (endContainer.nodeType === Node.ELEMENT_NODE) {
-    //   const childNodes = endContainer.childNodes
-    //   const prevNode = childNodes[endOffset - 1]
-    //   if (!prevNode || prevNode.nodeName !== 'BR') {
-    //     rangeInsertNode(document.createElement('br'))
-    //   }
-    // }
-    const br = document.createElement('br')
-    br.setAttribute('data-id', Date.now() + '')
-    rangeInsertNode(br)
+    const {endContainer, endOffset, startOffset, commonAncestorContainer} = range
+    // console.log(endContainer, startOffset, endOffset)
+    // 文本最后一个字需多增加一个换行符
+    if (endContainer.nodeType === Node.TEXT_NODE && endOffset === endContainer.textContent.length) {
+      const nextNode = endContainer.nextSibling
+      if (!nextNode || (nextNode.nodeType === Node.TEXT_NODE && nextNode.nodeValue === '')) {
+        rangeInsertNode(createElementBr('text'))
+      }
+    }
+    if (endContainer.nodeType === Node.ELEMENT_NODE) {
+      const childNodes = endContainer.childNodes
+      // 内容为空时需多增加一个换行符
+      if (endContainer === commonAncestorContainer) {
+        if (childNodes.length === 0) {
+          rangeInsertNode(createElementBr('first'))
+        }
+      } else {
+        // const currentNode = childNodes[endOffset - 1]
+        // console.log('currentNode', currentNode)
+        // if (!currentNode || currentNode.nodeName !== 'BR') {
+        //   rangeInsertNode(createElementBr('element'))
+        // }
+      }
+    }
+    rangeInsertNode(createElementBr())
     // rangeInsertNode(document.createTextNode('\n'))
   }
 
@@ -100,20 +119,15 @@ const ContentEditable: React.FC = () => {
       event.preventDefault()
 
       if (shiftKey || ctrlKey) {
-        initRange()
-        onInput()
+        insertNewLine()
         return
       }
     }
   }
   const onInput = () => {
     let val = ''
-    const childrenNodes = refEditor.current.childNodes
-    if (
-      childrenNodes.length === 1 &&
-      childrenNodes[0].nodeType === Node.TEXT_NODE &&
-      childrenNodes[0].nodeName === 'BR'
-    ) {
+    const childNodes = refEditor.current.childNodes
+    if (childNodes.length === 1 && childNodes[0].nodeType === Node.ELEMENT_NODE && childNodes[0].nodeName === 'BR') {
       val = ''
     } else {
       refEditor.current.childNodes.forEach(node => {
@@ -167,7 +181,7 @@ const ContentEditable: React.FC = () => {
   }
 
   const onJoinEmoji = () => {
-    rangeInsertNode(document.createTextNode('🏊‍'))
+    rangeInsertNode(document.createTextNode('😄'))
     focusRange()
   }
 
@@ -210,6 +224,7 @@ const ContentEditable: React.FC = () => {
         onKeyUp={saveRange}
         onPaste={onPaste}
         onMouseUp={saveRange}
+        onMouseLeave={saveRange}
         // onMouseMove={saveRange}
         onInput={onInput}
         contentEditable={true}
