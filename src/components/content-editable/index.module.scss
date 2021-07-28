@@ -20,6 +20,8 @@
 }
 
 .preview {
+  border-left: 2px solid opacify(#000, 0.6);
+  padding-left: 8px;
   white-space: pre-wrap;
   color: #666;
 }

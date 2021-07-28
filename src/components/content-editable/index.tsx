@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import css from './index.module.scss'
 
 const ContentEditable: React.FC = () => {
-  const [clickCount, setClickCount] = useState<number>(1)
   const [text, setText] = useState<string>('')
   const refEditor = useRef<HTMLHeadingElement>(null)
   const refRange = useRef<Range>(null)
@@ -47,7 +46,7 @@ const ContentEditable: React.FC = () => {
       sel.addRange(range)
     }
     range.deleteContents()
-    if (node.nodeType === 11) {
+    if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       const lastNode = node.lastChild
       range.insertNode(node)
       range.setEndAfter(lastNode)
@@ -69,6 +68,30 @@ const ContentEditable: React.FC = () => {
 
     // Firefox resize disable
     document.execCommand('enableObjectResizing', false, 'false')
+    onInput()
+  }
+
+  const insertNewLine = () => {
+    const range = refRange.current
+    const {endContainer, endOffset} = range
+    console.log(endContainer)
+    // if (endContainer.nodeType === Node.TEXT_NODE && endOffset === endContainer.textContent.length) {
+    //   const nextNode = endContainer.nextSibling
+    //   if (!nextNode || (nextNode.nodeType === 3 && nextNode.nodeValue === '')) {
+    //     rangeInsertNode(document.createElement('br'))
+    //   }
+    // }
+    // if (endContainer.nodeType === Node.ELEMENT_NODE) {
+    //   const childNodes = endContainer.childNodes
+    //   const prevNode = childNodes[endOffset - 1]
+    //   if (!prevNode || prevNode.nodeName !== 'BR') {
+    //     rangeInsertNode(document.createElement('br'))
+    //   }
+    // }
+    const br = document.createElement('br')
+    br.setAttribute('data-id', Date.now() + '')
+    rangeInsertNode(br)
+    // rangeInsertNode(document.createTextNode('\n'))
   }
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -77,22 +100,7 @@ const ContentEditable: React.FC = () => {
       event.preventDefault()
 
       if (shiftKey || ctrlKey) {
-        const range = refRange.current
-        const {endContainer, endOffset} = range
-        if (endContainer.nodeType === Node.TEXT_NODE && endOffset === endContainer.textContent.length) {
-          const nextNode = endContainer.nextSibling
-          if (!nextNode || (nextNode.nodeType === 3 && nextNode.nodeValue === '')) {
-            rangeInsertNode(document.createElement('br'))
-          }
-        }
-        if (endContainer.nodeType === Node.ELEMENT_NODE) {
-          const childNodes = endContainer.childNodes
-          const prevNode = childNodes[endOffset - 1]
-          if (!prevNode || prevNode.nodeName !== 'BR') {
-            rangeInsertNode(document.createElement('br'))
-          }
-        }
-        rangeInsertNode(document.createElement('br'))
+        initRange()
         onInput()
         return
       }
@@ -158,17 +166,37 @@ const ContentEditable: React.FC = () => {
     })
   }
 
-  const onClickCountEvent = () => {
-    setClickCount(val => ++val)
-    console.log('setText after', clickCount, refEditor.current.textContent)
+  const onJoinEmoji = () => {
+    rangeInsertNode(document.createTextNode('🏊‍'))
+    focusRange()
   }
+
+  const onJoinTime = () => {
+    rangeInsertNode(document.createTextNode(new Date().toUTCString()))
+    focusRange()
+  }
+  const onNewLine = () => {
+    insertNewLine()
+    focusRange()
+  }
+  const onSelectText = () => {
+    const range = document.createRange()
+    const childNodes = refEditor.current.childNodes
+    for (let i = 0; i < childNodes.length; i++) {
+      const node = childNodes[i]
+      if (node.nodeType === Node.TEXT_NODE && node.textContent !== '') {
+        range.setStart(node, 0)
+        range.setEnd(node, node.textContent.length)
+        break
+      }
+    }
+    refRange.current = range
+    focusRange()
+  }
+
   useEffect(() => {
     initRange()
   }, [])
-  useEffect(() => {
-    console.log('text', clickCount)
-    console.log('useEffect', refEditor.current.textContent)
-  }, [clickCount])
 
   useEffect(() => {
     console.log('dragActive', dragActive)
@@ -176,7 +204,6 @@ const ContentEditable: React.FC = () => {
 
   return (
     <div>
-      <h3 ref={refEditor}>{clickCount}</h3>
       <div
         className={[css.editor, dragActive && css.editorDrag].join(' ')}
         onKeyDown={onKeyDown}
@@ -193,7 +220,12 @@ const ContentEditable: React.FC = () => {
         onDrop={onDrop}
         ref={refEditor}
       />
-      <button onClick={onClickCountEvent}>Button</button>
+      <div>
+        <button onClick={onJoinEmoji}>JoinEmoji</button>
+        <button onClick={onJoinTime}>InsertTime</button>
+        <button onClick={onNewLine}>NewLine</button>
+        <button onClick={onSelectText}>SelectText</button>
+      </div>
       <hr />
       <div className={css.preview}>{text}</div>
     </div>
