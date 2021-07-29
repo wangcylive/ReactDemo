@@ -13,6 +13,11 @@
     border: 1px solid #3685ff;
     outline: none;
   }
+
+  &::selection {
+    background: red;
+    color: #fff;
+  }
 }
 
 .editorDrag {
@@ -24,4 +29,34 @@
   padding-left: 8px;
   white-space: pre-wrap;
   color: #666;
+}
+
+.insertImg {
+  outline: 1px solid blue;
+  vertical-align: text-bottom;
+  user-focus: red;
+
+  &::selection {
+    outline: 1px solid red;
+  }
+}
+.insertSpan {
+  position: relative;
+  outline: 1px solid #588b1c;
+  cursor: default;
+  user-select: none;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    cursor: default;
+  }
+
+  &::selection {
+    background-color: bisque;
+  }
 }

@@ -189,6 +189,35 @@ const ContentEditable: React.FC = () => {
     rangeInsertNode(document.createTextNode(new Date().toUTCString()))
     focusRange()
   }
+  const onInsertImg = () => {
+    const text = '😄明哥A' + Math.floor(Math.random() * 10)
+    const width = 80
+    const height = 18
+    const fontSize = 12
+    const canvas = document.createElement('canvas')
+    canvas.width = width
+    canvas.height = height
+    const context = canvas.getContext('2d')
+    context.textBaseline = 'top'
+    context.font = `${fontSize}px sans-serif`
+    context.fillStyle = '#1c59ca'
+    context.textAlign = 'center'
+    context.fillText(text, width / 2, (height - fontSize) / 2)
+    const url = canvas.toDataURL('image/png')
+    const img = new Image()
+    img.src = url
+    img.alt = text
+    img.width = width
+    img.height = height
+    img.classList.add(css.insertImg)
+    rangeInsertNode(img)
+  }
+  const onInsertSpan = () => {
+    const span = document.createElement('span')
+    span.textContent = '秀朗' + Math.floor(Math.random() * 10)
+    span.classList.add(css.insertSpan)
+    rangeInsertNode(span)
+  }
   const onNewLine = () => {
     insertNewLine()
     focusRange()
@@ -238,6 +267,8 @@ const ContentEditable: React.FC = () => {
       <div>
         <button onClick={onJoinEmoji}>JoinEmoji</button>
         <button onClick={onJoinTime}>InsertTime</button>
+        <button onClick={onInsertImg}>InsertImg</button>
+        <button onClick={onInsertSpan}>InsertSpan</button>
         <button onClick={onNewLine}>NewLine</button>
         <button onClick={onSelectText}>SelectText</button>
       </div>
