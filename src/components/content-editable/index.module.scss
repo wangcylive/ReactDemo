@@ -35,6 +35,7 @@
   outline: 1px solid blue;
   vertical-align: text-bottom;
   user-focus: red;
+  cursor: default;
 
   &::selection {
     outline: 1px solid red;
