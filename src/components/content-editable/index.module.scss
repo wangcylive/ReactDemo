@@ -17,6 +17,8 @@
   &::selection {
     background: red;
     color: #fff;
+
+    //border: 1px solid blue;
   }
 }
 
@@ -32,10 +34,20 @@
 }
 
 .insertImg {
-  outline: 1px solid blue;
+  //outline: 1px solid blue;
   vertical-align: text-bottom;
-  user-focus: red;
   cursor: default;
+
+  &:active {
+    outline: 1px solid yellow;
+  }
+  &:target {
+    outline: 1px solid yellow;
+  }
+
+  &:focus {
+    outline: 1px solid #333;
+  }
 
   &::selection {
     outline: 1px solid red;

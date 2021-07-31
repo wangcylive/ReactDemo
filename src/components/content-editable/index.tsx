@@ -38,7 +38,7 @@ const ContentEditable: React.FC = () => {
       // console.log('saveRange', refRange.current.startOffset)
     }
   }
-  const rangeInsertNode = (node: any, after = true, collapse = false) => {
+  const rangeInsertNode = (node: any, setEndAfter = true, collapse = false) => {
     // const elEditor = refEditor.current
     const sel = getSelection()
     const range = refRange.current
@@ -61,7 +61,7 @@ const ContentEditable: React.FC = () => {
       }
     } else {
       range.insertNode(node)
-      if (after) {
+      if (setEndAfter) {
         range.setEndAfter(node)
       } else {
         range.setEndBefore(node)
@@ -89,15 +89,14 @@ const ContentEditable: React.FC = () => {
 
   const insertNewLine = () => {
     const range = refRange.current
-    const {endContainer, endOffset, startOffset, commonAncestorContainer} = range
-    console.log(range)
-    let after = true
+    const {endContainer, endOffset, commonAncestorContainer} = range
+    let setEndAfter = true
     // 焦点在文本最后一个字符，此字符后面没有内容，增加一个换行符
     if (endContainer.nodeType === Node.TEXT_NODE && endOffset === endContainer.textContent.length) {
       const nextNode = endContainer.nextSibling
       if (!nextNode || (nextNode.nodeType === Node.TEXT_NODE && nextNode.nodeValue === '')) {
         rangeInsertNode(createElementBr('text'))
-        after = false
+        setEndAfter = false
       }
     }
     if (endContainer.nodeType === Node.ELEMENT_NODE) {
@@ -105,15 +104,15 @@ const ContentEditable: React.FC = () => {
       // 父级没有内容时，增加一个换行符
       if (endContainer === commonAncestorContainer && ancestorChildNodes.length === 0) {
         rangeInsertNode(createElementBr('first'))
-        after = false
+        setEndAfter = false
       }
       // 焦点在最后一个 Element 后，增加一个换行符
       if (endOffset === ancestorChildNodes.length) {
         rangeInsertNode(createElementBr('last'))
-        after = false
+        setEndAfter = false
       }
     }
-    rangeInsertNode(createElementBr(), after)
+    rangeInsertNode(createElementBr(), setEndAfter)
     // rangeInsertNode(document.createTextNode('\n'))
   }
 
@@ -136,7 +135,8 @@ const ContentEditable: React.FC = () => {
     if (target.nodeName === 'IMG') {
       const range = document.createRange()
       range.selectNode(target)
-      range.collapse()
+      // 是否将焦点定位到后面
+      // range.collapse()
       select.removeAllRanges()
       select.addRange(range)
       refRange.current = range
@@ -234,6 +234,7 @@ const ContentEditable: React.FC = () => {
     img.width = width
     img.height = height
     img.draggable = false
+    img.tabIndex = 0
     img.classList.add(css.insertImg)
     rangeInsertNode(img)
   }
@@ -288,6 +289,7 @@ const ContentEditable: React.FC = () => {
         onDragLeave={onDragLeave}
         onDragEnd={onDragEnd}
         onDrop={onDrop}
+        tabIndex={0}
         ref={refEditor}
       />
       <div>
