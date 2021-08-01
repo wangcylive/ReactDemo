@@ -1,6 +1,24 @@
 import React, {useEffect, useRef, useState} from 'react'
 import css from './index.module.scss'
 
+// 判断是否是最后一个有效 node, range.insertNode 会在后面增加一个空text
+function isLastValidNode(node: Node): boolean {
+  if (!node) {
+    return false
+  }
+  let value = true
+  let nextNode = node.nextSibling
+  while (nextNode) {
+    if (nextNode.nodeType === Node.ELEMENT_NODE || (nextNode.nodeType === Node.TEXT_NODE && nextNode.textContent !== '')) {
+      value = false
+      break
+    } else {
+      nextNode = nextNode.nextSibling
+    }
+  }
+  return value
+}
+
 const ContentEditable: React.FC = () => {
   const [text, setText] = useState<string>('')
   const refEditor = useRef<HTMLHeadingElement>(null)
@@ -93,24 +111,27 @@ const ContentEditable: React.FC = () => {
     let setEndAfter = true
     // 焦点在文本最后一个字符，此字符后面没有内容，增加一个换行符
     if (endContainer.nodeType === Node.TEXT_NODE && endOffset === endContainer.textContent.length) {
-      const nextNode = endContainer.nextSibling
-      if (!nextNode || (nextNode.nodeType === Node.TEXT_NODE && nextNode.nodeValue === '')) {
+      if (isLastValidNode(endContainer)) {
         rangeInsertNode(createElementBr('text'))
         setEndAfter = false
       }
     }
     if (endContainer.nodeType === Node.ELEMENT_NODE) {
       const ancestorChildNodes = commonAncestorContainer.childNodes
-      // 父级没有内容时，增加一个换行符
-      if (endContainer === commonAncestorContainer && ancestorChildNodes.length === 0) {
-        rangeInsertNode(createElementBr('first'))
-        setEndAfter = false
+      if (endContainer === commonAncestorContainer) {
+        // 父级没有内容时，增加一个换行符
+        if (ancestorChildNodes.length === 0) {
+          rangeInsertNode(createElementBr('first'))
+          setEndAfter = false
+        } else {
+          // 焦点在最后一个 Element 后，增加一个换行符
+          if (!ancestorChildNodes[endOffset] || isLastValidNode(ancestorChildNodes[endOffset - 1])) {
+            rangeInsertNode(createElementBr('last'))
+            setEndAfter = false
+          }
+        }
       }
-      // 焦点在最后一个 Element 后，增加一个换行符
-      if (endOffset === ancestorChildNodes.length) {
-        rangeInsertNode(createElementBr('last'))
-        setEndAfter = false
-      }
+
     }
     rangeInsertNode(createElementBr(), setEndAfter)
     // rangeInsertNode(document.createTextNode('\n'))
@@ -159,6 +180,8 @@ const ContentEditable: React.FC = () => {
         } else if (node.nodeType === Node.ELEMENT_NODE) {
           if (node.nodeName === 'BR') {
             val += '\n'
+          } else if (node.nodeName === 'IMG') {
+            val += `[${(node as HTMLImageElement).alt}]`
           }
         }
       })
@@ -237,6 +260,7 @@ const ContentEditable: React.FC = () => {
     img.tabIndex = 0
     img.classList.add(css.insertImg)
     rangeInsertNode(img)
+    rangeInsertNode(document.createTextNode(' '))
   }
   const onInsertSpan = () => {
     const span = document.createElement('span')
@@ -292,7 +316,7 @@ const ContentEditable: React.FC = () => {
         tabIndex={0}
         ref={refEditor}
       />
-      <div>
+      <div className={css.btnGroup}>
         <button onClick={onJoinEmoji}>JoinEmoji</button>
         <button onClick={onJoinTime}>InsertTime</button>
         <button onClick={onInsertImg}>InsertImg</button>
