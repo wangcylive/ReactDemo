@@ -9,7 +9,10 @@ function isLastValidNode(node: Node): boolean {
   let value = true
   let nextNode = node.nextSibling
   while (nextNode) {
-    if (nextNode.nodeType === Node.ELEMENT_NODE || (nextNode.nodeType === Node.TEXT_NODE && nextNode.textContent !== '')) {
+    if (
+      nextNode.nodeType === Node.ELEMENT_NODE ||
+      (nextNode.nodeType === Node.TEXT_NODE && nextNode.textContent !== '')
+    ) {
       value = false
       break
     } else {
@@ -52,6 +55,7 @@ const ContentEditable: React.FC = () => {
       if (refEditor.current.contains(range.commonAncestorContainer)) {
         refRange.current = selection.getRangeAt(0)
       }
+      console.log('saveRange', range.startOffset, range.endOffset)
       ;(window as any).refRange = refRange.current
       // console.log('saveRange', refRange.current.startOffset)
     }
@@ -131,7 +135,6 @@ const ContentEditable: React.FC = () => {
           }
         }
       }
-
     }
     rangeInsertNode(createElementBr(), setEndAfter)
     // rangeInsertNode(document.createTextNode('\n'))
@@ -249,7 +252,7 @@ const ContentEditable: React.FC = () => {
     context.font = `${fontSize * dpr}px sans-serif`
     context.fillStyle = '#1c59ca'
     context.textAlign = 'center'
-    context.fillText(text, width * dpr / 2, (height - fontSize) * dpr / 2)
+    context.fillText(text, (width * dpr) / 2, ((height - fontSize) * dpr) / 2)
     const url = canvas.toDataURL('image/png')
     const img = new Image()
     img.src = url
