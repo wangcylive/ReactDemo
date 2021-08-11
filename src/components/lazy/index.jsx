@@ -1,5 +1,4 @@
 import React, {useEffect, useReducer, useState} from 'react'
-import {hot} from 'react-hot-loader/root'
 const LazyComponent = React.lazy(() => import('./lazy-comp'))
 
 function LazyTest() {
@@ -24,4 +23,4 @@ function LazyTest() {
   )
 }
 
-export default hot(LazyTest)
+export default LazyTest

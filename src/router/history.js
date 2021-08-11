@@ -16,7 +16,7 @@ export function HistoryRouter({children, history}) {
     location: history.location,
   })
 
-  React.useLayoutEffect(() => history.listen(dispatch), [history])
+  React.useEffect(() => history.listen(dispatch), [history])
 
   return <Router children={children} action={state.action} location={state.location} navigator={history} />
 }

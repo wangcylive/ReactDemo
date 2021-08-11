@@ -2,10 +2,11 @@ const path = require('path')
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('./html-conf')
 const entry = require('./main-conf')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 module.exports = () => {
   const {getCssLoader, getSassLoader, getLessLoader, getFontOptions, getImgOptions} = require('./rules-conf')()
-
+  const isDev = process.env.NODE_ENV === 'development'
   return {
     context: path.resolve(__dirname, '..'),
     mode: process.env.NODE_ENV,
@@ -17,6 +18,9 @@ module.exports = () => {
           test: /\.[t|j]sx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
+          options: {
+            plugins: [isDev && require.resolve('react-refresh/babel')].filter(Boolean),
+          },
         },
         {
           test: /\.css$/,
@@ -55,8 +59,12 @@ module.exports = () => {
           ],
         },
         {
+          test: /\.svg(\?.*)?$/,
+          use: ['@svgr/webpack', 'url-loader'],
+        },
+        {
           // 处理图片文件
-          test: /\.(png|jpe?g|gif|svg|webp)(\?.*)?$/,
+          test: /\.(png|jpe?g|gif|webp)(\?.*)?$/,
           loader: 'url-loader',
           options: getImgOptions(),
         },
@@ -73,7 +81,7 @@ module.exports = () => {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
 
       alias: {
-        'react-dom': '@hot-loader/react-dom',
+        src: path.resolve(__dirname, '../src'),
         '@': path.resolve(__dirname, '../src'),
       },
     },
@@ -106,6 +114,7 @@ module.exports = () => {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
       }),
-    ],
+      isDev && new ReactRefreshWebpackPlugin(),
+    ].filter(Boolean),
   }
 }

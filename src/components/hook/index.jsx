@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react'
-import {hot} from 'react-hot-loader/root'
 import {NavLink, Outlet, useLocation, useMatch, useOutlet, matchRoutes} from 'react-router-dom'
 import ErrorBoundary from '@/components/error-boundary'
 import routes from '@/router'
@@ -33,4 +32,4 @@ function HookDemo(props) {
   )
 }
 
-export default hot(HookDemo)
+export default HookDemo

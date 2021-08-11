@@ -1,5 +1,4 @@
 import React, {Component, PureComponent} from 'react'
-import {hot} from 'react-hot-loader/root'
 import {Routes, Route, Link, NavLink, useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {changeName, asyncChangeName} from '@/store/user-info/action'
@@ -99,4 +98,4 @@ const UserInfo = props => {
   )
 }
 
-export default hot(Router2)
+export default Router2

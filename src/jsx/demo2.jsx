@@ -2,7 +2,6 @@ import React, {Component, PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import {withRouter} from 'react-router-dom'
-import {hot} from 'react-hot-loader/root'
 
 const names = ['Alice', 'Emily', 'Kate']
 
@@ -170,4 +169,4 @@ async function allShowtime() {
 
 // allShowtime()
 
-export default hot(Demo2)
+export default Demo2

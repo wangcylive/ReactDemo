@@ -1,5 +1,4 @@
 import React from 'react'
-import {hot} from 'react-hot-loader/root'
 import {useSearchParams} from 'react-router-dom'
 
 function ShowSearch(props) {
@@ -30,4 +29,4 @@ const App = () => {
   )
 }
 
-export default hot(App)
+export default App

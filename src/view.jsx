@@ -1,7 +1,6 @@
 import React from 'react'
 import state from '@/store/index'
 import {Provider} from 'react-redux'
-import {hot} from 'react-hot-loader/root'
 import {NavLink, BrowserRouter, useRoutes, useLocation} from 'react-router-dom'
 import routes from '@/router'
 import history, {HistoryRouter} from '@/router/history'
@@ -45,4 +44,4 @@ function View(props) {
   )
 }
 
-export default hot(View)
+export default View
