@@ -203,6 +203,10 @@ const routes = [
     path: '/content-editable',
     element: createElement(loadableHoc(() => import('@/components/content-editable'))),
   },
+  {
+    path: '/orientation',
+    element: createElement(loadableHoc(() => import('@/components/orientation'))),
+  },
   // {
   //   path: '/copy',
   //   element: <Copy />,
