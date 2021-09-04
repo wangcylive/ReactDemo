@@ -6,10 +6,10 @@ function isPromise(obj) {
 
 function wrapperDispatch(dispatch) {
   return function (action) {
-    if (isPromise(action.payload)) {
-      return action.payload.then(res => {
-        dispatch({type: action.type, payload: res})
-        return res
+    if (isPromise(action)) {
+      return action.then(res => {
+        dispatch(res)
+        return res.payload
       })
     } else {
       dispatch(action)
@@ -32,17 +32,23 @@ const initialState = {
 
 const SET_COUNT = 'SET_COUNT'
 function setCount(count, rootState) {
-  const asyncFn = async () => {
-    const value = await new Promise(resolve => {
-      setTimeout(() => {
-        resolve(rootState.count + count)
-      }, 1000)
-    })
-    return value
-  }
   return {
     type: SET_COUNT,
-    payload: asyncFn(),
+    payload: rootState.count + count,
+  }
+}
+
+const ASYNC_SET_COUNT = 'ASYNC_SET_COUNT'
+async function asyncSetCount(count, rootState) {
+  const value = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve(rootState.count + count)
+    }, 1000)
+  })
+
+  return {
+    type: ASYNC_SET_COUNT,
+    payload: value,
   }
 }
 
@@ -59,6 +65,11 @@ function reducer(state, action) {
         count: state.count - 1,
       }
     case SET_COUNT:
+      return {
+        ...state,
+        count: action.payload,
+      }
+    case ASYNC_SET_COUNT:
       return {
         ...state,
         count: action.payload,
@@ -88,19 +99,19 @@ function HookUserReducer(props) {
 }
 
 function Demo1(props) {
-  const onSet = payload => {
-    const a = props.dispatch(setCount(payload, props.state)).then(res => {
+  const onAsyncSet = payload => {
+    props.dispatch(asyncSetCount(payload, props.state)).then(res => {
       console.log('done', res)
     })
   }
   useEffect(() => {
-    console.log('useEffect', props.dispatch)
+    console.log('useEffect dispatch')
   }, [props.dispatch])
   return (
     <div>
       <div>Count: {props.state.count}</div>
-      <button onClick={() => onSet(10)}>+10</button>
-      <button onClick={() => onSet(-10)}>-10</button>
+      <button onClick={() => props.dispatch(setCount(10, props.state))}>sync +10</button>
+      <button onClick={() => onAsyncSet(-10)}>async -10</button>
     </div>
   )
 }
