@@ -4,8 +4,8 @@ import {createBrowserHistory} from 'history'
 
 const history = createBrowserHistory()
 
-history.listen(a => {
-  console.log('aaa', a)
+history.listen(listener => {
+  console.log('history listener', listener)
 })
 
 export default history

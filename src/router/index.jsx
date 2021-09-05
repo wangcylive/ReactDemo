@@ -207,26 +207,30 @@ const routes = [
     path: '/orientation',
     element: createElement(loadableHoc(() => import('@/components/orientation'))),
   },
-  // {
-  //   path: '/copy',
-  //   element: <Copy />,
-  // },
-  // {
-  //   path: '/media-source',
-  //   element: loadableHoc(() => import('@/elements/media-source')),
-  // },
-  // {
-  //   path: '/grid',
-  //   element: loadableHoc(() => import('@/elements/grid')),
-  // },
-  // {
-  //   path: '/notification',
-  //   element: loadableHoc(() => import('@/elements/notification')),
-  // },
-  // {
-  //   path: '/nodemailer',
-  //   element: loadableHoc(() => import('@/elements/nodemailer')),
-  // },
+  {
+    path: '/bscroll',
+    element: createElement(loadableHoc(() => import('@/components/bscroll')))
+  },
+  {
+    path: '/copy',
+    element: createElement(loadableHoc(() => import('@/components/copy'))),
+  },
+  {
+    path: '/media-source',
+    element: createElement(loadableHoc(() => import('@/components/media-source'))),
+  },
+  {
+    path: '/grid',
+    element: createElement(loadableHoc(() => import('@/components/grid'))),
+  },
+  {
+    path: '/notification',
+    element: createElement(loadableHoc(() => import('@/components/notification'))),
+  },
+  {
+    path: '/nodemailer',
+    element: createElement(loadableHoc(() => import('@/components/nodemailer'))),
+  },
 ]
 
 export default routes

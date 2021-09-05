@@ -1,6 +1,5 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
-import css from './layout.module.scss?module'
+import css from './layout.module.scss'
 
 const GridDemo = () => {
   return <div>
@@ -33,4 +32,4 @@ const GridDemo = () => {
   </div>
 }
 
-export default hot(GridDemo)
+export default GridDemo

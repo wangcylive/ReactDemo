@@ -1,0 +1,26 @@
+.warp {
+  height: 200px;
+  border: 1px solid #333;
+  overflow: hidden;
+  user-select: none;
+}
+.content {
+  background-color: #588b1c;
+}
+
+.testDiv {
+  height: 201px;
+  font-size: 18px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  height: 20px;
+  background-color: #cccccc;
+  + .item {
+     margin-top: 3px;
+  }
+}

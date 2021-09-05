@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import Hls from 'hls.js'
-import { hot } from 'react-hot-loader/root'
 
 const MediaDemo = () => {
   const refVideo = useRef(null)
@@ -70,4 +69,4 @@ const MediaDemo = () => {
   </div>
 }
 
-export default hot(MediaDemo)
+export default MediaDemo
