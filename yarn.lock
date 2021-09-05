@@ -1209,6 +1209,13 @@
   dependencies:
     "@better-scroll/shared-utils" "^2.4.2"
 
+"@better-scroll/pull-down@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.nlark.com/@better-scroll/pull-down/download/@better-scroll/pull-down-2.4.2.tgz#6b98b28bd73e9b694b0857a9c73879e70339cb96"
+  integrity sha1-a5iyi9c+m2lLCFepxzh55wM5y5Y=
+  dependencies:
+    "@better-scroll/core" "^2.4.2"
+
 "@better-scroll/shared-utils@^2.4.2":
   version "2.4.2"
   resolved "https://registry.nlark.com/@better-scroll/shared-utils/download/@better-scroll/shared-utils-2.4.2.tgz#1ac5c97495727093a22a8009560795dd5e3c18da"
