@@ -10,7 +10,7 @@ module.exports = () => {
   return {
     context: path.resolve(__dirname, '..'),
     mode: process.env.NODE_ENV,
-    target: 'browserslist',
+    target: isDev ? 'web' : 'browserslist',
     entry,
     module: {
       rules: [

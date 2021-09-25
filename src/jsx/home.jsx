@@ -1,19 +1,18 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import ReactDom from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
-import { hot } from 'react-hot-loader/root'
-import { changeName } from '@/store/user-info/action'
-import { connect } from 'react-redux'
+import {changeName} from '@/store/user-info/action'
+import {connect} from 'react-redux'
 import Demo1 from '@/server-demo1'
 
-console.log(ReactDOMServer.renderToString(<Demo1/>))
+console.log(ReactDOMServer.renderToString(<Demo1 />))
 
 class View1 extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.btn = React.createRef()
     this.state = {
-      view: 'view1'
+      view: 'view1',
     }
   }
 
@@ -25,54 +24,56 @@ class View1 extends Component {
     this.props.changeParentName('View1name')
   }
 
-  changeChildView = (view) => {
+  changeChildView = view => {
     this.setState({
-      view
+      view,
     })
   }
 
   iframePostMessage = () => {
     const data = {
       type: 'setPayload',
-      payload: JSON.stringify({ value: 'postMessage' })
+      payload: JSON.stringify({value: 'postMessage'}),
     }
     console.log('iframeMessage', data)
     window.top.postMessage(data, '*')
   }
 
-  componentDidMount () {
+  componentDidMount() {
     console.log('componentDidMount', this, ReactDom.findDOMNode(this), this.el)
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('componentDidUpdate', prevProps, prevState, snapshot)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {}
 
-  }
-
-  render () {
+  render() {
     console.log('view1 render', performance.now())
-    const { props, state } = this
+    const {props, state} = this
     const lists = Array.from(new Array(10), (item, index) => index + 1)
     return (
-      <div ref={(ele) => this.el = ele}>
+      <div ref={ele => (this.el = ele)}>
         <button onClick={this.iframePostMessage}>Iframe post1</button>
         <div>redux name: {props.name}</div>
         <div>self view: {state.view}</div>
         <div>
-          <button ref={this.btn} onClick={this.clickChangeName}>Click Change Name</button>
+          <button ref={this.btn} onClick={this.clickChangeName}>
+            Click Change Name
+          </button>
           <button onClick={this.clickChangeParentName}>Click Change Parent Name</button>
         </div>
         <ul>
-          {
-            lists.map((item, index) => <li ref={(ele) => this[ `list${index}` ] = ele} key={index}>{item}</li>)
-          }
+          {lists.map((item, index) => (
+            <li ref={ele => (this[`list${index}`] = ele)} key={index}>
+              {item}
+            </li>
+          ))}
         </ul>
         <div>{props.children}</div>
 
-        <Demo1/>
+        <Demo1 />
       </div>
     )
   }
@@ -80,37 +81,39 @@ class View1 extends Component {
 
 const View1Coonect = connect(mapState, mapDispatch)(View1)
 
-function View2 (props) {
-  return (
-    <div className='view2'>View2</div>
-  )
+function View2(props) {
+  return <div className="view2">View2</div>
 }
 
-function View3 (props) {
-  return (
-    <div className='view3'>View3</div>
-  )
+function View3(props) {
+  return <div className="view3">View3</div>
 }
 
 class Home extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
-      name: 'HOME'
+      name: 'HOME',
     }
   }
 
-  selfNameChange = (event) => {
+  selfNameChange = event => {
     const name = event.target.value.trim()
-    this.setState({
-      name
-    })
+    this.setState(
+      {
+        name,
+      },
+      () => {
+        console.log('selfNameChange async', event.target.previousElementSibling?.textContent)
+      },
+    )
+    console.log('selfNameChange sync', event.target.previousElementSibling?.textContent)
   }
 
-  changeSelfName = (name) => {
+  changeSelfName = name => {
     this.setState({
-      name
+      name,
     })
   }
 
@@ -119,25 +122,18 @@ class Home extends Component {
     this.refs.view1.changeChildView('form parent change view1.')
   }
 
-  reduxNameChange = (event) => {
+  reduxNameChange = event => {
     const name = event.target.value.trim()
     this.props.changeName(name)
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.state.name !== this.elInput.value) {
       this.elInput.value = this.state.name
     }
   }
 
-  onOpenApp = () => {
-    location.href = 'videobus://deeplink'
-    // const iframe = document.createElement('iframe')
-    // iframe.src = 'videobus://deeplink'
-    // document.body.appendChild(iframe)
-  }
-
-  onChangeFile = (event) => {
+  onChangeFile = event => {
     const file = event.target.files[0]
     if (file) {
       console.log(file)
@@ -149,49 +145,48 @@ class Home extends Component {
     }
   }
 
-  render () {
-    console.log('home render', performance.now())
-    const { props, state } = this
+  render() {
+    const {props, state} = this
 
     return (
       <div>
         <div>
-
-          <button type={'button'} onClick={this.onOpenApp}>打开 video bus</button>
-          <input type="file" onChange={this.onChangeFile}/>
-
+          <input type="file" onChange={this.onChangeFile} />
         </div>
         <h3>Home</h3>
         <div>
-          <label>self name:</label> <span>{state.name}</span> <input ref={el => this.elInput = el} type="text"
-                                                                     onChange={this.selfNameChange}/>
+          <label>self name:</label> <span>{state.name}</span>{' '}
+          <input ref={el => (this.elInput = el)} type="text" onChange={this.selfNameChange} />
         </div>
         <div>
-          <label ref="label">redux name:</label> <span>{props.name}</span> <input type="text"
-                                                                                  onChange={this.reduxNameChange}/>
+          <label ref="label">redux name:</label> <span>{props.name}</span>{' '}
+          <input type="text" onChange={this.reduxNameChange} />
         </div>
-        <hr/>
+        <hr />
         <div>
           <button onClick={this.changeView1}>Change View1 view</button>
         </div>
-        <View1 {...props} changeParentName={this.changeSelfName} ref="view1"><View2/><View3/></View1>
+        <View1 {...props} changeParentName={this.changeSelfName} ref="view1">
+          <View2 />
+          <View3 />
+        </View1>
       </div>
     )
   }
 }
 
-function mapState (state, ownProps) {
+function mapState(state, ownProps) {
   return {
-    ...state.userInfo
+    ...state.userInfo,
   }
 }
 
-function mapDispatch (dispatch, ownProps) {
+function mapDispatch(dispatch, ownProps) {
   return {
-    changeName: (name) => {
+    changeName: name => {
       dispatch(changeName(name))
-    }
+    },
   }
 }
 
-export default hot(connect(mapState, mapDispatch)(Home))
+export default connect(mapState, mapDispatch)(Home)

@@ -30,3 +30,11 @@ html {
     shape-rendering: crispEdges;
   }
 }
+
+.hooks-list-ul {
+  border: 1px solid #ccc;
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+  overflow-y: auto;
+}
