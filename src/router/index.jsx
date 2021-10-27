@@ -209,7 +209,7 @@ const routes = [
   },
   {
     path: '/bscroll',
-    element: createElement(loadableHoc(() => import('@/components/bscroll')))
+    element: createElement(loadableHoc(() => import('@/components/bscroll'))),
   },
   {
     path: '/copy',
@@ -230,6 +230,10 @@ const routes = [
   {
     path: '/nodemailer',
     element: createElement(loadableHoc(() => import('@/components/nodemailer'))),
+  },
+  {
+    path: '/touch-action',
+    element: createElement(loadableHoc(() => import('@/components/touch-action'))),
   },
 ]
 

@@ -1,0 +1,33 @@
+html {
+  touch-action: manipulation;
+}
+.touchNone {
+  touch-action: none;
+}
+
+.vertical {
+  height: 100px;
+  overflow: scroll;
+  border: 1px solid #efefef;
+  list-style: none;
+}
+
+.horizontal {
+  list-style: none;
+  padding: 0;
+  height: 60px;
+  overflow: hidden;
+  overflow-x: auto;
+  border: 1px solid #efefef;
+  font-size: 0;
+  line-height: 0;
+  white-space: nowrap;
+  touch-action: pan-x;
+
+  > li {
+    padding: 0 0.5em;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 60px;
+  }
+}
