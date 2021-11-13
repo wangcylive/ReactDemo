@@ -3809,6 +3809,13 @@ history@^5.0.0:
   dependencies:
     "@babel/runtime" "^7.7.6"
 
+history@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.npmmirror.com/history/download/history-5.1.0.tgz#2e93c09c064194d38d52ed62afd0afc9d9b01ece"
+  integrity sha1-LpPAnAZBlNONUu1ir9CvydmwHs4=
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 hls.js@^1.0.1:
   version "1.0.7"
   resolved "https://registry.nlark.com/hls.js/download/hls.js-1.0.7.tgz#b4ab75e7a46650d02245a1da091efd15f07d16eb"
@@ -6077,10 +6084,17 @@ react-router-dom@^6.0.0-beta.4:
   dependencies:
     react-router "6.0.0-beta.4"
 
-react-router@6.0.0-beta.4, react-router@^6.0.0-beta.4:
+react-router@6.0.0-beta.4:
   version "6.0.0-beta.4"
   resolved "https://registry.nlark.com/react-router/download/react-router-6.0.0-beta.4.tgz?cache=0&sync_timestamp=1631320283717&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-router%2Fdownload%2Freact-router-6.0.0-beta.4.tgz#e35a440b36fd07a2ac854e1f1f176b56a777793a"
   integrity sha1-41pECzb9B6KshU4fHxdrVqd3eTo=
+
+react-router@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.npmmirror.com/react-router/download/react-router-6.0.2.tgz#bd2b0fa84fd1d152671e9f654d9c0b1f5a7c86da"
+  integrity sha512-8/Wm3Ed8t7TuedXjAvV39+c8j0vwrI5qVsYqjFr5WkJjsJpEvNSoLRUbtqSEYzqaTUj1IV+sbPJxvO+accvU0Q==
+  dependencies:
+    history "^5.1.0"
 
 react@^17.0.2:
   version "17.0.2"

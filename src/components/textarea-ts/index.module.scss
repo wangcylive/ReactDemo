@@ -1,0 +1,37 @@
+.textareaWrap {
+  display: flex;
+  height: 200px;
+}
+.textareaEnter,
+.textareaResult {
+  flex: 1 1 50%;
+  display: block;
+  resize: none;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.textareaResult {
+  white-space: pre-wrap;
+}
+.remind {
+  position: relative;
+  height: 0;
+}
+.errorText,
+.successText {
+  font-size: 14px;
+  line-height: 20px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 200px;
+  margin-left: -100px;
+  text-align: center;
+}
+.errorText {
+  color: #f44336;
+}
+.successText {
+  color: #588b1c;
+}

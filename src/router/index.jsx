@@ -235,6 +235,10 @@ const routes = [
     path: '/touch-action',
     element: createElement(loadableHoc(() => import('@/components/touch-action'))),
   },
+  {
+    path: '/textarea-ts',
+    element: createElement(loadableHoc(() => import('@/components/textarea-ts'))),
+  },
 ]
 
 export default routes
