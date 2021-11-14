@@ -7,6 +7,9 @@ function typeTransform(type: string) {
     case 'Long':
       return 'string'
     case 'Int':
+    case 'Double':
+    case 'int64':
+    case 'double':
       return 'number'
     default:
       return 'any'
@@ -15,9 +18,11 @@ function typeTransform(type: string) {
 
 const TextareaTs: React.FC = () => {
   const [text, setText] = useState<string>('')
+  const [html, setHtml] = useState<string>('')
   const [errorText, setErrorText] = useState<string>('')
   const [successText, setSuccessText] = useState<string>('')
   const refRemindId = useRef<number>(-1)
+  const refEditor = useRef<HTMLDivElement>(null)
 
   const textTransform = useMemo<string>(() => {
     if (text) {
@@ -43,6 +48,29 @@ const TextareaTs: React.FC = () => {
     }
   }, [text])
 
+  const htmlTransform = useMemo<string>(() => {
+    if (html) {
+      const div = document.createElement('div')
+      div.innerHTML = html
+      const table = div.querySelector('table')
+      if (table) {
+        const trList = table.querySelectorAll('tbody tr')
+        if (trList.length > 0) {
+          const arr: string[] = []
+          trList.forEach(tr => {
+            const tdList = tr.querySelectorAll('td')
+            const key = tdList[0].textContent
+            const type = typeTransform(tdList[1].textContent)
+            const desc = tdList[2].textContent
+            arr.push(`${key}: ${type} // ${desc}`)
+          })
+          return arr.join('\n')
+        }
+      }
+    }
+    return ''
+  }, [html])
+
   const copyTextareaResult = () => {
     navigator.clipboard
       .writeText(textTransform)
@@ -55,18 +83,66 @@ const TextareaTs: React.FC = () => {
   }
 
   const readTextareaText = async () => {
+    console.log(navigator.clipboard.readText)
     try {
       const res = await navigator.clipboard.readText()
-      setText(res)
+      setText(res.trim())
       console.log(res)
     } catch (e) {
-      setText('read text error.')
+      console.log(e)
+      setErrorText('read text error.')
     }
   }
 
   const onInputTextarea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value.trim())
   }
+
+  const readHtml = async () => {
+    try {
+      const res = await navigator.clipboard.read()
+      res.forEach(clipItem => {
+        if (clipItem.types.includes('text/html')) {
+          clipItem.getType('text/html').then(blob => {
+            // const fileRead = new FileReader()
+            // fileRead.onload = () => {
+            //   console.log(fileRead.result)
+            // }
+            // fileRead.readAsText(blob)
+            blob.text().then(text => {
+              setHtml(text)
+              refEditor.current.innerHTML = text
+              console.log(text)
+            })
+          })
+        }
+      })
+    } catch (e) {
+      console.log(e)
+      setErrorText('read html error.')
+    }
+  }
+
+  const onInputHtml = (event: React.ChangeEvent<HTMLDivElement>) => {
+    setHtml(event.target.innerHTML)
+  }
+
+  const copyHtmlResult = () => {
+    navigator.clipboard
+      .writeText(htmlTransform)
+      .then(() => {
+        setSuccessText('copy success.')
+      })
+      .catch(e => {
+        setErrorText('copy error.')
+      })
+  }
+
+  useEffect(() => {
+    if (htmlTransform) {
+      copyHtmlResult()
+    }
+  }, [htmlTransform])
 
   useEffect(() => {
     if (textTransform) {
@@ -90,21 +166,31 @@ const TextareaTs: React.FC = () => {
         {errorText && <div className={css.errorText}>{errorText}</div>}
         {successText && <div className={css.successText}>{successText}</div>}
       </div>
-      {/*<button onClick={onTransform}>Transform</button>*/}
       <button onClick={readTextareaText}>ReadText</button>
       <button onClick={copyTextareaResult}>CopyText</button>
       <div className={css.textareaWrap}>
         <textarea
           className={css.textareaEnter}
-          defaultValue={text}
+          value={text}
           onInput={onInputTextarea}
           onClick={readTextareaText}
           placeholder={'enter text'}
         />
         <div className={css.textareaResult}>{textTransform}</div>
       </div>
-      {/*<div contentEditable={true} style={{height: '300px'}}></div>*/}
-      {/*<button onClick={onTransform}>Transform</button>*/}
+      <button onClick={readHtml}>ReadHtml</button>
+      <button onClick={copyHtmlResult}>CopyHtml</button>
+      <div className={css.textareaWrap}>
+        <div
+          className={css.textareaEnter}
+          contentEditable={true}
+          ref={refEditor}
+          // dangerouslySetInnerHTML={{__html: html}}
+          onClick={readHtml}
+          onInput={onInputHtml}
+        />
+        <div className={css.textareaResult}>{htmlTransform}</div>
+      </div>
     </div>
   )
 }
