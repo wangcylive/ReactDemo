@@ -2,18 +2,19 @@ import React, {useEffect, useMemo, useRef, useState} from 'react'
 import css from './index.module.scss'
 
 function typeTransform(type: string) {
-  switch (type) {
-    case 'String':
-    case 'Long':
-      return 'string'
-    case 'Int':
-    case 'Double':
-    case 'int64':
-    case 'double':
-      return 'number'
-    default:
-      return 'any'
+  if (/string|long/i.test(type)) {
+    return 'string'
   }
+  if (/int|double/i.test(type)) {
+    return 'number'
+  }
+  if (/bool/i.test(type)) {
+    return 'boolean'
+  }
+  if (/list/i.test(type)) {
+    return 'any[]'
+  }
+  return 'any'
 }
 
 const TextareaTs: React.FC = () => {

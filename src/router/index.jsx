@@ -239,6 +239,10 @@ const routes = [
     path: '/textarea-ts',
     element: createElement(loadableHoc(() => import('@/components/textarea-ts'))),
   },
+  {
+    path: '/carousel',
+    element: createElement(loadableHoc(() => import('@/components/Carousel/demo'))),
+  },
 ]
 
 export default routes

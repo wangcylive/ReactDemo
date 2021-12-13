@@ -1,0 +1,37 @@
+.wrap {
+  position: relative;
+  overflow: hidden;
+}
+.container {
+  white-space: nowrap;
+  will-change: transform;
+}
+.item {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  position: relative;
+}
+.dots {
+  position: absolute;
+  right: 16px;
+  bottom: 11px;
+  display: flex;
+}
+.dotItem {
+  width: 16px;
+  height: 16px;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: hsla(0, 0%, 100%, 0.5);
+  background-clip: content-box;
+  transition: background-color 0.2s ease-in;
+  cursor: pointer;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+.dotItemActive {
+  background-color: #fff;
+}
