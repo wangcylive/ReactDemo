@@ -22,8 +22,8 @@ const Demo: React.FC = () => {
 
   return (
     <div className="carousel-wrap">
-      <Carousel ref={refCarousel} loop={true}>
-        {Array.from({length: 3}).map((_, index) => (
+      <Carousel ref={refCarousel} loop={true} dots={true}>
+        {Array.from({length: 4}).map((_, index) => (
           <div className={'carousel-item'} key={index}>
             {index}
           </div>

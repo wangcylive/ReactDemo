@@ -16,7 +16,9 @@
   position: absolute;
   right: 16px;
   bottom: 11px;
+  margin: 0;
   display: flex;
+  list-style: none;
 }
 .dotItem {
   width: 16px;
@@ -27,6 +29,7 @@
   background-clip: content-box;
   transition: background-color 0.2s ease-in;
   cursor: pointer;
+  box-sizing: border-box;
 
   &:first-child {
     margin-left: 0;

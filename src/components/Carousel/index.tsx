@@ -130,7 +130,7 @@ const Carousel = React.forwardRef<ImperativeHandle, PropsWithChildren<Partial<Pr
       if (enableLoop && prevIndex === 0) {
         el.style.transitionDuration = '0s'
         el.style.transitionProperty = 'none'
-        if (pageIndex === maxPageIndex) {
+        if (pageIndex === maxPageIndex && maxPageIndex > 1) {
           el.style.transform = `translateX(${(maxPageIndex + 1) * -100}%)`
         } else {
           el.style.transform = 'translateX(0%)'
