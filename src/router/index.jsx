@@ -243,6 +243,10 @@ const routes = [
     path: '/carousel',
     element: createElement(loadableHoc(() => import('@/components/Carousel/demo'))),
   },
+  {
+    path: '/tooltip',
+    element: createElement(loadableHoc(() => import('@/components/Tooltip/demo'))),
+  },
 ]
 
 export default routes
