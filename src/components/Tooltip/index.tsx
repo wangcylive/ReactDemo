@@ -5,23 +5,23 @@ import css from './index.module.scss'
 export type Placement = 'left' | 'right' | 'top' | 'bottom'
 
 export interface Props {
-  content: ReactNode
-  placement?: Placement
-  margin?: number
-  className?: string
+  content: ReactNode // 显示内容，可以是文本或组件
+  placement?: Placement // 位置，默认 bottom
+  margin?: number // 边距，默认 10
+  className?: string // 显示内容增加 class
+  reachable?: boolean // 是否可触及，默认 false，普通的提示性文案不需要操作，需要有操作的设置为 true
 }
 
 const Tooltip: React.FC<React.PropsWithChildren<Props>> = props => {
-  const {children, content, placement = 'bottom', margin = 10} = props
+  const {children, content, placement = 'bottom', margin = 10, reachable} = props
   const [isMouseEnter, setMouseEnter] = useState<boolean>(false)
   const [position, setPosition] = useState<[number, number]>([0, 0])
   const isClient = typeof window !== 'undefined'
   const refEl = useRef<HTMLDivElement>(null)
   const refLevelTimeoutID = useRef<number>(-1)
-  const onMouseEnter = (event: React.MouseEvent, set = true) => {
-    window.clearTimeout(refLevelTimeoutID.current)
-    const target = event.currentTarget
-    if (set) {
+  const onMouseEnter = (event: React.MouseEvent, self = true) => {
+    if (self) {
+      const target = event.currentTarget
       const rect = target.getBoundingClientRect()
       let top = 0
       let left = 0
@@ -33,16 +33,20 @@ const Tooltip: React.FC<React.PropsWithChildren<Props>> = props => {
         top = rect.top + rect.height / 2 + scrollTop
         left = rect[placement] + scrollLeft
       }
-
       setPosition([left, top])
     }
-    setMouseEnter(true)
+    if (self || reachable) {
+      window.clearTimeout(refLevelTimeoutID.current)
+      setMouseEnter(true)
+    }
   }
-  const onMouseLeave = () => {
-    window.clearTimeout(refLevelTimeoutID.current)
-    refLevelTimeoutID.current = window.setTimeout(() => {
-      setMouseEnter(false)
-    }, 100)
+  const onMouseLeave = (event: React.MouseEvent, self = true) => {
+    if (self || reachable) {
+      window.clearTimeout(refLevelTimeoutID.current)
+      refLevelTimeoutID.current = window.setTimeout(() => {
+        setMouseEnter(false)
+      }, 100)
+    }
   }
   const onAnimationEnd = (e: React.AnimationEvent) => {
     if (e.animationName === css.fadeOut) {
@@ -103,7 +107,7 @@ const Tooltip: React.FC<React.PropsWithChildren<Props>> = props => {
         },
         onMouseLeave(event: React.MouseEvent) {
           item.props?.onMouseLeave?.(event)
-          onMouseLeave()
+          onMouseLeave(event, true)
         },
       })
     }
@@ -115,9 +119,9 @@ const Tooltip: React.FC<React.PropsWithChildren<Props>> = props => {
     document.body &&
     ReactDom.createPortal(
       <div
-        className={css.tooltip}
+        className={[css.tooltip, props.className].filter(item => !!item).join(' ')}
         onMouseEnter={event => onMouseEnter(event, false)}
-        onMouseLeave={onMouseLeave}
+        onMouseLeave={event => onMouseLeave(event, false)}
         onAnimationEnd={onAnimationEnd}
         style={{display: 'none'}}
         ref={refEl}>

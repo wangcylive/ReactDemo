@@ -16,19 +16,21 @@
 }
 
 .animeIn {
-  animation: fadeIn both 0.2s;
+  animation: fadeIn both 0.16s;
 }
 
 .animeOut {
-  animation: fadeOut both 0.2s;
+  animation: fadeOut both 0.16s;
 }
 
 @keyframes fadeIn {
   0% {
-    opacity: 0;
+    opacity: 0.6;
+    transform: scale(0.9);
   }
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
