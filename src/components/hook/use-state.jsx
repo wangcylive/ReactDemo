@@ -9,21 +9,45 @@ function usePrevious(value) {
 }
 
 function randomChinese(length = 1) {
-  return Array.from({length})
+  const value = Array.from({length})
     .map(() => String.fromCharCode(Math.floor(Math.random() * 2000) + 19968))
     .join('')
+  return {
+    value,
+    uuid: Math.floor(Math.random() * Date.now()),
+  }
 }
 
 const fetchData = async () => {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve('fetch data')
+      resolve({value: 'fetch data', uuid: -1})
     }, 0)
   })
 }
 
+const DemoItem = props => {
+  return (
+    <div>
+      <input />
+      <strong>{props.value}</strong>
+    </div>
+  )
+}
+
 const MessageItem = props => {
-  return <li>{props.msg}</li>
+  useEffect(() => {
+    console.log('render')
+  }, [])
+  const onClick = () => {
+    console.log('message item', props.msg)
+  }
+  return (
+    <li onClick={onClick}>
+      {props.msg.value}
+      <DemoItem value={props.msg.value} />
+    </li>
+  )
 }
 
 function HookUseState() {
@@ -61,7 +85,7 @@ function HookUseState() {
     Promise.resolve().then(() => {
       const isBottom = isScrollBottom()
       const start = performance.now()
-      setList([...list, randomChinese(4)])
+      setList([randomChinese(4), ...list])
       console.log('onAddList performance setState', performance.now() - start, list)
       if (isBottom) {
         scrollBottom(true)
@@ -101,7 +125,7 @@ function HookUseState() {
       const data = await fetchData()
       const isBottom = isScrollBottom()
       const start = performance.now()
-      setList(val => [...val, randomChinese(4), data])
+      setList(val => [randomChinese(4), ...val, data])
       console.log('interval performance setState', performance.now() - start, list)
       if (isBottom) {
         scrollBottom(true)
@@ -110,20 +134,20 @@ function HookUseState() {
     }
     fn()
 
-    document.body.addEventListener(
-      'click',
-      () => {
-        const isBottom = isScrollBottom()
-        const start = performance.now()
-        setList(val => [...val, randomChinese(4)])
-        console.log('interval performance setState', performance.now() - start, list)
-        if (isBottom) {
-          scrollBottom(true)
-        }
-        console.log('interval', isBottom, refListEl.current.childElementCount)
-      },
-      false,
-    )
+    // document.body.addEventListener(
+    //   'click',
+    //   () => {
+    //     const isBottom = isScrollBottom()
+    //     const start = performance.now()
+    //     setList(val => [{value: randomChinese(4)}, ...val])
+    //     console.log('interval performance setState', performance.now() - start, list)
+    //     if (isBottom) {
+    //       scrollBottom(true)
+    //     }
+    //     console.log('interval', isBottom, refListEl.current.childElementCount)
+    //   },
+    //   false,
+    // )
   }, [])
 
   useEffect(() => {}, [list])
@@ -151,7 +175,7 @@ function HookUseState() {
         <button onClick={onAddList}>Add list</button>
         <ul ref={refListEl} className={'hooks-list-ul'}>
           {list.map((item, index) => (
-            <MessageItem msg={item} key={item + index} />
+            <MessageItem msg={item} key={index} />
           ))}
         </ul>
       </div>

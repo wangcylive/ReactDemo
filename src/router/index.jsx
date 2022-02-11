@@ -247,6 +247,10 @@ const routes = [
     path: '/tooltip',
     element: createElement(loadableHoc(() => import('@/components/Tooltip/demo'))),
   },
+  {
+    path: '/react-content-loader',
+    element: createElement(loadableHoc(() => import('@/components/react-content-loader'))),
+  },
 ]
 
 export default routes
