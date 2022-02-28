@@ -251,6 +251,10 @@ const routes = [
     path: '/react-content-loader',
     element: createElement(loadableHoc(() => import('@/components/react-content-loader'))),
   },
+  {
+    path: '/key',
+    element: createElement(loadableHoc(() => import('@/components/key'))),
+  },
 ]
 
 export default routes

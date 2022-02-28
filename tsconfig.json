@@ -19,7 +19,7 @@
       "@/*": ["./src/*"],
       "root/*": ["./*"]
     },
-    "lib": ["es2017", "es2015.promise", "es2015.iterable", "dom"],
+    "lib": ["es2017", "es2015.promise", "es2015.iterable", "dom", "DOM.Iterable"],
     "typeRoots": ["node_modules/@types", "src/@types"]
   }
 }
