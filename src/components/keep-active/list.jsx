@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { hot } from 'react-hot-loader/root'
 import { Link } from 'react-router-dom'
 
 function List (props) {
@@ -40,4 +39,4 @@ function List (props) {
   )
 }
 
-export default hot(List)
+export default List

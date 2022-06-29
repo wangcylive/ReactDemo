@@ -19,7 +19,7 @@ function HookDemo(props) {
       <ul className="nav">
         {currentRoutes.route.children.map(item => (
           <li key={item.path} style={{marginLeft: '10px'}}>
-            <NavLink activeClassName="active" to={item.path}>
+            <NavLink to={item.path}>
               {item.path}
             </NavLink>
           </li>

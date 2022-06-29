@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 
 import './layout.scss'
 
@@ -273,4 +272,4 @@ class IndexedDBForm extends Component {
   }
 }
 
-export default hot(IndexedDBForm)
+export default IndexedDBForm

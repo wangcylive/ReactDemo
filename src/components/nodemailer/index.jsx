@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { hot } from 'react-hot-loader/root'
 
 const Nodemailer = () => {
   const [subject, setSubject] = useState('')
@@ -58,4 +57,4 @@ const Nodemailer = () => {
   </div>
 }
 
-export default hot(Nodemailer)
+export default Nodemailer

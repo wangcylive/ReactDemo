@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
 class Message {
@@ -109,4 +108,4 @@ ChildComponent.propTypes = {
   }
 }
 
-export default hot(App)
+export default App

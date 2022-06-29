@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 import appImDB from './appImDB'
 
 import style from './layout.scss?module'
@@ -219,4 +218,4 @@ class App extends Component {
   }
 }
 
-export default hot(App)
+export default App

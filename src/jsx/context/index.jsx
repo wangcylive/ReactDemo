@@ -1,5 +1,4 @@
 import React, { Component, PureComponent } from 'react'
-import { hot } from 'react-hot-loader/root'
 import { ThemeContext } from './theme-context'
 import ThemedButtonChild from './theme-child'
 
@@ -106,4 +105,4 @@ class App extends Component {
   }
 }
 
-export default hot(App)
+export default App

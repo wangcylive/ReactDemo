@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import PropTypes from 'prop-types'
-import { hot } from 'react-hot-loader/root'
 import canvasDemo from './annulus'
 
 class Demo6 extends React.Component {
@@ -43,7 +42,7 @@ Demo6.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-export default hot(Demo6)
+export default Demo6
 
 // ReactDom.render(
 //   <HelloWord/>,

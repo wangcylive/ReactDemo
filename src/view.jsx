@@ -1,9 +1,9 @@
 import React from 'react'
 import state from '@/store/index'
 import {Provider} from 'react-redux'
-import {NavLink, BrowserRouter, useRoutes, useLocation} from 'react-router-dom'
+import {NavLink, unstable_HistoryRouter as HistoryRouter, useRoutes, useLocation} from 'react-router-dom'
 import routes from '@/router'
-import history, {HistoryRouter} from '@/router/history'
+import history from '@/router/history'
 import '@/css/index.scss'
 import ErrorBoundary from '@/components/error-boundary'
 

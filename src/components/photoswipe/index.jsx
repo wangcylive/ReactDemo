@@ -1,5 +1,4 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
 import previewPhotoSwipe from '@/components/photoswipe/lib'
 
 const photoswipeTest = () => {
@@ -39,4 +38,4 @@ const photoswipeTest = () => {
   </div>
 }
 
-export default hot(photoswipeTest)
+export default photoswipeTest

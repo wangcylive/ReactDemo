@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { hot } from 'react-hot-loader/root'
 import PhotoSwipe from 'photoswipe'
 import PhotoSwipeUI_Default from './photoswipe-ui-default'
 import 'photoswipe/dist/photoswipe.css'
@@ -115,4 +114,4 @@ const Preview = (props) => {
   )
 }
 
-export default hot(Preview)
+export default Preview

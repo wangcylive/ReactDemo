@@ -80,7 +80,7 @@ const routes = [
     element: createElement(TodoList),
   },
   {
-    path: '/click-counter*',
+    path: '/click-counter/*',
     element: createElement(ClickCounter),
   },
   {
@@ -136,6 +136,10 @@ const routes = [
       {
         path: 'useContext',
         element: createElement(HookUseContext),
+      },
+      {
+        path: 'useTransition',
+        element: createElement(loadableHoc(() => import('@/components/hook/use-transition'))),
       },
       {
         path: 'useRef',
@@ -254,7 +258,7 @@ const routes = [
   {
     path: '/key',
     element: createElement(loadableHoc(() => import('@/components/key'))),
-  },
+  }
 ]
 
 export default routes

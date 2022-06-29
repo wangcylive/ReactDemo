@@ -62,7 +62,7 @@ const TextareaTs: React.FC = () => {
             const tdList = tr.querySelectorAll('td')
             const key = tdList[0].textContent
             const type = typeTransform(tdList[1].textContent)
-            const desc = tdList[2].textContent
+            const desc = tdList[3].textContent
             arr.push(`${key}: ${type} // ${desc}`)
           })
           return arr.join('\n')

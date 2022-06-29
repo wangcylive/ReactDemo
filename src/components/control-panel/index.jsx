@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 
 import Counter from './counter'
 import Summary from './summary'
@@ -49,4 +48,4 @@ class ControlPanel extends Component {
   }
 }
 
-export default hot(ControlPanel)
+export default ControlPanel

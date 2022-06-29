@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { hot } from 'react-hot-loader/root'
 import jsQR from 'jsqr'
 import qrcode1 from './1.png' // 可识别
 import qrcode2 from './2.png' // 识别不了
@@ -61,4 +60,4 @@ const QrcodeReserch = (props) => {
   )
 }
 
-export default hot(QrcodeReserch)
+export default QrcodeReserch

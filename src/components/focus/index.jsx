@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 import style from './layout.scss?module'
 
 class App extends Component {
@@ -80,4 +79,4 @@ class App extends Component {
   }
 }
 
-export default hot(App)
+export default App

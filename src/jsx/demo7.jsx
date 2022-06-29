@@ -1,5 +1,4 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
 
 class Input extends React.Component {
   constructor (props) {
@@ -100,7 +99,7 @@ class InfoForm extends React.Component {
   }
 }
 
-export default hot(InfoForm)
+export default InfoForm
 
 // ReactDom.render(
 //   <InfoForm/>,

@@ -1,5 +1,4 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
 
 const SvgDemo = (props) => {
   const onClickRect = (event) => {
@@ -39,4 +38,4 @@ const SvgDemo = (props) => {
   )
 }
 
-export default hot(SvgDemo)
+export default SvgDemo

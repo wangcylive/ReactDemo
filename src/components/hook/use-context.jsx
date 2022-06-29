@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { hot } from 'react-hot-loader/root'
 import MyContext from './my-context'
 
 export function Demo2 (props) {
@@ -48,4 +47,4 @@ function HookUseContext (props) {
   )
 }
 
-export default hot(HookUseContext)
+export default HookUseContext

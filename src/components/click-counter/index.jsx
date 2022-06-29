@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Routes, Route, Link, Redirect} from 'react-router-dom'
+import {Routes, Route, Link, Outlet} from 'react-router-dom'
 import Splitting from '@/router/splitting'
 const ClickCounterRoute1 = Splitting(() => import('@/components/click-counter/router1'))
 const ClickCounterRoute2 = Splitting(() => import('@/components/click-counter/router2'))
@@ -115,10 +115,11 @@ class ClickCounter extends Component {
             <Link to="router1">Router1</Link> | <Link to="router2">Router2</Link>
           </div>
           <div>
+            {/*<Outlet/>*/}
             <Routes>
               <Route path="router1" element={<ClickCounterRoute1 />} />
-              <Route path="user*" element={<ClickCounterRoute2 />} />
-              <Route path="member*" element={<ClickCounterRoute2 />} />
+              <Route path="user/*" element={<ClickCounterRoute2 />} />
+              <Route path="member/*" element={<ClickCounterRoute2 />} />
               {/*<Redirect to={'member'} from={'/click-counter/bose/*'} />*/}
               <Route path="*" element={<ClickCounterNotFound />} />
             </Routes>

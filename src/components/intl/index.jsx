@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 import { IntlProvider, FormattedMessage, FormattedDate, FormattedTime, injectIntl } from 'react-intl'
 import zh from './lang/zh'
 import en from './lang/en'
@@ -70,4 +69,4 @@ class App extends Component {
   }
 }
 
-export default hot(App)
+export default App

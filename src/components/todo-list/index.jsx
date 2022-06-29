@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { hot } from 'react-hot-loader/root'
 
 class TodoList extends Component {
   constructor(props) {
@@ -58,4 +57,4 @@ class TodoList extends Component {
   }
 }
 
-export default hot(TodoList)
+export default TodoList

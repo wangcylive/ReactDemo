@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
-import { hot } from 'react-hot-loader/root'
 
 function HookUseLayoutEffect (props) {
   const [ name, setName ] = useState('')
@@ -29,4 +28,4 @@ function HookUseLayoutEffect (props) {
   )
 }
 
-export default hot(HookUseLayoutEffect)
+export default HookUseLayoutEffect

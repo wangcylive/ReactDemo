@@ -1,5 +1,4 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
 
 const target = {}
 
@@ -21,4 +20,4 @@ const ProxyDemo = () => {
   )
 }
 
-export default hot(ProxyDemo)
+export default ProxyDemo

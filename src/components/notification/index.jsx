@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { hot } from 'react-hot-loader/root'
 
 async function notifyMe() {
   if (typeof window.Notification !== 'function') {
@@ -37,4 +36,4 @@ const NotificationDemo = () => {
   </div>
 }
 
-export default hot(NotificationDemo)
+export default NotificationDemo
