@@ -258,7 +258,11 @@ const routes = [
   {
     path: '/key',
     element: createElement(loadableHoc(() => import('@/components/key'))),
-  }
+  },
+  {
+    path: '/iframe',
+    element: createElement(loadableHoc(() => import('@/components/iframe'))),
+  },
 ]
 
 export default routes

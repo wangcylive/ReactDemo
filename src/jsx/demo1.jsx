@@ -1,11 +1,13 @@
 import React, {useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
+import ClientReactDom from 'react-dom/client'
 import {useNavigate, useResolvedPath} from 'react-router-dom'
 
 function init() {
   const div = document.createElement('div')
-
   document.body.appendChild(div)
+
+  const app = ClientReactDom.createRoot(div)
 
   const tick = () => {
     const element = (
@@ -15,7 +17,7 @@ function init() {
       </div>
     )
 
-    ReactDOM.render(element, div)
+    app.render(element)
   }
 
   init.intervalID = setInterval(tick, 1000)

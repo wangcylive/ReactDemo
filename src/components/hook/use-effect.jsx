@@ -1,5 +1,12 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react'
 
+const Demo = () => {
+  useEffect(() => {
+    console.log('Demo useEffect', performance.now())
+  }, [])
+  return <div>Children</div>
+}
+
 function HookUseEffect(props) {
   const [name, setName] = useState('')
   const [number, setNumber] = useState(0)
@@ -56,6 +63,7 @@ function HookUseEffect(props) {
       <div>
         count: {count} <button onClick={onStart}>Start</button> <button onClick={onStop}>Stop</button>
       </div>
+      <Demo />
     </div>
   )
 }

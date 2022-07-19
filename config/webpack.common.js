@@ -91,21 +91,21 @@ module.exports = () => {
       children: false,
     },
 
-    optimization: {
-      runtimeChunk: {
-        name: 'manifest',
-      },
-      splitChunks: {
-        cacheGroups: {
-          defaultVendors: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            priority: -20,
-            chunks: 'all',
-          },
-        },
-      },
-    },
+    // optimization: {
+    //   runtimeChunk: {
+    //     name: 'manifest',
+    //   },
+    //   splitChunks: {
+    //     cacheGroups: {
+    //       defaultVendors: {
+    //         test: /[\\/]node_modules[\\/]/,
+    //         name: 'vendors',
+    //         priority: -20,
+    //         chunks: 'all',
+    //       },
+    //     },
+    //   },
+    // },
 
     plugins: [
       ...htmlWebpackPlugin,

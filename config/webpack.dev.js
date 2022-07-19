@@ -18,6 +18,14 @@ module.exports = () => {
 
     devtool: 'eval-source-map',
 
+    externals: {
+      react: `React`,
+      'react-dom': 'ReactDOM',
+      'react-router': 'ReactRouter',
+      'react-router-dom': 'ReactRouterDOM',
+      history: 'HistoryLibrary',
+    },
+
     devServer: {
       contentBase: path.resolve(__dirname, '../src'),
       compress: true,
