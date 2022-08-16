@@ -64,7 +64,7 @@ module.exports = () => {
         },
         {
           // 处理图片文件
-          test: /\.(png|jpe?g|gif|webp)(\?.*)?$/,
+          test: /\.(png|jpe?g|gif|webp|zip)(\?.*)?$/,
           loader: 'url-loader',
           options: getImgOptions(),
         },

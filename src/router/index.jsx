@@ -263,6 +263,10 @@ const routes = [
     path: '/iframe',
     element: createElement(loadableHoc(() => import('@/components/iframe'))),
   },
+  {
+    path: '/drag',
+    element: createElement(loadableHoc(() => import('@/components/drag'))),
+  },
 ]
 
 export default routes

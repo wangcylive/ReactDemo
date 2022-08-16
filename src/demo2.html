@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<button id="btn">初始化 payload</button>
+<button id="btnPushTime">获取 pushTime</button>
+<script src="./js/class.js"></script>
+<script>
+    $.ajax({
+      url: 'https://cache1.baizhanlive.com/anchorbase/baseInfo/getLivePlayBackInfo?uid=2737454086&limit=60&type=0'
+    }).then(function (res) {
+        const arr = res.data.map(item => {
+            return `<li class="list">
+            <img class="cover" src="${item.coverUrl}" alt="${item.videoUrl}">
+            <div class="info"><span>${Math.floor(item.duration / 1000 / 60)}m</span> <span>${item.time}</span></div>
+        </li>`
+        })
+        const el = document.getElementById('content')
+        el.innerHTML = arr.join('')
+
+        el.addEventListener('click', event => {
+            let target = event.target
+            if (target.nodeName === 'IMG') {
+                const url = target.alt
+                console.log(url)
+                navigator.clipboard.writeText(url)
+            }
+        })
+    })
+
+
+</script>
+
+<style>
+    .grid {
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 200px);
+        grid-gap: 20px;
+    }
+    .list {
+        padding: 0;
+        list-style: none;
+    }
+    .cover {
+        display: block;
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        object-position: center;
+        background-color: #000;
+    }
+    .info {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+</style>
+<div>
+    <ul class="grid" id="content">
+<!--        <li class="list">-->
+<!--            <img class="cover" src="http://screenshot-storage.yy.com/screenshot/1537169241_2737454086_554b2efe-e443-43bd-830d-722074441c15.jpg" alt="">-->
+<!--            <div class="info"><span>20:00</span> <span>昨天 17:40</span></div>-->
+<!--        </li>-->
+<!--        <li class="list">-->
+<!--            <img class="cover" src="http://screenshot-storage.yy.com/screenshot/1537169241_2737454086_554b2efe-e443-43bd-830d-722074441c15.jpg" alt="">-->
+<!--            <div class="info"><span>20:00</span> <span>昨天 17:40</span></div>-->
+<!--        </li>-->
+<!--        <li class="list">-->
+<!--            <img class="cover" src="http://screenshot-storage.yy.com/screenshot/1537169241_2737454086_554b2efe-e443-43bd-830d-722074441c15.jpg" alt="">-->
+<!--            <div class="info"><span>20:00</span> <span>昨天 17:40</span></div>-->
+<!--        </li>-->
+<!--        <li class="list">-->
+<!--            <img class="cover" src="http://screenshot-storage.yy.com/screenshot/1537169241_2737454086_554b2efe-e443-43bd-830d-722074441c15.jpg" alt="">-->
+<!--            <div class="info"><span>20:00</span> <span>昨天 17:40</span></div>-->
+<!--        </li>-->
+<!--        <li class="list">-->
+<!--            <img class="cover" src="http://screenshot-storage.yy.com/screenshot/1537169241_2737454086_554b2efe-e443-43bd-830d-722074441c15.jpg" alt="">-->
+<!--            <div class="info"><span>20:00</span> <span>昨天 17:40</span></div>-->
+<!--        </li>-->
+    </ul>
+</div>
+</body>
+</html>
