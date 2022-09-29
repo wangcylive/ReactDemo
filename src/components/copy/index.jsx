@@ -58,6 +58,7 @@ const Copy = () => {
       const item1 = new ClipboardItem({
         ['image/png']: getBlob(google2),
         // ['application/zip']: getBlob(zip1),
+        ['text/html']: new Blob(['<meta charset="utf-8"><p>hhh</p>'], {type: 'text/html'}),
         ['text/plain']: new Blob([new Date().toLocaleString()], {type: 'text/plain'}),
       })
       console.log('item', item1)

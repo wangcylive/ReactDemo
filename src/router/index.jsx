@@ -267,6 +267,10 @@ const routes = [
     path: '/drag',
     element: createElement(loadableHoc(() => import('@/components/drag'))),
   },
+  {
+    path: '/border-image',
+    element: createElement(loadableHoc(() => import('@/components/border-image'))),
+  },
 ]
 
 export default routes

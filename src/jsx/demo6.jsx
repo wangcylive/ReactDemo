@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 import canvasDemo from './annulus'
 
 class Demo6 extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  componentDidMount () {
-    const canvas = canvasDemo({ lineWidth: 15 })
+  componentDidMount() {
+    const canvas = canvasDemo({lineWidth: 15})
     this.div.appendChild(canvas.el)
     canvas.el.style.cssText = 'width: 100px;height: 100px;'
     const time = performance.now()
@@ -20,26 +20,39 @@ class Demo6 extends React.Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <div>
         <div className="hello-word">{this.props.name}</div>
-        <div ref={el => this.div = el}>
-
-        </div>
-        <progress/>
+        <div ref={el => (this.div = el)}></div>
+        <progress />
         <button>Change</button>
+        <img src="https://peiwan.bs2dl.yy.com/77bcd5f8a2ce405f88e5c18a4e5667b8.png" alt="" />
+        <div className={'testtext'}>文字</div>
+        <div className={'testtext'} style={{width: '100px', height: '80px'}}>
+          这里是一段文字
+        </div>
+        <img src="https://peiwan.bs2dl.yy.com/c34ddd0434c642d494843162cf4dbc0e.png" alt="" />
+        <div className={'testtext1'}>这里是一段文字</div>
+        <div className={'testtext1'} style={{height: '100px', width: '200px'}}>
+          这里是一段文字
+        </div>
+        <img src="https://peiwan.bs2dl.yy.com/f486d2577c1244a7bd9293f274344f7c.png" alt="" />
+        <div className={'testtext2'}>这里是一段文字</div>
+        <div className={'testtext2'} style={{height: '200px', width: '300px'}}>
+          这里是一段文字
+        </div>
       </div>
     )
   }
 }
 
 Demo6.defaultProps = {
-  name: 'Wangcy'
+  name: 'Wangcy',
 }
 
 Demo6.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 }
 
 export default Demo6
@@ -55,10 +68,10 @@ const traverse = (newNodes, oldNodes) => {
 
   // 这里做排序，找到 id 一样的移位置
   newNodes.forEach((item, index) => {
-    const oldNodesIdMaps = new Map(oldNodes.map((item, index) => ([ item.id, index ])))
+    const oldNodesIdMaps = new Map(oldNodes.map((item, index) => [item.id, index]))
     const oldIdIndex = oldNodesIdMaps.get(item.id)
     if (oldIdIndex !== undefined && oldIdIndex !== index) {
-      const spliceItem = oldNodes.splice(oldIdIndex, 1)[ 0 ]
+      const spliceItem = oldNodes.splice(oldIdIndex, 1)[0]
       oldNodes.splice(index, 0, spliceItem)
     }
   })
@@ -68,10 +81,10 @@ const traverse = (newNodes, oldNodes) => {
     oldNodes.splice(oldLength - newLength - 1)
   }
   newNodes.forEach((item, index) => {
-    const oldItem = oldNodes[ index ]
+    const oldItem = oldNodes[index]
     // id 不一样，替换掉
     if (!oldItem || item.id !== oldItem.id) {
-      oldNodes.splice(index, 0, { ...item })
+      oldNodes.splice(index, 0, {...item})
     } else {
       // id 一样，比较 children
       traverse(item.children, oldItem.children)
@@ -81,53 +94,53 @@ const traverse = (newNodes, oldNodes) => {
 
 const a = [
   {
-    'id': 'AppBox',
-    'label': '容器',
-    'children': [
+    id: 'AppBox',
+    label: '容器',
+    children: [
       {
-        'id': 'AppBox_76765',
-        'label': '盒子组件',
-        'children': [
+        id: 'AppBox_76765',
+        label: '盒子组件',
+        children: [
           {
-            'id': 'AppBox_89343',
-            'label': '单张图片',
-            'children': [],
-            'canInsertChildren': false
-          }
+            id: 'AppBox_89343',
+            label: '单张图片',
+            children: [],
+            canInsertChildren: false,
+          },
         ],
-        'canInsertChildren': true
-      }
-    ]
-  }
+        canInsertChildren: true,
+      },
+    ],
+  },
 ]
 
 const b = [
   {
-    'id': 'AppBox',
-    'label': '容器',
-    'children': [
+    id: 'AppBox',
+    label: '容器',
+    children: [
       {
-        'id': 'AppBox_29343',
-        'label': '单张图片',
-        'children': [],
-        'canInsertChildren': false
+        id: 'AppBox_29343',
+        label: '单张图片',
+        children: [],
+        canInsertChildren: false,
       },
       {
-        'id': 'AppBox_76765',
-        'label': '盒子组件',
-        'children': [],
-        'canInsertChildren': true
+        id: 'AppBox_76765',
+        label: '盒子组件',
+        children: [],
+        canInsertChildren: true,
       },
       {
-        'id': 'AppBox_53696',
-        'label': '文字',
-        'children': [],
-        'canInsertChildren': false
-      }
-    ]
-  }
+        id: 'AppBox_53696',
+        label: '文字',
+        children: [],
+        canInsertChildren: false,
+      },
+    ],
+  },
 ]
 
 console.log('start', a, b)
 traverse(a, b)
-console.log('end', a[ 0 ].children, b[ 0 ].children)
+console.log('end', a[0].children, b[0].children)

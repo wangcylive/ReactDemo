@@ -38,3 +38,36 @@ html {
   overflow: hidden;
   overflow-y: auto;
 }
+
+.testtext {
+  display: inline-block;
+  //border: 20px solid transparent;
+  padding: 10px 20px 10px 10px;
+  border-image-source: url(https://peiwan.bs2dl.yy.com/77bcd5f8a2ce405f88e5c18a4e5667b8.png);
+  border-image-slice: 20 fill;
+  border-image-width: auto;
+  font-size: 14px;
+  color: #fff;
+}
+.testtext1 {
+  display: inline-block;
+  padding: 10px;
+  border-image-source: url(https://peiwan.bs2dl.yy.com/c34ddd0434c642d494843162cf4dbc0e.png);
+  border-image-slice: 44 fill;
+  border-image-width: auto;
+  font-size: 14px;
+  color: #fff;
+}
+.testtext2 {
+  min-height: 126px;
+  min-width: 186px;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 50px 80px 40px 50px;
+  border-image-source: url(https://peiwan.bs2dl.yy.com/f486d2577c1244a7bd9293f274344f7c.png);
+  border-image-slice: 60 80 63 60 fill;
+  border-image-width: auto;
+  border-image-repeat: repeat;
+  font-size: 14px;
+  color: #fff;
+}

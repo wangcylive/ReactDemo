@@ -10,8 +10,10 @@
 <button id="btnPushTime">获取 pushTime</button>
 <script src="./js/class.js"></script>
 <script>
+    const urlSearch = new URLSearchParams(location.search)
+    const uid = urlSearch.get('test') ? '2733659037' : '2737454086'
     $.ajax({
-      url: 'https://cache1.baizhanlive.com/anchorbase/baseInfo/getLivePlayBackInfo?uid=2737454086&limit=60&type=0'
+      url: 'https://cache1.baizhanlive.com/anchorbase/baseInfo/getLivePlayBackInfo?uid=' + uid + '&limit=200&type=0'
     }).then(function (res) {
         const arr = res.data.map(item => {
             return `<li class="list">

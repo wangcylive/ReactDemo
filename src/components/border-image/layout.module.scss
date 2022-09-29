@@ -1,0 +1,99 @@
+.demo1 {
+  margin: 0 10px;
+  display: inline-block;
+  width: 81px;
+  height: 81px;
+  box-sizing: border-box;
+  border: 27px solid transparent;
+  border-image: url(./img/img.png) 27;
+  vertical-align: top;
+}
+.demo2 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: url(./img/img.png) 27 / 20px round stretch;
+}
+
+.demo3 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  min-width: 80px;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: url(./img/img_1.png) 44 fill / 2 round;
+  font-size: 14px;
+  line-height: 24px;
+  color: #333;
+}
+.demo4 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  width: 200px;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: url(./img/img_1.png) 44 fill / 2 round;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #333;
+}
+
+.demo5 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  min-width: 80px;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: url(./img/img_2.png) 40 fill / 2 round;
+  font-size: 14px;
+  line-height: 24px;
+  color: #333;
+}
+.demo6 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  width: 200px;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: url(./img/img_2.png) 40 fill / 2 round;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #333;
+}
+
+.demo7 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  min-width: 80px;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  padding: 9px;
+  border-image: url(./img/img_3.png) 40 fill / 20px round;
+  font-size: 14px;
+  line-height: 24px;
+  color: #333;
+}
+.demo8 {
+  vertical-align: top;
+  margin: 0 10px;
+  display: inline-block;
+  width: 200px;
+  box-sizing: border-box;
+  border: 10px solid transparent;
+  border-image: url(./img/img_3.png) 40 fill / 2 round;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #333;
+}
