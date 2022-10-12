@@ -72,6 +72,10 @@ const routes = [
     element: createElement(SvgDemo),
   },
   {
+    path: '/chinaMap',
+    element: createElement(loadableHoc(() => import('@/components/china-map'))),
+  },
+  {
     path: '/lazy',
     element: createElement(Lazy),
   },

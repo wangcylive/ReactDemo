@@ -1,4 +1,5 @@
 import React from 'react'
+import slarkImg from '@/images/slark.jpeg'
 
 const svgStyle = {
   margin: '0 0 0 5px',
@@ -35,7 +36,15 @@ const SvgDemo = props => {
         <circle cx="75" cy="25" r="20" fill="#ccc" stroke="#333" strokeWidth="1" />
         <ellipse cx="125" cy="25" rx="20" ry="10" />
         <polyline points="160 10, 190 20, 160 30, 190 40" stroke="red" fill="transparent" />
-        <polygon points="5 55, 40 55, 15 80" />
+        <polygon
+          points="5 55, 40 55, 15 80"
+          onClick={e => {
+            console.log(e)
+          }}
+          onMouseEnter={e => {
+            console.log(e)
+          }}
+        />
         <path d="M55 55 H 95 V 95 H 55 Z" />
         <path d="M105 55 h 20 v 20 h -20 Z" />
         <path d="M155 60 C 180 80, 180 80, 190 60" fill="transparent" stroke="red" />
@@ -76,6 +85,72 @@ const SvgDemo = props => {
           <textPath href="#test2" fontSize={12}>
             😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄😄
           </textPath>
+        </text>
+      </svg>
+
+      <svg width="225" height="225" version="1.1" style={svgStyle}>
+        <image href={slarkImg} x={0} y={0} width={225} height={225} />
+      </svg>
+
+      <svg width="200" height="200" version="1.1" style={svgStyle}>
+        <defs>
+          <pattern id="imgId1" width="1" height="1">
+            <image href={slarkImg} width={100} height={100}></image>
+          </pattern>
+          <pattern id="imgId2" width="1" height="1">
+            <image href={slarkImg} width={40} height={40}></image>
+          </pattern>
+          <pattern id="imgId3" width="1" height="1">
+            <image href={slarkImg} width={90} height={90}></image>
+          </pattern>
+        </defs>
+        <rect
+          className="nodeCircle"
+          fill="url(#imgId1)"
+          width="100"
+          stroke="#f00"
+          strokeWidth={1}
+          height="100"
+          rx={10}
+          ry={10}
+          x="2"
+          y="2">
+          <animate attributeName="x" from="0" to="100" dur="2s" repeatCount="indefinite" />
+        </rect>
+        <circle cx="120" cy="120" r="20" fill="url(#imgId2)" stroke="#333" strokeWidth="1">
+          <animate
+            attributeName="cy"
+            attributeType="XML"
+            values={'120; 140; 120'}
+            keyTimes={'0; 0.8; 1'}
+            dur={'1s'}
+            repeatCount={'indefinite'}
+          />
+        </circle>
+        <polygon points="110 10, 190 10, 190 100" fill="url(#imgId3)">
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from={'0 110 10'}
+            to={'360 110 10'}
+            dur={'1s'}
+            repeatCount={'indefinite'}></animateTransform>
+        </polygon>
+      </svg>
+      <svg viewBox="0 0 200 100" width={200} height={200} xmlns="http://www.w3.org/2000/svg" style={svgStyle}>
+        <path id="path1" fill="none" stroke="lightgrey" d="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
+
+        {/*<circle r="5" fill="red">*/}
+        {/*  <animateMotion dur="10s" repeatCount="indefinite">*/}
+        {/*    <mpath href={'#path1'} />*/}
+        {/*  </animateMotion>*/}
+        {/*</circle>*/}
+
+        <text fill="red">
+          8
+          <animateMotion dur="10s" repeatCount="indefinite">
+            <mpath href={'#path1'} />
+          </animateMotion>
         </text>
       </svg>
     </div>
