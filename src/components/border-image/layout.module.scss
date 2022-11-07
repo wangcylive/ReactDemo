@@ -16,7 +16,7 @@
   height: 100px;
   box-sizing: border-box;
   border: 10px solid transparent;
-  border-image: url(./img/img.png) 27 / 20px round stretch;
+  border-image: url(./img/img.png) 27 / 2 round repeat;
 }
 
 .demo3 {
@@ -96,4 +96,26 @@
   font-size: 14px;
   line-height: 1.3;
   color: #333;
+}
+
+.demo9 {
+  vertical-align: top;
+  display: inline-block;
+  width: 751px;
+  min-height: 200px;
+  border-image: url(./img/img_4.png) 100 20 40 fill / 100px 20px 40px;
+  padding: 100px 40px 40px;
+  font-size: 18px;
+  color: #fff;
+}
+.demo10 {
+  vertical-align: top;
+  display: inline-block;
+  width: 275px;
+  min-height: 200px;
+  border-image: url(./img/img_4.png) 100 20 40 fill / 50px 10px 20px;
+  padding: 50px 20px 30px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #fff;
 }
