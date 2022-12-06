@@ -275,6 +275,18 @@ const routes = [
     path: '/border-image',
     element: createElement(loadableHoc(() => import('@/components/border-image'))),
   },
+  {
+    path: '/styled-components',
+    element: createElement(loadableHoc(() => import('@/components/styled-components'))),
+  },
+  {
+    path: '/custom-elements',
+    element: createElement(loadableHoc(() => import('@/components/customElements'))),
+  },
+  {
+    path: '/shadow-dom',
+    element: createElement(loadableHoc(() => import('@/components/shadow-dom'))),
+  },
 ]
 
 export default routes
