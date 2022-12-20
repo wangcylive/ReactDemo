@@ -1,0 +1,109 @@
+
+<!-- saved from url=(0064)https://mdn.github.io/dom-examples/streams/png-transform-stream/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    img { float: left; }
+    table { width: 600px; }
+    th { text-align: left }
+    thead th { border-bottom: 1px solid #ddd; padding: 5px 0; }
+  </style>
+</head>
+<body>
+<h1>Unpack Chunks of a PNG</h1>
+<p>The PNG shown left gets read by a stream and then transformed to a stream of PNG chunks. By this, the PNG can be processed before the fetch is complete.</p>
+<img src="./Document_files/png-logo.png" width="640" height="480">
+<table>
+  <thead>
+  <tr>
+    <th width="300">Stream</th>
+    <th>Chunk No.</th>
+    <th>Sent chunk type</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr><th>Fetch Response Stream</th><td>1</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>1</td><td>IHDRChunk</td></tr><tr><th>PNG Chunk Stream</th><td>2</td><td>sRGBChunk</td></tr><tr><th>PNG Chunk Stream</th><td>3</td><td>bKGDChunk</td></tr><tr><th>PNG Chunk Stream</th><td>4</td><td>pHYsChunk</td></tr><tr><th>PNG Chunk Stream</th><td>5</td><td>tIMEChunk</td></tr><tr><th>Fetch Response Stream</th><td>2</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>3</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>4</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>5</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>6</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>6</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>7</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>8</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>9</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>10</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>11</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>12</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>7</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>13</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>14</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>15</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>16</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>17</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>8</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>18</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>19</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>20</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>21</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>22</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>9</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>23</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>24</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>25</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>26</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>27</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>28</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>10</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>29</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>30</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>31</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>32</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>33</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>11</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>34</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>35</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>36</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>37</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>38</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>39</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>12</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>40</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>41</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>42</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>43</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>44</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>13</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>45</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>46</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>47</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>48</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>49</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>50</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>14</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>51</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>52</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>53</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>54</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>55</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>15</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>56</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>57</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>58</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>59</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>60</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>61</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>16</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>62</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>63</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>64</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>65</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>66</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>17</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>67</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>68</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>69</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>70</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>71</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>72</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>18</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>73</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>74</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>75</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>76</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>77</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>19</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>78</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>79</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>80</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>81</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>82</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>83</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>20</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>84</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>85</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>86</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>87</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>88</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>21</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>89</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>90</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>91</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>92</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>93</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>94</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>22</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>95</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>96</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>97</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>98</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>99</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>23</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>100</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>101</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>102</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>103</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>104</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>24</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>105</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>106</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>107</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>108</td><td>Uint8Array</td></tr><tr><th>Fetch Response Stream</th><td>109</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>25</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>110</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>26</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>27</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>28</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>29</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>30</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>31</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>32</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>33</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>34</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>35</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>36</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>37</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>38</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>39</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>40</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>41</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>42</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>43</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>44</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>45</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>46</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>47</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>48</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>49</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>50</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>51</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>52</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>53</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>54</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>55</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>56</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>57</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>58</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>59</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>60</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>61</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>62</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>63</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>64</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>65</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>66</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>67</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>68</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>69</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>70</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>71</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>72</td><td>IDATChunk</td></tr><tr><th>Fetch Response Stream</th><td>111</td><td>Uint8Array</td></tr><tr><th>PNG Chunk Stream</th><td>73</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>74</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>75</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>76</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>77</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>78</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>79</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>80</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>81</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>82</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>83</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>84</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>85</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>86</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>87</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>88</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>89</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>90</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>91</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>92</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>93</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>94</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>95</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>96</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>97</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>98</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>99</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>100</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>101</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>102</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>103</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>104</td><td>IDATChunk</td></tr><tr><th>PNG Chunk Stream</th><td>105</td><td>IENDChunk</td></tr><tr><th>PNG Chunk Stream</th><td>105</td><td>Closed</td></tr><tr><th>Fetch Response Stream</th><td>111</td><td>Closed</td></tr></tbody>
+</table>
+<script src="./Document_files/crc32.js"></script>
+<script src="./Document_files/png-chunks.js"></script>
+<script src="./Document_files/png-transform-stream.js"></script>
+<script type="application/javascript">
+  const tbody = document.getElementsByTagName('tbody')[0];
+
+  class LogStreamSink {
+    /**
+     * @param {string} name
+     */
+    constructor(name) {
+      this.name = name;
+      this.counter = 0;
+    }
+
+    /**
+     * Called when a chunk is written to the log.
+     */
+    write(chunk) {
+      this.counter += 1;
+      console.log('Chunk %d of %s: %o', this.counter, this.name, chunk);
+
+      this.createRow(this.name, this.counter, chunk.constructor.name);
+    }
+
+    /**
+     * Called when the stream is closed.
+     */
+    close() {
+      this.createRow(this.name, this.counter, 'Closed');
+    }
+
+    /**
+     * Creates a row in the table.
+     *
+     * @param {string} heading
+     * @param {string} col1
+     * @param {string} col2
+     */
+    createRow(heading, col1, col2) {
+      const tr = document.createElement('tr');
+      tbody.appendChild(tr);
+      const th = document.createElement('th');
+      th.appendChild(document.createTextNode(heading));
+      tr.appendChild(th);
+      const tdCounter = document.createElement('td');
+      tdCounter.appendChild(document.createTextNode(col1));
+      tr.appendChild(tdCounter);
+      const tdChunk = document.createElement('td');
+      tdChunk.appendChild(document.createTextNode(col2));
+      tr.appendChild(tdChunk);
+    }
+  }
+
+  function logReadableStream(name, rs) {
+    const [rs1, rs2] = rs.tee();
+
+    rs2.pipeTo(new WritableStream(new LogStreamSink(name))).catch(console.error);
+
+    return rs1;
+  }
+
+
+  // Fetch the original image
+  fetch('png-logo.png')
+  // Retrieve its body as ReadableStream
+  .then(response => response.body)
+  // Log each fetched Uint8Array chunk
+  .then(rs => logReadableStream('Fetch Response Stream', rs))
+  // Transform to a PNG chunk stream
+  .then(rs => rs.pipeThrough(new PNGTransformStream()))
+  // Log each transformed PNG chunk
+  .then(rs => logReadableStream('PNG Chunk Stream', rs))
+
+</script>
+
+
+</body></html>

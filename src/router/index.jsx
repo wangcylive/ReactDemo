@@ -287,6 +287,22 @@ const routes = [
     path: '/shadow-dom',
     element: createElement(loadableHoc(() => import('@/components/shadow-dom'))),
   },
+  {
+    path: '/fetch',
+    element: createElement(loadableHoc(() => import('@/components/fetch'))),
+  },
+  {
+    path: '/stream',
+    element: createElement(loadableHoc(() => import('@/components/Stream'))),
+  },
+  {
+    path: '/typedArray',
+    element: createElement(loadableHoc(() => import('@/components/TypedArray'))),
+  },
+  {
+    path: '/unicode',
+    element: createElement(loadableHoc(() => import('@/components/unicode'))),
+  },
 ]
 
 export default routes
