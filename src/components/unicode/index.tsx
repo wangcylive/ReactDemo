@@ -32,6 +32,20 @@ const CodeStyle = styled.code`
 `
 
 const UnicodeDemo: React.FC = () => {
+  const onChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+    if (!files.length) {
+      return
+    }
+    Array.from(files).forEach(file => {
+      file.arrayBuffer().then(af => {
+        const uni8 = new Uint8Array(af)
+        console.log(file, uni8)
+      })
+    })
+    console.log('change', files)
+  }
+
   return (
     <div>
       <h2>encodeURIComponent() 和 encodeURI 有以下几个不同点：</h2>
@@ -101,9 +115,14 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
       <p>网络上最常见的 Unicode 字符编码是UTF-8。还存在一些其他编码，如 UTF-16 或过时的 UCS-2，但推荐使用 UTF-8。</p>
       <h2>UTF-8</h2>
       <p>
-        UTF-8 (UCS Transformation Format 8) 是万维网上最常用的字符编码。每个字符由 1 到 4 个字节表示。UTF-8 与 ASCII
+        UTF是Unicode Transformation
+        Format的缩写，意思是“Unicode转换格式”，后面的数字表明至少使用多少个比特位来存储字符。
+      </p>
+      <p>
+        UTF-8 (UCS Transformation Format 8) 是万维网上最常用的字符编码。每个字符由 1 到 6 个字节表示。UTF-8 与 ASCII
         向后兼容，可以表示任何标准的 Unicode 字符。
       </p>
+      <p>常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节</p>
       <p>UTF-8 是 Unicode 的实现方式之一。</p>
       <ImgStyle src={require('./img.png').default} />
       <p>
@@ -169,6 +188,10 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
         Unicode 规范定义，每一个文件的最前面分别加入一个表示编码顺序的字符，这个字符的名字叫做"零宽度非换行空格"（zero
         width no-break space）
       </p>
+      <p>
+        UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式，在windows 记事本保存为 UTF-8 BOM 会带这EF BB BF
+        这3个字节
+      </p>
       <TableStyled>
         <tbody>
           <tr>
@@ -193,6 +216,13 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
           </tr>
         </tbody>
       </TableStyled>
+      <input type="file" multiple={true} onChange={onChangeFile} />
+      <h2>Base64</h2>
+      <p>
+        Base64 是一组相似的二进制到文本（binary-to-text）的编码规则，使得二进制数据在解释成 radix-64 的表现形式后能够用
+        ASCII 字符串的格式表示出来。
+      </p>
+      <p>Base64 编码普遍应用于需要通过被设计为处理文本数据的媒介上储存和传输二进制数据而需要编码该二进制数据的场景。</p>
     </div>
   )
 }
