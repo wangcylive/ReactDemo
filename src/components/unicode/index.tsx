@@ -1,7 +1,12 @@
 // https://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html
 // https://apps.timwhitlock.info/
+// https://blog.csdn.net/weixin_34281537/article/details/92508414
+// https://juejin.cn/post/6844903841817690119
+// https://www.cnblogs.com/fundebug/p/javascript_and_unicode.html
 import React from 'react'
 import styled from 'styled-components'
+
+const regexAstralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g
 
 const TableStyled = styled.table`
   border-collapse: collapse;
@@ -69,6 +74,12 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
       <p>
         一系列 UTF-16 代码单元的数字。范围介于 0 到 65535（0xFFFF）之间。大于 0xFFFF 的数字将被截断。不进行有效性检查。
       </p>
+      <CodeStyle>{`String.fromCharCode(0xD83D, 0xDE04) = '😄'
+        String.fromCharCode(55357, 56836) = '😄'
+        String.fromCharCode(49) = '1'
+        String.fromCharCode(20013) = '中'
+        String.fromCharCode(49, 20013) = '1中'
+        `}</CodeStyle>
       <h2>String.fromCodePoint(num1,[, ...[, numN]])</h2>
       <p>使用指定的 Unicode 编码位置创建的字符串。</p>
       <p>ES6 提供了String.fromCodePoint()方法，可以识别大于0xFFFF的字符，弥补了String.fromCharCode()方法的不足。</p>
@@ -112,7 +123,25 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
         Unicode 码点（code points）的范围从 0 到 1114111 (0x10FFFF）。开头的 128 个 Unicode 编码单元和 ASCII
         字符编码一样。
       </p>
+      <p>码位 通常被格式化为十六进制数字，零填充至少四位数，格式为 U +前缀</p>
+      <p>
+        Unicode 最前面的 65536 (0b1111111111111111 2byte 16bit) 个字符位，称为 基本多文种平面（BMP-—Basic Multilingual
+        Plane），又简称为“零号平面”, plane 0）,它的 码位 范围是从 U+0000 到 U+FFFF。最常见的字符都放在这个平面上，这是
+        Unicode 最先定义和公布的一个平面。
+      </p>
+      <p>
+        剩下的字符都放在 辅助平面(Supplementary Plane)或者 星形平面(astral planes) ，码位范围从 U+010000 一直到
+        U+10FFFF，共 16 个辅助平面。 辅助平面内的码位很容易识别:如果需要超过 4
+        个十六进制数字来表示码位，那么它就是一个辅助平面内的码。
+      </p>
       <p>网络上最常见的 Unicode 字符编码是UTF-8。还存在一些其他编码，如 UTF-16 或过时的 UCS-2，但推荐使用 UTF-8。</p>
+      <CodeStyle>
+        {`'\\x41\\x42\\x7a' = 'ABz'
+        '\\u4e2d' = '中'
+        `}
+      </CodeStyle>
+      <p>\x41 码位为 U+0041 表示大写字母 A。这些转义序列可用于 U+0000 到 U+00FF 范围内的码位。</p>
+      <p>Js 二进制开头0b 八进制开头0 十六进制开头 0x</p>
       <h2>UTF-8</h2>
       <p>
         UTF是Unicode Transformation
@@ -179,7 +208,7 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
           😄 => 128516 => 1 11110110 00000100 => 11110000 10011111 10011000 10000100 => Uint8Array([240, 159, 152, 132])
           `}
       </CodeStyle>
-      <p>utf-16是用两个字节来编码所有的字符，utf-32则选择用4个字节来编码</p>
+      <p>utf-16是用两个字节来编码所有的字符（可变长），utf-32则选择用4个字节来编码</p>
       <p>
         UTF-8和UTF-16的优劣.如果全部英文或英文与其他文字混合,但英文占绝大部分,用UTF-8就比UTF-16节省了很多空间.而如果全部是中文这样类似的字符或者混合字符中中文占绝大多数.UTF-16就占优势了,可以节省很多空间
       </p>
@@ -216,11 +245,72 @@ console.log(encodeURIComponent(set4)); // ABC%20abc%20123 (空格被编码为 %2
           </tr>
         </tbody>
       </TableStyled>
-      <input type="file" multiple={true} onChange={onChangeFile} />
+      <hr />
+      <input type="file" multiple={true} onChange={onChangeFile} placeholder="选择文件测试，支持多选" />
+      <hr />
+      <h2>UTF-16</h2>
+      <p>
+        UTF-16 是一种变长表示，它对来自常用字符 UCS-2 的码位，仍然用 2 个字节表示。而对来新增非常用的码位却用 4
+        个字节表示。二者能互相区分开来，这是 UTF-16 的精妙之处所在。
+      </p>
+      <p>
+        另外需要说明的是，最开始的 2^16 那些数据中并非都映射满了。从 U+D800（55296） 到 U+DFFF（57343）共 2048
+        个码位，是永久保留的，不映射到任何 Unicode 字符。它的存在为 UTF-16 提供了方便。
+      </p>
+      <p>举例来说，字符😂的码位是 U+1F602(128514)，大于 65535，因此是后添加的字符。 </p>
+      <p>首先用它先减去 65536，得到 62978，对应的二进制是 1111011000000010。 </p>
+      <p>
+        然后左补充 0 至 20 位：00001111011000000010。 再从中间切断成上下两值：0000111101（61） 和 1000000010（514）。
+        添加 0xD800（55296）到上值，以形成高位：55296 + 61 = 55357（0xD83D）。 添加
+        0xDC00（56320）到下值，以形成低位：56320+ 514 = 56834（0xDE02）。 0xD83D 与 0xDE02构成一个代理对，来表示码位
+        U+1F602。
+      </p>
+      <CodeStyle>
+        {`😄
+          128516
+          0x1f604
+          \\u{1f604}
+          128516 - 65536 = 62980
+          0000111101 1000000100
+          61         516
+          55296 + 61 = 55357  0xd83d
+          56320 + 516 = 56836 0xde04
+          😄 = \\u{1f604}
+          😄 = \\ud83d\\ude04
+          `}
+      </CodeStyle>
+      <p>
+        刚开始 Unicode 设计人员觉得 2^16 (65536)就该足够了，于是产生了 UCS-2。（注：事实上 Unicode 和 UCS
+        在最开始时不是一家。）
+      </p>
+      <p>
+        <CodeStyle>'😂'.length = 2</CodeStyle> 之所以为 2，是因为 JS 至今仍然使用 UCS-2 那种 16 进制读取方式。
+      </p>
+      <p>
+        JavaScript 使用 UTF-16 编码，其中每个 Unicode 字符可以编码为一个或两个代码单元，因此 length
+        返回的值可能与字符串中 Unicode 字符的实际数量不匹配。
+      </p>
+      <p>
+        由于 length
+        统计的是代码单元而不是字符，如果你想得到字符的数量，你可以首先用它的迭代器分割字符串，它按字符进行迭代：
+      </p>
+      <CodeStyle>{`[...str].length
+        '😄a'.length = 3
+        [...'😄a'].length = 2
+        '👨‍👩‍👧‍👦'.length = 11
+        [...'👨‍👩‍👧‍👦‍'].length = 8
+        😄 = \\ud83d\\ude04
+        '😄abc'.substring(0, 1) = '\\uD83D'
+
+        `}</CodeStyle>
       <h2>Base64</h2>
       <p>
         Base64 是一组相似的二进制到文本（binary-to-text）的编码规则，使得二进制数据在解释成 radix-64 的表现形式后能够用
         ASCII 字符串的格式表示出来。
+      </p>
+      <p>
+        Base64要求把每三个8Bit的字节转换为四个6Bit的字节（3*8 = 4*6 =
+        24），然后把6Bit再添两位高位0，组成四个8Bit的字节，也就是说，转换后的字符串理论上将要比原来的长1/3。
       </p>
       <p>Base64 编码普遍应用于需要通过被设计为处理文本数据的媒介上储存和传输二进制数据而需要编码该二进制数据的场景。</p>
     </div>
