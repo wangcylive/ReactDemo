@@ -3,6 +3,18 @@ html {
     Segoe UI Symbol, Microsoft Yahei, sans-serif;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'ssdingdang';
+  src: url('https://unpkg.yy.com/friendupload/1675064/ssdingdang.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 .nav {
   display: flex;
   flex-wrap: wrap;

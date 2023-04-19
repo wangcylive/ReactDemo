@@ -2,11 +2,11 @@ import React, {createElement} from 'react'
 import loadableHoc from './splitting'
 
 const Home = loadableHoc(() => import('@/jsx/home'))
-const Demo1 = loadableHoc(() => import('@/jsx/demo1'))
-const Demo2 = loadableHoc(() => import('@/jsx/demo2'))
-const Demo6 = loadableHoc(() => import('@/jsx/demo6'))
-const Demo7 = loadableHoc(() => import('@/jsx/demo7'))
-const SvgDemo = loadableHoc(() => import('@/jsx/svg'))
+const Demo1 = loadableHoc(() => import(/* webpackChunkName: 'demo1' */ '@/jsx/demo1'))
+const Demo2 = loadableHoc(() => import(/* webpackPrefetch: true */ '@/jsx/demo2'))
+const Demo6 = loadableHoc(() => import(/* webpackPrefetch: true */ '@/jsx/demo6'))
+const Demo7 = loadableHoc(() => import(/* webpackPrefetch: true */ '@/jsx/demo7'))
+const SvgDemo = loadableHoc(() => import(/* webpackPreload: true */ '@/jsx/svg'))
 const Lazy = loadableHoc(() => import('@/components/lazy'))
 const TodoList = loadableHoc(() => import('@/components/todo-list'))
 const ClickCounter = loadableHoc(() => import('@/components/click-counter'))
@@ -302,6 +302,22 @@ const routes = [
   {
     path: '/unicode',
     element: createElement(loadableHoc(() => import('@/components/unicode'))),
+  },
+  {
+    path: '/content-security-policy',
+    element: createElement(loadableHoc(() => import('@/components/content-security-policy'))),
+  },
+  {
+    path: '/input',
+    element: createElement(loadableHoc(() => import('@/components/input'))),
+  },
+  {
+    path: '/interactive-widget',
+    element: createElement(loadableHoc(() => import('@/components/interactive-widget'))),
+  },
+  {
+    path: '/screen-orientation',
+    element: createElement(loadableHoc(() => import('@/components/screenOrientation'))),
   },
 ]
 

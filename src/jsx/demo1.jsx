@@ -2,6 +2,11 @@ import React, {useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import ClientReactDom from 'react-dom/client'
 import {useNavigate, useResolvedPath} from 'react-router-dom'
+import styled from 'styled-components'
+
+const H1 = styled.h1`
+  font-family: 'ssdingdang';
+`
 
 function init() {
   const div = document.createElement('div')
@@ -12,7 +17,7 @@ function init() {
   const tick = () => {
     const element = (
       <div>
-        <h1 className="text-lg">Hello, World!!!</h1>
+        <H1 className="text-lg">Hello, World!!!</H1>
         <div>Time: {Date.now()}</div>
       </div>
     )

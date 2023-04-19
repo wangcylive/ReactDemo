@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react'
-const LazyComponent = React.lazy(() => import('./lazy-comp'))
+const LazyComponent = React.lazy(() => import(/*webpackPreload: true*/ './lazy-comp'))
 
 function LazyTest() {
   const [state, dispatch] = useReducer(state => state + 1, 1)
@@ -15,7 +15,7 @@ function LazyTest() {
   }, [])
   const onLoadComp = () => {
     setLoading(true)
-    import('./lazy-comp2').then(res => {
+    import(/*webpackPreload: true*/ './lazy-comp2').then(res => {
       console.log('res', res)
       setComponent(React.createElement(res.default))
       setLoading(false)

@@ -18,13 +18,13 @@ module.exports = () => {
 
     devtool: 'eval-source-map',
 
-    externals: {
-      react: `React`,
-      'react-dom': 'ReactDOM',
-      'react-router': 'ReactRouter',
-      'react-router-dom': 'ReactRouterDOM',
-      history: 'HistoryLibrary',
-    },
+    // externals: {
+    //   react: `React`,
+    //   'react-dom': 'ReactDOM',
+    //   'react-router': 'ReactRouter',
+    //   'react-router-dom': 'ReactRouterDOM',
+    //   history: 'HistoryLibrary',
+    // },
 
     devServer: {
       contentBase: path.resolve(__dirname, '../src'),
@@ -36,8 +36,10 @@ module.exports = () => {
       disableHostCheck: true,
       proxy: {
         '/api': {
-          target: proxyServer,
+          target: 'https://api.agora.io',
+          pathRewrite: {'^/api': ''},
           changeOrigin: true,
+          secure: false,
         },
       },
     },
