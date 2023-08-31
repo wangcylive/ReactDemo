@@ -4,6 +4,8 @@ import ReactDOMServer from 'react-dom/server'
 import {changeName} from '@/store/user-info/action'
 import {connect} from 'react-redux'
 import Demo1 from '@/server-demo1'
+import {routes} from '@/router'
+import {NavLink, Outlet} from 'react-router-dom'
 
 console.log(ReactDOMServer.renderToString(<Demo1 />))
 
@@ -150,6 +152,17 @@ class Home extends Component {
 
     return (
       <div>
+        <div>
+          <ul className="nav">
+            {routes.map((route, index) => (
+              <li key={index}>
+                <NavLink to={route.path}>{route.path === '/' ? 'Home' : route.path.substring(1)}</NavLink>
+              </li>
+            ))}
+          </ul>
+          <Outlet />
+        </div>
+
         <div>
           <input type="file" onChange={this.onChangeFile} />
         </div>

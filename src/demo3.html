@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./echarts.js"></script>
+</head>
+<body>
+
+<script>
+</script>
+
+<style>
+    #main {
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<div>
+    <div id="main"></div>
+</div>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        series: [
+            {
+                type: 'gauge',
+                startAngle: 210,
+                endAngle: -30,
+                itemStyle: {
+                    color: {
+                        colorStops: [
+                            {
+                                offset: 0,
+                                color: '#ACABFF'
+                            },
+                            {
+                                offset: 1,
+                                color: '#72A3FF'
+                            }
+                        ]
+                    }
+                },
+                progress: {
+                    show: true,
+                    roundCap: true,
+                    width: 12,
+                },
+                axisLine: {
+                    show: true,
+                    roundCap: true,
+                    lineStyle: {
+                        width: 12,
+                        color: [
+                            [0, '#E4E7ED'],
+                            [1, '#E4E7ED'],
+                        ]
+                    },
+                },
+                pointer: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: false,
+                },
+                axisLabel: {
+                    show: false,
+                },
+                anchor: {
+                    show: false,
+                },
+                title: {
+                    show: false
+                },
+                detail: {
+                    valueAnimation: true,
+                    offsetCenter: [0, 15],
+                    formatter: function (value) {
+                        return '{value|' + value.toFixed(0) + '}{unit|%}';
+                    },
+                    rich: {
+                        value: {
+                            fontSize: 36,
+                            fontWeight: 'bolder',
+                            color: '#333'
+                        },
+                        unit: {
+                            fontSize: 16,
+                            color: '#333',
+                            padding: [0, 0, -10, 3]
+                        }
+                    }
+                },
+                data: [
+                    {
+                        value: 90
+                    }
+                ]
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+</body>
+</html>

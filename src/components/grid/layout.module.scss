@@ -100,3 +100,34 @@
     height: 50px;
   }
 }
+
+.test6 {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 30px;
+  overflow: hidden;
+
+  > div {
+    border: 1px solid #ccc;
+    //height: 60px;
+    text-align: center;
+    //line-height: 60px;
+  }
+}
+.test7 {
+  margin-top: 30px;
+  display: grid;
+  grid: 1fr 1fr / 1fr 1fr;
+  //grid: auto / 1fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 50px;
+  grid-gap: 20px;
+  //overflow: hidden;
+
+  > div {
+    background: linear-gradient(90deg, #28a4c9, #0a7a98);
+    text-align: center;
+    color: #fff;
+  }
+}

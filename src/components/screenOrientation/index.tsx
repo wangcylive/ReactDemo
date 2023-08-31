@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import orientation from '@/components/orientation'
 
@@ -63,10 +63,21 @@ const VideoGroup = styled.div`
   }
 `
 
+const FullscreenDemo = styled.div`
+  background-color: #4a4f5d;
+
+  &:fullscreen {
+    height: 100dvb;
+    background-color: #344cb7;
+  }
+`
+
 const ScreenOrientation: React.FC = () => {
   const refEl = useRef<HTMLDivElement>(null)
   const refVideoWrap = useRef<HTMLDivElement>(null)
   const refVideo = useRef<HTMLVideoElement>(null)
+  const [isFull, setFull] = useState<boolean>(false)
+  const refFullEl = useRef<HTMLDivElement>(null)
   const onFullscreen = () => {
     if (refEl.current?.requestFullscreen) {
       refEl.current
@@ -124,9 +135,27 @@ const ScreenOrientation: React.FC = () => {
     screen.orientation?.unlock()
   }
 
+  const onRequestFull = () => {
+    if (refFullEl.current) {
+      refFullEl.current.requestFullscreen()
+    }
+  }
+
+  const onExitFull = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+    }
+  }
+
   useEffect(() => {
     const fullscreenchange = (event: Event) => {
       console.log(event, document.fullscreenElement, document.fullscreenEnabled)
+
+      if (document.fullscreenElement) {
+        setFull(true) // 全屏
+      } else {
+        setFull(false) // 非全屏
+      }
     }
     document.addEventListener('fullscreenchange', fullscreenchange)
 
@@ -180,6 +209,10 @@ const ScreenOrientation: React.FC = () => {
           <button onClick={onVideoExitFullscreen}>ExitFullscreen</button>
         </div>
       </VideoGroup>
+
+      <FullscreenDemo ref={refFullEl}>
+        {isFull ? <button onClick={onExitFull}>退出全屏</button> : <button onClick={onRequestFull}>点击全屏</button>}
+      </FullscreenDemo>
     </div>
   )
 }

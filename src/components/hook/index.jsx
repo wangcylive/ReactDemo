@@ -14,14 +14,13 @@ function HookDemo(props) {
     }
     return []
   }, [location.pathname])
+
   return (
     <div>
       <ul className="nav">
         {currentRoutes.route.children.map(item => (
           <li key={item.path} style={{marginLeft: '10px'}}>
-            <NavLink to={item.path}>
-              {item.path}
-            </NavLink>
+            <NavLink to={item.path}>{item.path}</NavLink>
           </li>
         ))}
       </ul>

@@ -15,6 +15,17 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
+code {
+  display: inline-block;
+  background-color: hsla(0, 0%, 0%, 0.06);
+  padding: 8px;
+  line-height: 1.6;
+  white-space: pre-line;
+  color: #333;
+  border-radius: 4px;
+}
+
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +72,7 @@ body {
   font-size: 14px;
   color: #fff;
 }
+
 .testtext1 {
   display: inline-block;
   padding: 10px;
@@ -70,6 +82,7 @@ body {
   font-size: 14px;
   color: #fff;
 }
+
 .testtext2 {
   min-height: 126px;
   min-width: 186px;
@@ -82,4 +95,36 @@ body {
   border-image-repeat: repeat;
   font-size: 14px;
   color: #fff;
+}
+
+.bg_f00 {
+  background-color: #f00;
+}
+
+.bg_f00:hover {
+  background-color: #f00;
+}
+
+.bg_ff0 {
+  background-color: #ff0;
+}
+
+.bg_ff0:hover {
+  background-color: #ff0;
+}
+
+.bg_f00 {
+  background-color: #f00;
+}
+
+.bg_f00:hover {
+  background-color: #f00;
+}
+
+.bg_ff0 {
+  background-color: #ff0;
+}
+
+.bg_ff0:hover {
+  background-color: #ff0;
 }

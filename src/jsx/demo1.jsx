@@ -1,11 +1,39 @@
 import React, {useEffect, useRef} from 'react'
+import {observer} from 'mobx-react'
 import ReactDOM from 'react-dom'
 import ClientReactDom from 'react-dom/client'
 import {useNavigate, useResolvedPath} from 'react-router-dom'
 import styled from 'styled-components'
+import marketStore from '@/store/marketStore'
 
 const H1 = styled.h1`
   font-family: 'ssdingdang';
+`
+
+const ThreeSection = styled.div`
+  width: 718px;
+  background-color: #33394b;
+  .header {
+    height: 220px;
+    background: 0 0 / contain no-repeat url(https://hd-static.yystatic.com/09097760379797304.png);
+  }
+  .main {
+    background: 0 0 / contain repeat-y url(https://hd-static.yystatic.com/7504412656845041.png);
+    display: flex;
+    flex-direction: column;
+  }
+  .container {
+    margin: -210px 0 -40px 0;
+
+    p {
+      margin: 0;
+      padding: 0.5em 1em;
+    }
+  }
+  .footer {
+    height: 50px;
+    background: 0 0 / contain no-repeat url(https://hd-static.yystatic.com/3027504787533204.png);
+  }
 `
 
 function init() {
@@ -68,6 +96,12 @@ function Demo1() {
     navigate('/demo2?name=333')
   }
 
+  const onChangeMarket = () => {
+    marketStore.updateInfo({
+      opentype: 'test' + Date.now(),
+    })
+  }
+
   return (
     <div onClick={onClick}>
       <h3 className="text-3xl">demo1</h3>
@@ -77,8 +111,23 @@ function Demo1() {
       </Modal>
 
       <button onClick={onPushHistory}>Push State</button>
+
+      <ThreeSection>
+        <div className="header"></div>
+        <div className="main">
+          <div className="container">
+            {Array.from({length: 30}).map((_, index) => (
+              <p key={index}>智慧中国、中国制造 {index}</p>
+            ))}
+          </div>
+        </div>
+        <div className="footer"></div>
+      </ThreeSection>
+
+      <button onClick={onChangeMarket}>Change market</button>
+      <div>{marketStore.opentype}</div>
     </div>
   )
 }
 
-export default Demo1
+export default observer(Demo1)

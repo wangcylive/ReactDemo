@@ -6,11 +6,11 @@ import React, {
   useDeferredValue,
   useEffect,
   useMemo,
-  useLayoutEffect
+  useLayoutEffect,
 } from 'react'
 import {flushSync} from 'react-dom'
 
-const CountDemo: React.FC<{value: any}> = (props) => {
+const CountDemo: React.FC<{value: any}> = props => {
   useEffect(() => {
     // console.log('render', props.value)
   }, [props.value])
@@ -28,20 +28,20 @@ const UseTransitionPage: React.FC = () => {
 
   const deferredInputValue = useDeferredValue(inputValue)
 
-  const countTest = useMemo(() => <CountDemo value={deferredInputValue}/>, [deferredInputValue])
+  const countTest = useMemo(() => <CountDemo value={deferredInputValue} />, [deferredInputValue])
 
   console.log('render', performance.now())
 
   const handleClick = () => {
-    // flushSync(() => {
-    //   setClickCount(val => val + 1)
-    // })
+    flushSync(() => {
+      setClickCount(val => val + 1)
+    })
 
-    setClickCount(val => val + 1)
+    // setClickCount(val => val + 1)
     setInputValue('w')
 
-    // const btn = document.querySelector('.btn-demo')
-    // console.log('btn count', btn.textContent)
+    const btn = document.querySelector('.btn-demo')
+    console.log('btn count', btn.textContent)
 
     // startClickTransition(() => {
     //   console.log('click', performance.now())
@@ -90,19 +90,24 @@ const UseTransitionPage: React.FC = () => {
   //   console.log('useLayoutEffect btn count', btn.textContent)
   // }, [clickCount])
 
-  return <div>
+  return (
     <div>
-      <button className="btn-demo" onClick={handleClick}>Click{clickCount}</button>&nbsp;{isClickPending && <span>pending...</span>}
-    </div>
-    <div>
-      <input type="text" defaultValue={inputValue} onChange={changeInputValue}/>
       <div>
-        <span>{inputValue}</span><br/>
-        {countTest}
+        <button className="btn-demo" onClick={handleClick}>
+          Click{clickCount}
+        </button>
+        &nbsp;{isClickPending && <span>pending...</span>}
       </div>
-
+      <div>
+        <input type="text" defaultValue={inputValue} onChange={changeInputValue} />
+        <div>
+          <span>{inputValue}</span>
+          <br />
+          {countTest}
+        </div>
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default UseTransitionPage
