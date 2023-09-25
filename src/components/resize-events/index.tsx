@@ -37,7 +37,9 @@ export interface BoxSize {
 
 const ResizeEvents: React.FC = () => {
   const refTextareaEl = useRef<HTMLTextAreaElement>(null)
+  const refTextareaEl2 = useRef<HTMLTextAreaElement>(null)
   const [textAreaBoxSize, setTextAreaBoxSize] = useState<BoxSize>({width: 0, height: 0})
+  const [textAreaBoxSize2, setTextAreaBoxSize2] = useState<BoxSize>({width: 0, height: 0})
   const [windowSize, setWindowSize] = useState<BoxSize>({width: 0, height: 0})
   const [medalMatch, setMedalMatch] = useState<string>('')
   useEffect(() => {
@@ -49,21 +51,32 @@ const ResizeEvents: React.FC = () => {
     }
     window.addEventListener('resize', windowResize, false)
 
+    const setSizeInfo = (entry: ResizeObserverEntry, dispatch: React.Dispatch<any>) => {
+      if (entry.contentBoxSize?.length) {
+        const {inlineSize: width, blockSize: height} = entry.contentBoxSize[0]
+        dispatch({width, height})
+        console.log('size', width, 'x', height)
+      } else {
+        const {width, height} = entry.contentRect
+        dispatch({width, height})
+        console.log('size', width, 'x', height)
+      }
+    }
+
     const resizeObserver = new ResizeObserver(entries => {
+      console.log('resizeObserver', entries.length)
       for (const entry of entries) {
-        if (entry.borderBoxSize?.length) {
-          const {inlineSize: width, blockSize: height} = entry.borderBoxSize[0]
-          setTextAreaBoxSize({width, height})
-          console.log('size', width, 'x', height)
-        } else {
-          const {width, height} = entry.contentRect
-          setTextAreaBoxSize({width, height})
-          console.log('size', width, 'x', height)
+        console.log('entry', entry)
+        if (entry.target === refTextareaEl.current) {
+          setSizeInfo(entry, setTextAreaBoxSize)
+        } else if (entry.target === refTextareaEl2.current) {
+          setSizeInfo(entry, setTextAreaBoxSize2)
         }
       }
     })
 
     resizeObserver.observe(refTextareaEl.current)
+    resizeObserver.observe(refTextareaEl2.current)
 
     const mediaQueryList1 = window.matchMedia('(min-width: 768px)')
     const mediaQueryList2 = window.matchMedia('(min-width: 415px) and (max-width: 767px)')
@@ -111,6 +124,10 @@ const ResizeEvents: React.FC = () => {
       <textarea ref={refTextareaEl} placeholder={'输入文本'}></textarea>
       <span>
         boxSize:{textAreaBoxSize.width}x{textAreaBoxSize.height}
+      </span>
+      <textarea ref={refTextareaEl2} placeholder={'输入文本'}></textarea>
+      <span>
+        boxSize:{textAreaBoxSize2.width}x{textAreaBoxSize2.height}
       </span>
       <h3>Window.matchMedia()</h3>
       <p>

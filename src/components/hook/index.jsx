@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
-import {NavLink, Outlet, useLocation, useMatch, useOutlet, matchRoutes} from 'react-router-dom'
+import {NavLink, Outlet, useLocation, useMatch, useOutlet, matchRoutes, useRoutes} from 'react-router-dom'
 import ErrorBoundary from '@/components/error-boundary'
-import routes from '@/router'
+import {routes} from '@/router'
 
 function HookDemo(props) {
   const outlet = useOutlet()
@@ -9,8 +9,8 @@ function HookDemo(props) {
   console.log(outlet, location)
   const currentRoutes = useMemo(() => {
     const match = matchRoutes(routes, location.pathname)
-    if (match && match.length > 0) {
-      return match[0]
+    if (match && match.length > 1) {
+      return match[1]
     }
     return []
   }, [location.pathname])

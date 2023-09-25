@@ -42,6 +42,16 @@ function HookUseEffect(props) {
     }
   }, [name])
 
+  useEffect(() => {
+    if (count > 10) {
+      return
+    }
+
+    return () => {
+      console.log('useEffect callback', count)
+    }
+  }, [count])
+
   const onChange = event => {
     setName(event.target.value)
   }

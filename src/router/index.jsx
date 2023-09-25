@@ -368,6 +368,10 @@ export const routes = [
         path: '/resize-events',
         element: createElement(loadableHoc(() => import('@/components/resize-events'))),
       },
+      {
+        path: '/anime-transition',
+        element: createElement(loadableHoc(() => import('@/components/animeTransitionTest'))),
+      },
     ],
   },
 ]
