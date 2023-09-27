@@ -372,6 +372,14 @@ export const routes = [
         path: '/anime-transition',
         element: createElement(loadableHoc(() => import('@/components/animeTransitionTest'))),
       },
+      {
+        path: '/overscroll',
+        element: createElement(loadableHoc(() => import('@/components/overscroll'))),
+      },
+      {
+        path: '/sticky',
+        element: createElement(loadableHoc(() => import('@/components/sticky'))),
+      },
     ],
   },
 ]
