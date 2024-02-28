@@ -1,0 +1,119 @@
+html,
+body {
+  margin: 0;
+  overscroll-behavior: none;
+}
+.chat-page {
+  height: 100vh;
+  height: 100dvh;
+  background-color: hsla(0, 0%, 0%, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.chat-page-header {
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+.chat-page-main {
+  flex: 1px;
+  overflow: hidden;
+  padding: 15px 5px 15px 15px;
+
+  > .scroll {
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}
+.chat-text {
+  font-size: 14px;
+  line-height: 18px;
+  white-space: pre-wrap;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+
+  + .chat-text {
+    margin-top: 20px;
+  }
+}
+.chat-page-footer {
+  border-top: 1px solid #eee;
+  background-color: hsla(0, 0%, 0%, 0.1);
+  padding: 10px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 10px);
+  display: flex;
+  overflow: hidden;
+  align-items: flex-end;
+}
+.chat-input-wrap {
+  flex: 1px;
+  position: relative;
+  &::after {
+    display: block;
+    content: attr(data-text) ' ';
+    white-space: pre-wrap;
+    word-break: break-word;
+    visibility: hidden;
+    overflow: hidden;
+  }
+
+  &::after,
+  .chat-input {
+    background-color: transparent;
+    font-size: 15px;
+    line-height: 20px;
+    border: none;
+    padding: 5px 0;
+    margin: 0;
+    max-height: 100px;
+    overflow-x: hidden;
+  }
+}
+.chat-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  outline: none;
+  resize: none;
+  overscroll-behavior: contain;
+}
+
+.chat-input-content {
+  display: block;
+  box-sizing: border-box;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ccc;
+  outline: none;
+  resize: none;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 0;
+  max-height: 100px;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+.btn-audio,
+.btn-video {
+  height: 26px;
+  margin-right: 10px;
+}
+
+.btn-send {
+  margin-left: 10px;
+  flex: none;
+  width: 80px;
+  height: 26px;
+}

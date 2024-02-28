@@ -238,7 +238,7 @@ const TypedArrayDemo: React.FC = () => {
       <CodeStyle>
         {`const encoder = new TextEncoder();
           var arr = encoder.encode('你') // Uint8Array([228, 189, 160])
-          const decoder = new TextEncoder();
+          const decoder = new TextDecoder();
           var text = decoder.decode(arr) // '你'
           `}
       </CodeStyle>

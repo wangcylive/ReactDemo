@@ -60,8 +60,27 @@ const FixedDiv = styled.div`
   //}
 `
 
+const DemoChild = () => {
+  useEffect(() => {
+    console.log('DemoChild create', performance.now())
+
+    return () => {
+      console.log('DemoChild destroy', performance.now())
+    }
+  }, [])
+  return <div>DemoChild</div>
+}
+
 const Demo: React.FC = () => {
   const [enable, setEnable] = useState<boolean>(true)
+
+  useEffect(() => {
+    console.log('demo create', performance.now())
+
+    return () => {
+      console.log('demo destroy', performance.now())
+    }
+  }, [])
 
   useEffect(() => {
     if (!enable) {
@@ -109,6 +128,8 @@ const Demo: React.FC = () => {
       {/*    </UlStyled>*/}
       {/*  </div>*/}
       {/*</FixedDiv>*/}
+
+      <DemoChild />
     </div>
   )
 }

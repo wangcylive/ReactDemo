@@ -1,11 +1,12 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react'
 import css from './index.module.scss'
 
+const typesRegExp = /string|long|int\d*|double|bool|list/
 function typeTransform(type: string) {
   if (/string|long/i.test(type)) {
     return 'string'
   }
-  if (/int|double/i.test(type)) {
+  if (/int\d*|double/i.test(type)) {
     return 'number'
   }
   if (/bool/i.test(type)) {
@@ -27,20 +28,14 @@ const TextareaTs: React.FC = () => {
 
   const textTransform = useMemo<string>(() => {
     if (text) {
-      const arr = text.split(/\t\r?\n?|\t?\r?\n/)
-      const length = Math.ceil(arr.length / 3)
-      return Array.from({length})
+      return text
+        .split(/\r?\n/)
         .map((item, index) => {
-          const startIndex = index * 3
-          const value = []
-          for (let i = startIndex; i < 3 + startIndex; i++) {
-            value.push(arr[i])
-          }
-          return value
-        })
-        .map(item => {
-          item[1] = typeTransform(item[1])
-          const [key, type, desc] = item
+          const listArr = item.split(/\t\r?\n?|\t?\r?\n/)
+          const originType = listArr.slice(2).find(item => typesRegExp.test(item))
+          console.log('test', listArr, listArr.slice(2), originType)
+          const type = typeTransform(originType)
+          const [key, desc] = listArr
           return `${key}: ${type} // ${desc}`
         })
         .join('\n')

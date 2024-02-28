@@ -380,7 +380,35 @@ export const routes = [
         path: '/sticky',
         element: createElement(loadableHoc(() => import('@/components/sticky'))),
       },
+      {
+        path: '/fonts',
+        element: createElement(loadableHoc(() => import('@/components/fonts'))),
+      },
+      {
+        path: '/intersection',
+        element: createElement(loadableHoc(() => import('@/components/intersection'))),
+      },
+      {
+        path: '/baidubos',
+        element: createElement(loadableHoc(() => import('@/components/baidubos'))),
+      },
+      {
+        path: '/web-worker',
+        element: createElement(loadableHoc(() => import('@/components/web-worker'))),
+      },
+      {
+        path: '/recorder',
+        element: createElement(loadableHoc(() => import('@/components/recorder'))),
+      },
     ],
+  },
+  {
+    path: '/chat',
+    element: createElement(loadableHoc(() => import('@/components/chat'))),
+  },
+  {
+    path: '/broadcast-channel',
+    element: createElement(loadableHoc(() => import('@/components/broadcastChannel'))),
   },
 ]
 

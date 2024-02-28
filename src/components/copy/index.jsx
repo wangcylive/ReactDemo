@@ -17,7 +17,7 @@ async function init() {
   blob3 = await res3.blob()
 
   const zipBlob1 = (await fetch(zip1)).blob()
-  console.log(zipBlob1)
+  // console.log(zipBlob1)
 }
 
 init()
@@ -142,17 +142,33 @@ const Copy = () => {
     body.addEventListener('paste', paste, false)
 
     // clipboard-read, clipboard-write
-    navigator.permissions?.query({name: 'clipboard-read'}).then(res => {
-      console.log('clipboard-read', res)
-    })
+    // navigator.permissions?.query({name: 'clipboard-read'}).then(res => {
+    //   // alert(res.state)
+    //   console.log('clipboard-read', res)
+    // })
 
-    navigator.permissions?.query({name: 'clipboard-write'}).then(res => {
-      console.log('clipboard-write', res)
-    })
+    navigator.permissions
+      ?.query({name: 'clipboard-write'})
+      .then(res => {
+        // alert(res.state)
+        console.log('clipboard-write', res)
+      })
+      .catch(e => {
+        console.log('clipboard-write', e)
+      })
 
     // setTimeout(() => {
     //   onClipboardRead()
     // }, 1000)
+
+    navigator.clipboard
+      .writeText(new Date().toLocaleTimeString())
+      .then(res => {
+        console.log('复制成功')
+      })
+      .catch(e => {
+        console.log('复制失败', e)
+      })
 
     return () => {
       body.removeEventListener('beforecopy', beforeCopy, false)

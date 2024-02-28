@@ -8,6 +8,8 @@ const serverPort = packageJson.serverPort
 // 代理服务器
 const proxyServer = '/api'
 
+const https = process.env.https === '1'
+
 module.exports = () => {
   return merge(webpackBaseConf(), {
     output: {
@@ -31,6 +33,7 @@ module.exports = () => {
       compress: true,
       hot: true,
       port: serverPort,
+      https,
       historyApiFallback: true,
       host: '0.0.0.0',
       disableHostCheck: true,
@@ -47,6 +50,6 @@ module.exports = () => {
 }
 
 console.log(`start ${packageJson.name} server:
-http://localhost:${serverPort}
-http://${internalIp.v4.sync()}:${serverPort}
+http${https ? 's' : ''}://localhost:${serverPort}
+http${https ? 's' : ''}://${internalIp.v4.sync()}:${serverPort}
 `)
