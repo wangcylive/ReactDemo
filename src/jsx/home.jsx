@@ -5,7 +5,7 @@ import {changeName} from '@/store/user-info/action'
 import {connect} from 'react-redux'
 import Demo1 from '@/server-demo1'
 import {routes} from '@/router'
-import {NavLink, Outlet} from 'react-router-dom'
+import {NavLink, Outlet} from 'react-router'
 
 console.log(ReactDOMServer.renderToString(<Demo1 />))
 

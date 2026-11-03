@@ -1,5 +1,5 @@
 import React from 'react'
-import {useNavigate, useParams, useLoaderData, useAsyncValue} from 'react-router-dom'
+import {useNavigate, useParams, useLoaderData, useAsyncValue} from 'react-router'
 
 const ListDetail: React.FC<any> = props => {
   const asyncValue = useAsyncValue()

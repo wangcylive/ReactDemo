@@ -1,18 +1,16 @@
-import {defer} from 'react-router-dom'
-
 let awaitRequest = false
 
 function loader(fn: any) {
   return async (params: any) => {
     if (!awaitRequest) {
       awaitRequest = true
-      return defer({
+      return {
         loaderData: fn(params),
-      })
+      }
     } else {
-      return defer({
+      return {
         loaderData: await fn(params),
-      })
+      }
     }
   }
 }

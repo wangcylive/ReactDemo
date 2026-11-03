@@ -8,3 +8,9 @@ button {
   @apply px-4 py-1 bg-indigo-500 shadow-xl text-white rounded mr-1 focus:outline-none hover:bg-indigo-600;
   color: theme('colors.red.50');
 }
+
+@media screen and (max-width: 100px) {
+  body {
+    font-size: 12px;
+  }
+}

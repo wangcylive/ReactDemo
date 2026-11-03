@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react'
-import {useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router'
 import {hasMatchPath} from './path-utils'
 import classNames from 'classnames'
 

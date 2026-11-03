@@ -1,7 +1,5 @@
 import React, {Component, PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
-import {withRouter} from 'react-router-dom'
 
 const names = ['Alice', 'Emily', 'Kate']
 

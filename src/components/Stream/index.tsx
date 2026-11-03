@@ -2,9 +2,9 @@ import React, {useRef, useState} from 'react'
 import PngDemo from '@/components/Stream/png'
 
 const StreamDemo: React.FC = () => {
-  const refRsControllerClose = useRef<any>()
-  const refCancelStream = useRef<any>()
-  const refCancelReader = useRef<any>()
+  const refRsControllerClose = useRef<any>(undefined)
+  const refCancelStream = useRef<any>(undefined)
+  const refCancelReader = useRef<any>(undefined)
   const [data, setData] = useState<string[]>([])
 
   const onStart = () => {

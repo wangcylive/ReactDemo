@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import {observer} from 'mobx-react'
 import ReactDOM from 'react-dom'
 import ClientReactDom from 'react-dom/client'
-import {useNavigate, useResolvedPath} from 'react-router-dom'
+import {useNavigate, useResolvedPath} from 'react-router'
 import styled from 'styled-components'
 import marketStore from '@/store/marketStore'
 

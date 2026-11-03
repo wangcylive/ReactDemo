@@ -3,10 +3,8 @@ dist
 build
 nodemailer-upload
 .*
-!.babelrc
 !.editorconfig
 !.gitignore
-!.postcssrc.js
 !.browserslistrc
 !.yarnrc
 !.prettierrc

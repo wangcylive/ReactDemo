@@ -2,8 +2,8 @@ import React, {useEffect, useRef} from 'react'
 
 const url = 'https://m.baidu.com'
 const IframeDemo: React.FC = () => {
-  const refIframe = useRef<HTMLIFrameElement>()
-  const refDiv = useRef<HTMLDivElement>()
+  const refIframe = useRef<HTMLIFrameElement>(null)
+  const refDiv = useRef<HTMLDivElement>(null)
 
   const onMove = (index: number) => {
     const div = refDiv.current.children[index]

@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import {NavLink, Outlet, useLocation, useMatch, useOutlet, matchRoutes, useRoutes} from 'react-router-dom'
+import {NavLink, Outlet, useLocation, useMatch, useOutlet, matchRoutes, useRoutes} from 'react-router'
 import ErrorBoundary from '@/components/error-boundary'
 import {routes} from '@/router'
 

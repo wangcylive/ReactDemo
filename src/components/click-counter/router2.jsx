@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from 'react'
-import {Routes, Route, Link, NavLink, useParams} from 'react-router-dom'
+import {Routes, Route, Link, NavLink, useParams} from 'react-router'
 import {useDispatch, useSelector} from 'react-redux'
 import {changeName, asyncChangeName} from '@/store/user-info/action'
 

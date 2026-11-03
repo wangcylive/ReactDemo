@@ -1,5 +1,5 @@
 import React, {ComponentClass, createElement, FunctionComponent, useEffect} from 'react'
-import {Await, useAsyncError, useLoaderData, useRouteError, redirect, useNavigate} from 'react-router-dom'
+import {Await, useAsyncError, useLoaderData, useRouteError, redirect, useNavigate} from 'react-router'
 
 export const AwaitError: React.FC = () => {
   const navigate = useNavigate()

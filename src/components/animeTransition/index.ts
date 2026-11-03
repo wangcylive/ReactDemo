@@ -26,7 +26,15 @@ function classNames(...rest: any[]) {
 }
 
 const AnimeTransition: React.FC<React.PropsWithChildren<Props>> = props => {
-  const {children, visible, position, living, renderToBody, onEntered, onExited} = props
+  const {
+    children,
+    visible,
+    position = 'right',
+    living,
+    renderToBody = true,
+    onEntered,
+    onExited,
+  } = props
   const child: any = React.Children.only(children)
   const [selfVisible, setSelfVisible] = useState<boolean>(() => visible) // 组件自身判断是否显示，隐藏时候做动画使用
   const refFirstRender = useRef<boolean>(true) // 是否首次渲染
@@ -102,11 +110,6 @@ const AnimeTransition: React.FC<React.PropsWithChildren<Props>> = props => {
     }
     return null
   }
-}
-
-AnimeTransition.defaultProps = {
-  position: 'right',
-  renderToBody: true,
 }
 
 export default AnimeTransition

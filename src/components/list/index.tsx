@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import List from './list'
-import {Outlet, useLocation, redirect, useNavigate, useResolvedPath, Navigate, useOutlet} from 'react-router-dom'
+import {Outlet, useLocation, redirect, useNavigate, useResolvedPath, Navigate, useOutlet} from 'react-router'
 import useRedirect from './useRedirect'
 import RouteAlive from '@/components/list/route-alive'
 

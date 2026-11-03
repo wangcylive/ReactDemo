@@ -1,5 +1,5 @@
 import React, {createElement} from 'react'
-import {createBrowserRouter} from 'react-router-dom'
+import {createBrowserRouter} from 'react-router'
 import loadableHoc from './splitting'
 import loader from '@/components/react-router-await/loader'
 import axios from 'axios'
@@ -198,7 +198,6 @@ export const routes = [
           {
             path: 'list',
             element: createElement(KeepActiveList),
-            keepAlive: true,
           },
           {
             path: 'detail/:id',
@@ -400,6 +399,14 @@ export const routes = [
         path: '/recorder',
         element: createElement(loadableHoc(() => import('@/components/recorder'))),
       },
+      {
+        path: '/zustand',
+        element: createElement(loadableHoc(() => import('@/components/zustand'))),
+      },
+      {
+        path: '/valtio',
+        element: createElement(loadableHoc(() => import('@/components/valtio'))),
+      },
     ],
   },
   {
@@ -409,6 +416,10 @@ export const routes = [
   {
     path: '/broadcast-channel',
     element: createElement(loadableHoc(() => import('@/components/broadcastChannel'))),
+  },
+  {
+    path: '/test-iframe',
+    element: createElement(loadableHoc(() => import('@/components/testIframe'))),
   },
 ]
 

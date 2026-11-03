@@ -1,7 +1,7 @@
 import React, {useEffect, useId, useRef, useState} from 'react'
 import {createRoot} from 'react-dom/client'
 import styled from 'styled-components'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router'
 
 const Form = styled.form`
   .grid {

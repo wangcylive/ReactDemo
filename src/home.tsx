@@ -1,6 +1,6 @@
 import React from 'react'
 import {routes} from '@/router'
-import {NavLink, Outlet} from 'react-router-dom'
+import {NavLink, Outlet} from 'react-router'
 
 const Home: React.FC = () => {
   return (

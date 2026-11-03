@@ -16,7 +16,7 @@ const DivScroll = styled.div`
   h4 {
     margin: 0;
     position: sticky;
-    top: -1px;
+    top: 0;
     padding: 5px 8px;
     background-color: #eee;
   }

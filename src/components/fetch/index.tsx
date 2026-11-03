@@ -26,7 +26,7 @@ const urlMp4 = 'https://vjs.zencdn.net/v/oceans.mp4'
 const FetchDemo: React.FC = () => {
   const [headObj, setHeadObj] = useState<string>('')
   const refAborts = useRef<AbortController[]>([])
-  const refSteamAbort = useRef<any>()
+  const refSteamAbort = useRef<any>(undefined)
   const [progress, setProgress] = useState<number>(0)
   const [text1, setText1] = useState<string>('')
   const [text2, setText2] = useState<string>('')

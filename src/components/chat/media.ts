@@ -49,14 +49,14 @@ export interface StartRecorderParams {
 
 let startTime = 0
 
-navigator.mediaDevices.addEventListener('devicechange', event => {
+navigator.mediaDevices?.addEventListener('devicechange', event => {
   console.log('devicechange', event)
 })
 
 export function startRecorder(params: StartRecorderParams) {
   const {statusChange, complete, fail, maxDuration = 2 * 60 * 1e3, blobType = 'audio/wav'} = params
   navigator.mediaDevices
-    .getUserMedia({
+    ?.getUserMedia({
       audio: true,
     })
     .then(ms => {

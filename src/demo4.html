@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://unpkg.yy.com/react@18.1.0/umd/react.development.js"></script>
+  <script src="https://unpkg.yy.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
+    <script src="https://localhost.yy.com:15002/remoteEntry.js"></script>
+</head>
+<body>
+
+<script>
+</script>
+
+<style>
+    #main {
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<div>
+    <div id="main"></div>
+  <button id="btnDestroy">Destroy</button>
+</div>
+<script>
+  const root = ReactDOM.createRoot(document.getElementById('main'))
+  window.reactDemo.get('./src/Widget1').then(factory => {
+    const Widget1 = factory().default
+
+    root.render(React.createElement(Widget1, {name: 'name1', onClick: () => {console.log('333')}}))
+
+    setTimeout(() => {
+      root.render(React.createElement(Widget1, {name: 'name2', onClick: () => {console.log('333')}}))
+    }, 3000)
+  })
+
+  document.getElementById('btnDestroy').addEventListener('click', () => {
+    root.unmount()
+  })
+</script>
+</body>
+</html>

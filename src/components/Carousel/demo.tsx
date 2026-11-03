@@ -3,7 +3,7 @@ import Carousel, {ImperativeHandle} from '@/components/Carousel'
 import './demo.scss'
 
 const Demo: React.FC = () => {
-  const refCarousel = useRef<ImperativeHandle>()
+  const refCarousel = useRef<ImperativeHandle>(null)
 
   const onNext = () => {
     refCarousel.current.next()

@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router'
 import {hasMatchPath} from './path-utils'
 function useRedirect(fromPath: string | string[], toPath: string) {
   const location = useLocation()

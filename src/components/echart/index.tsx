@@ -17,8 +17,8 @@ const Div2 = styled.div`
 `
 
 const EchartsDemo: React.FC = () => {
-  const refDiv1 = useRef<HTMLDivElement>()
-  const refDiv2 = useRef<HTMLDivElement>()
+  const refDiv1 = useRef<HTMLDivElement>(null)
+  const refDiv2 = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const el = refDiv1.current
     const myChart = echarts.init(el, null, {
